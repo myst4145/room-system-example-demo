@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('head') %>
+</head>
+<body class="bg-light">
+  <%- include('navbar') %>
+  <main class="min-vh-100">
+    <div class="container">
+      <section class="p-2 rounded-3">
+        <% if(data.logo.length == 1) { %>
+        <% if(data.logo[0].logo_file != ''){ %>
+        <center>
+          <img class="rounded-circle" src="/src/img/logo/<%= data.logo[0].logo_file  %>" style="width: 100px;height: 100px;object-fit: contain;">
+          <% } %>
+        </center>
+        <%} %>
+        <div class="my-2 ">
+          <% const about = data.about %>
+          <% if(about.length > 0)  { %>
+          <section>
+            <h3 class="m-0 text-center text-muted fw-bold"> <%=  JSON.parse(about[0].data).company  %></h3>
+          </section>
+          <%  }%>
+        </div>
+      </section>
+      <% if(room_about.length >0) { %>
+      <div id="feature">
+        <h1 style="font-size: 3rem;" class="my-2 p-2 text-center fw-bold">ประเภทห้องพัก วิว เตียง และบริการของเรา</h1>
+        <div class="row g-3 align-items-center  justify-content-center ">
+          <% for(let i =0;i<room_about.length;i++) { %>
+          <div class="col-md-6  col-lg-3 align-self-baseline  ">
+            <div class="card m-0 p-0 border-0 w-100 shadow-sm  bg-secondary bg-gradient bg-opacity-25">
+              <% if(room_about[i].img !=''){ %>
+              <img src="/src/img/room_about/<%= room_about[i].img %>" class="card-img-top" style="height: 12rem;object-fit: cover;">
+              <% }  %>
+              <div class="card-body">
+                <h5 class="card-title fw-bold text-primary"> <%= room_about[i].title %></h5>
+                <p class="card-text"><%= room_about[i].descript %></p>
+              </div>
+            </div>
+          </div>
+          <%  } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </main>
+  <%- include ('../paginateQuery')  %>
+  <script language="javascript" type="text/javascript" src="/js/web/getPathByThisPage.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/paginate_room.js"></script>
+  <script language="javascript" type="text/javascript" src="/src/js/web/roomAboutOther.js"></script>
+  <%- include ('footer') %>
+</body>
+</html>

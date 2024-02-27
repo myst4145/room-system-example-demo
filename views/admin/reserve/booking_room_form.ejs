@@ -1,0 +1,213 @@
+<form id="booking-form">
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">หมายเลขห้อง</label>
+    <div class="col-md-9">
+      <input type="text" class="form-control" id="room-number" disabled />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">รหัสห้องพัก</label>
+    <div class="col-md-9">
+      <input type="text" class="form-control" id="room-id" disabled />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">พนักงาน</label>
+    <div class="col-md-4">
+      <div class="my-1">
+        <input type="text" disabled value="<%= officer_id %>" class="form-control" id="employeeId" placeholder="ป้อนรหัสพนักงาน">
+        <p class="empty-validate" id="validate-employeeId"></p>
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="text-right">
+      <button type="button" class="input-group-text btn bg-gradient-light" onclick="pasteData($('#rentalDataPaste'),getRentalDataByPaste)">
+        <i class="fa-solid fa-paste"></i>
+      </button>
+      <input type="hidden" id="rentalDataPaste">
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label text-left text-md-right">ชื่อ - นามสกุล</label>
+      <div class="col-md-4">
+        <div class="form-group m-1">
+          <input type="text" class="form-control" id="fname" placeholder="ป้อนชื่อ" />
+          <p class="empty-validate" id="validate-fname"></p>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="form-group m-1">
+          <input type="text" class="form-control" min="1" id="lname" placeholder="ป้อนนามสกุล" />
+          <p class="empty-validate" id="validate-lname"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label text-left text-md-right">เบอร์ติดต่อ</label>
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" maxlength="18" class="form-control" id="phone" placeholder="ป้อนเบอร์ติดต่อ" />
+        </div>
+        <p class="empty-validate" id="validate-phone"></p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="m-1 p-2 row bg-light rounded border justify-content-center">
+    <div class="col-lg-3">
+      <div class="my-2">
+        <label class="p-1">ราคา</label>
+        <input type="number" disabled min="1" class="custom-select" id="price" placeholder="ราคา" />
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="my-2">
+        <label class="p-1"> เข้าพักได้สูงสุด </label>
+        <input type="number" min="1" class="custom-select" id="max-people" disabled />
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="my-2">
+        <label class="p-1"> ค่าจำนวนเข้าพักเกิน (ต่อคน) </label>
+        <input type="text" class="form-control custom-select" id="cost-people-exceed" disabled />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">ประเภทการเช่า</label>
+    <div class="col-md-3">
+      <select disabled class="custom-select" id="rentalType">
+        <option value="" selected>ประเภท</option>
+        <option value="daily">รายวัน</option>
+        <option value="daily-no-limit">ไม่กำหนดวัน</option>
+        <option value="monthly">รายเดือน</option>
+      </select>
+      <p class="empty-validate" id="validate-rentaltype"></p>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">จำนวนเวลาพัก</label>
+    <div class="col-md-2">
+      <div class="my-2">
+        <input min="1" type="number" class="custom-select" id="timeCount" onchange="currentTime('count')" oninput="currentTime('count')" placeholder="จำนวนวันพัก" disabled />
+        <p class="empty-validate" id="validate-timeCount"></p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="my-2">
+        <select disabled class="custom-select" id="unitTime">
+          <option value="" selected>หน่วยเวลา</option>
+          <option value="days">วัน</option>
+          <option value="months">เดือน</option>
+        </select>
+        <p class="empty-validate" id="validate-unitTime"></p>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">เข้าพัก</label>
+    <div class="col-md-4">
+      <input type="date" disabled class="form-control" id="checkin" onchange="currentTime('checkin')" />
+      <p class="empty-validate" id="validate-checkin"></p>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">ออก</label>
+    <div class="col-md-4">
+      <input type="date" disabled id="checkout" class="form-control" onchange="currentTime('checkout')" />
+      <p class="empty-validate" id="validate-checkout"></p>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">ค่ามัดจำล่วงหน้า</label>
+    <div class="col-md-3">
+      <input type="number" min="1" class="form-control custom-select" id="deposit" placeholder="ป้อนจำนวนวคนเข้าพัก" />
+      <p class="empty-validate" id="validate-deposit"></p>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">ค่าประกันห้อง</label>
+    <div class="col-md-3">
+      <div class="my-1">
+        <input type="number" min="0" class="form-control custom-select" id="insurance-cost" placeholder="ป้อนค่าประกันห้อง">
+        <p class="empty-validate" id="validate-insurance-cost"></p>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">จำนวนคนที่พัก</label>
+    <div class="col-md-3">
+      <input type="number" min="1" class="custom-select" onchange="currentAmount('people')" id="amount-people-stay" placeholder="ป้อนจำนวนวคนเข้าพัก" />
+      <p class="empty-validate" id="validate-amountPeopleStay"></p>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">คิดค่าจำนวนคนเกิน</label>
+    <div class="col-md-9">
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" value="calculate" type="radio" id="calculate" name="overpeople">
+        <label for="calculate" class="custom-control-label">คิด</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" value="not-calculate" type="radio" id="not-calculate" name="overpeople">
+        <label for="not-calculate" class="custom-control-label">ไม่คิด</label>
+      </div>
+      <p class="empty-validate" id="validate-overpeople"></p>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">ประเภทรายการ</label>
+    <div class="col-md-9">
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" value="resting" type="radio" id="resting" name="itemtype">
+        <label for="resting" class="custom-control-label">เข้าพัก</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" value="booking" type="radio" id="booking" name="itemtype">
+        <label for="booking" class="custom-control-label">จองล่วงหน้า</label>
+      </div>
+      <p class="empty-validate" id="validate-itemtype"></p>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">ช่องทางการชำระเงิน</label>
+    <div class="col-md-9">
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" value="cash-payment" type="radio" id="cash-payment" name="payment">
+        <label for="cash-payment" class="custom-control-label">จ่ายเงินสด</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" value="bank-transfer" type="radio" id="bank-transfer" name="payment">
+        <label for="bank-transfer" class="custom-control-label">ชำระผ่านธนาคาร</label>
+      </div>
+      <p class="empty-validate" id="validate-payment"></p>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-left text-md-right">หมายเหตุ อื่นๆ</label>
+    <div class="col-md-9">
+      <div class="form-group">
+        <textarea id="other" class="form-control" rows="3" placeholder="ระบุ"></textarea>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg sticky-top bg-primary navbar-dark ">
+  <div class="container">
+    <% if(data.logo.length == 1) { %>
+    <a class="navbar-brand" href="/">
+      <% if(data.logo[0].logo_file != ''){ %>
+      <img src="/src/img/logo/<%= data.logo[0].logo_file  %>">
+      <% } %>
+      <% if(data.logo[0].logo_text !=''){ %>
+      <span class="text-truncate"><%= data.logo[0].title  %></span>
+      <% } %>
+    </a>
+    <%} %>
+    <% if(data.logo.length ==0) { %>
+    <a class="navbar-brand" href="/">Hotal</a>
+    <% } %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/">หน้าแรก</a>
+        <a class="nav-link" href="/room"> ห้องพัก </a>
+        <a class="nav-link" href="/reserve"> จองห้องพัก </a>
+        <a class="nav-link" href="/about">เกี่ยวกับเรา</a>
+
+        <% if(!member_id) { %>
+        <a class="nav-link" href="/register">สมัครสมาชิก</a>
+        <a class="nav-link" href="/login">ลงชื่อเข้าใช้งาน</a>
+        <% } %>
+        <% if(member_id) { %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ฉัน
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/member">ข้อมูลส่วนตัว</a></li>
+            <li><a class="dropdown-item" href="/history">ประวัติการจอง</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><button id="logout" class="dropdown-item">ออกจากระบบ</button></li>
+          </ul>
+        </li>
+        <% } %>
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+<script language="javascript" type="text/javascript" src="/src/js/web/logout.js"></script>

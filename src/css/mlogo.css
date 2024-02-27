@@ -1,0 +1,23 @@
+.label-file:hover {
+  cursor: pointer;
+}
+
+.picture-logo-preview,
+.icon-preview {
+  width: 8rem;
+}
+
+.picture-logo-preview img,
+.icon-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.label-file.disabled {
+  filter: brightness(80%);
+}
+button[name="ok"],
+button[name="cancel"] {
+  display: none;
+}

@@ -1,0 +1,95 @@
+<div class="modal fade" tabindex="-1" id="room-modal">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ข้อมูลห้องพัก</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width: 18%;" class="align-middle">รหัสห้องพัก</th>
+                <th style="width: 9%;" class="align-middle">คัดลอก</th>
+                <th style="width: 18%;" class="align-middle">หมายเลขห้อง</th>
+                <th style="width: 40%;" class="align-middle">ตึก / อาคาร</th>
+                <th style="width: 15%;" class="text-center">ชั้น</th>
+              </tr>
+            </thead>
+            <tbody id="room-entries"></tbody>
+          </table>
+        </div>
+
+
+        <h5 class="m-0 p-2 font-weight-bold">ข้อมูลเฉพาะ</h5>
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tr>
+              <th style="width: 15%;"> ประเภทห้อง</th>
+              <td style="width: 35%;">
+                <p class="room-info m-0"></p>
+              </td>
+              <th style="width: 15%;">ประเภทเตียง </th>
+              <td style="width: 35%;">
+                <p class="room-info m-0"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>วิวของห้อง</th>
+              <td>
+                <p class="room-info m-0"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>จำนวนเตียง </th>
+              <td>
+                <p class="room-info m-0"></p>
+              </td>
+              <th>จำนวนห้องน้ำ</th>
+              <td>
+                <p class="room-info m-0"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>ราคา</th>
+              <td>
+                <p class="room-info m-0"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>วันที่เพิ่ม</th>
+              <td>
+                <p class="room-info m-0"></p>
+              </td>
+              <th>แก้ไขล่าสุด</th>
+              <td>
+                <p class="room-info m-0"></p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <section>
+          <h5 id="specialOptions" class="m-0 p-2 font-weight-bold">สิ่งอำนวยความสะดวก และของใช้เพิ่มเติม</h5>
+          <div class="my-1">
+            <ul class="m-0" style="list-style:square;" id="moreOptions"></ul>
+          </div>
+        </section>
+        <h5 class="m-0 p-2 font-weight-bold">รูปภาพตัวอย่าง</h5>
+        <div class="my-1">
+          <div id="room-example-preview" class="row g-3"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

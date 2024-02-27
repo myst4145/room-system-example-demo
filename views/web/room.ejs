@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ห้องพัก</title>
+
+  <head>
+    <%- include('head') %>
+    <link rel="stylesheet" href="/css/web/room.css">
+  </head>
+</head>
+
+<body class="bg-light">
+  <%- include('navbar') %>
+
+  <div class="container p-2">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active">
+          ห้องพัก
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div class="container">
+    <div>
+      <div class="border-0  my-2">
+        <div class="card border-0   shadow-sm">
+          <div class="card-body">
+            <p class="m-0 ">
+              <span>ผลการค้นหา</span>
+              <strong class="bg-primary badge p-2"><%= rooms.length %></strong>
+              <span>ผลลัพธ์</span>
+              <span>จาก</span>
+              <strong class=""><%= paginate.row_all %></strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section>
+
+      <% if(rooms.length ==0) { %>
+      <div class="card bg-gradient bg-white shadow-sm border-0">
+        <div class="card-body">
+          <div class="include-empty text-muted">
+            <i class="fa-solid fa-circle-xmark" style="font-size: 1.4rem;"></i>
+            <p class="mt-2">ไม่มีห้องพัก</p>
+          </div>
+        </div>
+      </div>
+      <% } else if(rooms.length > 0) { %>
+      <div class="row g-3">
+        <% for(let i=0;i < rooms.length;i++){ %>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 bg-gradient border-light shadow-sm">
+            <div class="card-body">
+              <div class="h-100">
+                <img src="/src/img/example_room/<%= rooms[i].example_room[0]  %> " class="card-img ">
+                <div class="text-end my-2">
+                  <% if(rooms[i].is_promotion ==true) { %>
+                  <p class="badge text-dark">
+                    <span><%=  rooms[i].discount_txt %></span>
+                    <span><%= rooms[i].discount_time_in %></span>
+                  </p>
+                  <%  } %>
+
+                  <p class="text-end bg-gradient badge bg-warning text-dark p-2">
+                    <span><%= rooms[i].count %></span>
+                    <span>Booking</span>
+                  </p>
+
+                </div>
+                <p class="m-0"><%= rooms[i].rental_display %></p>
+                <h2 class="card-title"> <%= rooms[i].room_number  %></h2>
+                <section>
+                  <p class="flex-wrap d-flex justify-content-between m-0">
+                    <span>อาคาร</span>
+                    <strong>
+                      <%= rooms[i].building_name   %>
+                      ชั้น
+                      <%= rooms[i].building_floor   %>
+                    </strong>
+                  </p>
+                  <%  if(rooms[i].room_type != 'roomtype-no-specify') { %>
+                  <p class="flex-wrap d-flex justify-content-between m-0">
+                    <span>ประเภทห้อง</span>
+                    <strong><%= rooms[i].room_type_display  %></strong>
+                  </p>
+                  <% } %>
+                  <%  if(rooms[i].room_type != 'bedtype-no-specify') { %>
+                  <p class="flex-wrap d-flex justify-content-between m-0">
+                    <span>รูปแบบเตียง</span>
+                    <strong> <%= rooms[i].bed_type_display  %></strong>
+                  </p>
+                  <% } %>
+                  <%  if(rooms[i].roomview != 'view-no-specify') { %>
+                  <p class="flex-wrap d-flex justify-content-between m-0">
+                    <span>วิวห้อง</span>
+                    <strong><%= rooms[i].roomview_display  %></strong>
+                  </p>
+                  <% } %>
+                </section>
+                <h5 class="m-0 text-end">
+                  <span><%= rooms[i].toilet_count  %></span>
+                  <span>ห้องน้ำ</span>
+                </h5>
+                <div class="m-0 text-end">
+                  <p class="m-0">
+                    <span>ราคา</span>
+                    <span><%=rooms[i].price_format %></span>
+                  </p>
+                  <% if(rooms[i].is_promotion ==true) { %>
+                  <p class="<%=  rooms[i].discount_display %> ms-1">
+                    <span>เหลือเพียง</span>
+                    <%=rooms[i].new_price %>
+                  </p>
+                  <%  } %>
+
+                </div>
+
+
+              </div>
+            </div>
+            <div class="card-footer text-end bg-transparent border-top-0">
+              <% const link = `/room/${btoa(rooms[i].room_id)}/${btoa(rooms[i].room_number_id)}?n=${rooms[i].room_number}` %>
+              <a href="<%= link %>" class="btn btn-sm btn-dark bg-gradient">
+                เพิ่มเติม
+              </a>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <% }  %>
+    </section>
+
+
+  </div>
+  <%- include ('../paginateQuery')  %>
+  <script src="/js/web/getPathByThisPage.js"></script>
+  <script src="/js/paginate_room.js"></script>
+  <script src="/js/web/roomDOMContentLoaded.js"></script>
+  <%- include ('footer') %>
+</body>
+
+</html>

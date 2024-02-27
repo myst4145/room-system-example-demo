@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สำรวจห้องพัก</title>
+
+  <head>
+    <%- include('head') %>
+    <link rel="stylesheet" href="/css/web/room.css">
+  </head>
+</head>
+
+<body class="bg-light">
+  <%- include('navbar') %>
+  <main class="min-vh-100">
+    <% const queryParams = query_params %>
+    <div class="container my-2">
+      <section>
+        <%- include('reserve_form') %>
+      </section>
+      <section>
+        <div class="card shadow-sm border-0 my-2">
+          <div class="card-body">
+            <span>ผลการค้นหา</span>
+            <p class="m-0 d-inline-flex">
+              <strong> <%= all %></strong>
+              <span class="ms-1">ผลลัพธ์</span>
+            </p>
+            <% if (query_count > 0) { %>
+            <div class="d-flex flex-wrap">
+              <div class="me-2">
+                <% if (queryParams.room_type) { %>
+                <span class="fw-bold">ประเภท</span>
+                <span class="query-param-retain">
+                  <%= queryParams.room_type_retain %>
+                </span>
+
+
+                <% } %>
+                <% if (queryParams.bed_type) { %>
+                <span class="fw-bold">เตียง</span>
+                <span class="query-param-retain">
+                  <%= queryParams.bed_type_retain %>
+                </span>
+
+
+                <% } %>
+                <% if (queryParams.roomview) { %>
+                <span class="fw-bold">วิว</span>
+                <span class="query-param-retain">
+                  <%= queryParams.roomview_retain %>
+                </span>
+
+
+                <% } %>
+                <% if (queryParams.max) { %><span class="fw-bold">ช่วงราคา</span>
+                <span>
+                  <span class="text-muted">
+                    <%= queryParams.min_retain %>
+                  </span>
+                  ถึง
+                  <span class="text-muted">
+                    <%= queryParams.max_retain %>
+                  </span>
+                </span>
+
+
+                <% } %>
+              </div>
+            </div>
+
+
+            <% } %>
+          </div>
+        </div>
+
+        <section>
+          <% if (entries.length == 0) { %>
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <div class="include-empty">
+                <p class="mt-2 fw-bold">ไม่พบห้องพัก</p>
+              </div>
+            </div>
+          </div>
+          <% } else if (entries.length > 0) { %>
+          <div class="row g-3">
+            <% for (let i = 0; i < entries.length; i++) { %>
+            <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2">
+              <div class="card h-100 border-light shadow-sm">
+                <img src="/src/img/example_room/<%= entries[i].example_room[0] %>" class="card-img">
+                <div class="card-body">
+                  <% if(entries[i].is_promotion ==true) { %>
+                  <div class="text-end">
+                    <p class="badge bg-warning text-dark"><%=  entries[i].discount_txt %></p>
+                  </div>
+                  <p class="m-0"><%= entries[i].discount_time_in %></p>
+                  <%  } %>
+                  <h3 class="card-title fw-bold text-end">
+                    <%= entries[i].room_number %>
+                  </h3>
+
+
+
+
+                  <section>
+                    <% if (entries[i].room_type != 'roomtype-no-specify') { %>
+                    <p class="flex-wrap d-flex justify-content-between m-0">
+                      <span>ประเภทห้อง</span>
+                      <strong><%= entries[i].room_type_display %></strong>
+                    </p>
+
+
+                    <% } %>
+                    <% if (entries[i].room_type != 'bedtype-no-specify') { %>
+                    <p class="flex-wrap d-flex justify-content-between m-0">
+                      <span>รูปแบบเตียง</span>
+                      <strong><%= entries[i].bed_type_display %></strong>
+                    </p>
+
+
+                    <% } %>
+                    <% if (entries[i].roomview != 'view-no-specify') { %>
+                    <p class="flex-wrap d-flex justify-content-between m-0">
+                      <span>วิวห้อง</span>
+                      <strong><%= entries[i].roomview_display %></strong>
+                    </p>
+
+
+                    <% } %>
+                  </section>
+                  <h5 class="m-0 text-end">
+                    <strong><%= entries[i].toilet_count %></strong>
+                    <span>ห้องน้ำ</span>
+                  </h5>
+
+                  <div class="m-0 text-end">
+                    <p class="m-0">
+                      <span>ราคา</span>
+
+                      <span class="text-danger fw-bold"><%= entries[i].price_format %></span>
+                      <span>ต่อ 1 <%= entries[i].rental_type_display %></span>
+                    </p>
+                    <% if(entries[i].is_promotion ==true) { %>
+                    <p class="<%=  entries[i].discount_display %> ms-1">
+                      <span>เหลือเพียง</span>
+                      <%= entries[i].new_price %>
+                    </p>
+                    <%  } %>
+
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-end">
+                  <a class="btn btn-outline-primary fw-bold" target="_blank" href="<%= entries[i].detail_link %>">
+                    เพิ่มเติม
+                  </a>
+
+                  <button onclick="reserveByBtn('<%= entries[i].reserve_link %>')" name="reserveBtn" class="btn btn-primary bg-gradient m-2">
+                    จอง
+                  </button>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+          <% } %>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../paginateQuery') %>
+  <script language="javascript" type="text/javascript" src="/js/paginate_room.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/get_params_script.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/web/getPathByThisPage.js"></script>
+  <script language="javascript" type="text/javascript" src="/src/js/web/reserveByBtn.js"></script>
+  <script language="javascript" type="text/javascript" src="/src/js/web/reserve.js"></script>
+  <script language="javascript" type="text/javascript" src="/src/js/web/findDataByQueryForm.js"></script>
+  <%- include('footer') %>
+</body>
+
+</html>

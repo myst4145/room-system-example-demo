@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ระบบห้องพัก</title>
+  <%- include('head') %>
+</head>
+<% if(fonts) { %>
+<% if (fonts.is_font){ %>
+<%- fonts.font_config %>
+<% } %>
+<% }  %>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+    <nav class="main-header position-sticky top-0 navbar navbar-expand navbar-dark bg-gradient-primary">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" role="button">
+            <i class="fas fa-bars"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/system" class="nav-link">
+            <i class="fa-solid fa-house"></i>
+          </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="/system" class="nav-link">
+            <%= page_title %>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <p class="brand-link bg-gradient-primary">
+        <span class="brand-text font-weight-light">
+          ผู้ดูแล
+        </span>
+      </p>
+      <%- include('sidebar') %>
+    </aside>
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container">
+          <div class="row my-1">
+            <div class="col-12">
+              <h5 class="font-weight-bold"></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="content">
+        <div class="container"><%- include(template) %></div>
+      </section>
+    </div>
+  </div>
+  <script src="/src/js/get_params_script.js"></script>
+  <script src="/src/jquery-3.6.3.min.js"></script>
+  <script src="/src/AdminLTE/plugins/jquery/jquery.min.js"></script>
+
+  <script src="/src/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="/src/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/src/AdminLTE/plugins/chart.js/Chart.min.js"></script>
+  <script src="/src/AdminLTE/plugins/sparklines/sparkline.js"></script>
+  <script src="/src/AdminLTE/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="/src/AdminLTE/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="/src/AdminLTE/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <script src="/src/AdminLTE/plugins/moment/moment.min.js"></script>
+  <script src="/src/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
+  <script src="/src/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="/src/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
+  <script src="/src/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="/src/AdminLTE/dist/js/adminlte.js?v=3.2.0"></script>
+  <!-- <script src="/src/AdminLTE/dist/js/demo.js"></script> -->
+  <script src="/src/AdminLTE/dist/js/pages/dashboard.js"></script>
+  <script>
+    $('#sign-out').click(function() {
+      axios.post('/api/sign-out')
+        .then((res) => {
+          const result = res.data.result
+          if (result) {
+            Swal.fire({
+              position: 'top',
+              icon: 'success',
+              title: 'ออกจากระบบสำเร็จ',
+              showConfirmButton: false,
+              timer: 1000
+            })
+            setInterval(() => {
+              window.location.assign('/system')
+            }, 1000)
+
+          }
+
+          if (!result) {
+            queryFail('ออกจากระบบ', 'เกิดข้อผิดพลาด ไม่สามารถออกสู่ระบบได้ ', '')
+          }
+        })
+        .catch((err) => {
+          queryFail('ข้อผิดพลาด', err, '')
+        })
+    })
+    const params = get_query_params()
+    const p = params.get('p') ?? 'dashboard'
+
+    $.each($('.nav-link'), (index, navLink) => {
+      const pathname = location.pathname
+      const protocol = location.protocol
+      const host = location.host
+      const href = $(navLink).attr('href')
+      const url = new URL(`${protocol}//${host}${pathname}${href}`)
+      const _p = url.searchParams
+      const link = _p.get('p')
+
+
+      if (link == p) $(navLink).addClass('active')
+      const navItem = $(navLink).parent().parent().parent().attr('id')
+      if (navItem) {
+        const nav_treeview = $(`#${navItem}`)
+          .children(':eq(1)')
+          .children()
+          .children()
+        const nav_treeview_items = $.map(nav_treeview, (el) => $(el).attr('href')).join(' ')
+        $.each($(nav_treeview), (i, el) => {
+          if ($(el).hasClass('active')) {
+            $(`#${navItem}`).addClass('menu-is-open')
+            $(`#${navItem}`).addClass('menu-open')
+          }
+        })
+      }
+    })
+  </script>
+
+</body>
+
+</html>

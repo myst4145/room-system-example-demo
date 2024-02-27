@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-md-4 col-lg-3">
+    <div class="card">
+      <div class="card-header bg-gradient-secondary">
+        <h5 class="card-title">ค้นหา</h5>
+      </div>
+      <div class="card-body">
+        <%- include('reserve/booking_query_form') %>
+        <input type="hidden" id="queryParams" value="<%= JSON.stringify(query)  %>">
+        <div id="entries-query"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-8 col-lg-9">
+    <h5 class="font-weight-bold">ผลการค้นหา</h5>
+    <div class="entries-d">
+      <span class="entries-text">ทั้งหมด</span>
+      <span class="entries-count"> <%= entries.length %> </span>
+      <span>รายการ</span>
+    </div>
+    <% if(entries.length ==0) { %>
+    <p class="font-weight-bold m-0">ไม่พบห้องพัก</p>
+    <% } %>
+    <% if(entries.length > 0) { %>
+    <div class="row">
+      <% for(let i=0;i<entries.length;i++) { %>
+      <div class="col-sm-6 col-lg-4 col-xl-3 col-xxl-3">
+        <div class="card bg-gradient-light">
+          <img src="/src/img/example_room/<%= entries[i].example_room.split(',')[0] %>" class="card-img-top" style="width: 100%;object-fit: cover;height: 12rem;">
+          <div class="card-body">
+            <div class="text-center">
+              <span class="font-weight-bold">หมายเลขห้อง</span>
+              <h3 class="">
+                <%= entries[i].room.room_number %>
+              </h3>
+            </div>
+            <div class="text-center">
+              <button class="m-1 btn rounded-0 bg-gradient-secondary" name="room-detail" data-number="<%= entries[i].room.room_number_id %>" data-id="<%= entries[i].room_id %>">
+                <span class="font-weight-bold">ดูข้อมูล</span>
+              </button>
+              <button class="m-1 btn rounded-0 bg-gradient-primary" name="bookingModal" data-number="<%= entries[i].room.room_number %>" data-number-id="<%= entries[i].room.room_number_id %>" data-id="<%= entries[i].room_id %>">
+                <span class="font-weight-bold">เลือก </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <%} %>
+  </div>
+</div>
+<%- include ('paginateQuery') %>
+<%- include('reserve/room_detail_modal') %>
+<%- include ('reserve/booking_room_modal') %>
+
+
+<script src="/js/admin/reserve/reserve.js"></script>
+<script src="/js/admin/reserve/listroomDetail.js"></script>
+<script src="/js/admin/reserve/listroomBooking.js"></script>
+<script src="/js/admin/reserve/bookingInsert.js"></script>
+<script src="/js/admin/reserve/validatePaidiOverTotal.js"></script>
+<script src="/js/admin/reserve/getFindByRentalType.js"></script>
+<script src="/js/admin/reserve/bookingModalBtn.js"></script>
+<script src="/js/admin/reserve/getRoomDataById.js"></script>
+<script src="/js/admin/reserve/getRoomDataById.js"></script>
+<script src="/js/admin/reserve/currentTime.js"></script>
+<script src="/js/admin/reserve/getDateCheckout.js"></script>

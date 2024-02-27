@@ -1,0 +1,407 @@
+<div>
+  <input type="hidden" id="retain-over-people" value="<%= booking[0].over_people_type %>">
+  <input type="hidden" id="retain-itemtype" value="<%= booking[0].itemtype %>">
+  <input type="hidden" data-rental-type="<%= booking[0].rental_type %>" id="retain-rental-type" value="<%= booking[0].rental_type %>">
+  <input type="hidden" id="retain-payment-type" value="<%= booking[0].payment_type %>">
+  <input type="hidden" id="retain-payment" value="<%= booking[0].payment %>">
+  <input type="hidden" id="retain-RentalAccept" value="<%= booking[0].cont_rental_accept %>">
+  <div class="text-right my-2 sticky-top p-3  bg-gradient-light " style="z-index: 600;">
+    <button class="btn bg-gradient-success" id="bookingSubmit">
+      <span class="font-weight-bold ml-1">บันทึก</span>
+    </button>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">การเช่าต่อเนื่อง</label>
+        <div class="col-md-10">
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" value="true" id="allow" name="rental-accept">
+            <label for="allow" class="custom-control-label">ใช่</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" value="false" id="no-allow" name="rental-accept">
+            <label for="no-allow" class="custom-control-label">ไม่</label>
+          </div>
+          <p class="empty-validate" id="validate-rentalAccept"></p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">สถานะ</label>
+        <div class="col-md-3">
+          <select data-status="<%= booking[0].status %>" class="custom-select" id="status">
+            <option value="" selected>เลือก</option>
+            <option value="checkin">กำลังพักอยู่</option>
+            <option value="checkout">ออกแล้ว</option>
+            <option value="confirm">กำลังย้ายเข้า</option>
+            <option value="progress">รอการยืนยัน</option>
+            <option value="cancel">ยกเลิก</option>
+          </select>
+          <p class="empty-validate" id="validate-status"></p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">เลขที่จอง</label>
+        <div class="col-md-4">
+
+          <div class="input-group">
+            <input type="text" value="<%= booking[0].booking_id %>" class="form-control" id="booking-id" disabled />
+            <div class="input-group-append">
+              <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#booking-id'), $('#alert-bookingId'))">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="position-absolute">
+            <p id="alert-bookingId" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">รหัสข้อมูลห้องพัก</label>
+        <div class="col-md-4">
+
+          <div class="input-group">
+            <input type="text" value="<%= booking[0].room_id %>" class="form-control" id="room-id" disabled />
+            <div class="input-group-append">
+              <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#room-id'), $('#alert-roomId'))">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="position-absolute">
+            <p id="alert-roomId" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">รหัสห้องพัก</label>
+        <div class="col-md-4">
+          <div class="input-group">
+            <input type="text" value="<%= room.room_number_id %>" class="form-control" id="room-number-id" disabled />
+            <div class="input-group-append">
+              <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#room-number-id'), $('#alert-roomNumberId'))">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="position-absolute">
+            <p id="alert-roomNumberId" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">หมายเลขห้อง</label>
+        <div class="col-md-4">
+          <input type="text" value="<%= room.room_number %>" class="form-control" id="room-number" disabled />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">พนักงาน</label>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="my-1">
+                <input type="text" value="<%= booking[0].member_id %>" class="form-control" id="employeeId" placeholder="ป้อนรหัสพนักงาน" value="">
+                <p class="empty-validate" id="validate-employeeId"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">ชื่อ - นามสกุล</label>
+
+
+        <div class="col-md-4">
+          <div class="form-group m-1">
+            <input type="text" value="<%= booking[0].fname %>" class="form-control" id="fname" placeholder="ป้อนชื่อ" />
+            <p class="empty-validate" id="validate-fname"></p>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="form-group m-1">
+            <input type="text" value="<%= booking[0].lname %>" class="form-control" min="1" id="lname" placeholder="ป้อนนามสกุล" />
+            <p class="empty-validate" id="validate-lname"></p>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">เบอร์ติดต่อ</label>
+        <div class="col-md-10">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <input type="text" value="<%= booking[0].phone %>" maxlength="18" class="form-control" id="phone" placeholder="ป้อนเบอร์ติดต่อ" />
+            </div>
+            <p class="empty-validate" id="validate-phone"></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">จำนวนคนที่พัก</label>
+        <div class="col-md-10">
+          <div class="col-lg-4">
+            <input type="number" value="<%= booking[0].amount_people_stay %>" min="1" class="custom-select" id="amount-people-stay" placeholder="ป้อนจำนวนวคนเข้าพัก" />
+            <p class="empty-validate" id="validate-amountPeopleStay"></p>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">ช่องทางการชำระเงิน</label>
+        <div class="col-md-10">
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" value="cash-payment" type="radio" id="cash-payment" name="payment">
+            <label for="cash-payment" class="custom-control-label">จ่ายเงินสด</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" value="bank-transfer" type="radio" id="bank-transfer" name="payment">
+            <label for="bank-transfer" class="custom-control-label">ชำระผ่านธนาคาร</label>
+          </div>
+          <p class="empty-validate" id="validate-payment"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label class="form-label">ค่ามัดจำล่วงหน้า</label>
+            <div class="my-1">
+              <input type="number" data-damages="<%= booking[0].deposit %>" value="<%= booking[0].deposit %>" min="0" id="deposit" class="custom-select">
+              <p class="empty-validate" id="validate-deposit"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label class="form-label">ชำระค่าเสียหาย</label>
+            <div class="my-1">
+              <input type="number" data-damages="<%= booking[0].damages %>" value="<%= booking[0].damages %>" min="0" id="damages" class="custom-select">
+              <p class="empty-validate" id="validate-damages"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label class="form-label">ค่าประกันห้อง</label>
+            <div class="my-1">
+              <input type="number" data-insurance="<%= booking[0].insurance_cost %>" value="<%= booking[0].insurance_cost %>" min="0" class="custom-select" id="insuranceCost" placeholder="ป้อนค่าประกันห้อง" oninput="currentTotal('insuranceCost')" onchange="currentTotal('insuranceCost')">
+              <p class="empty-validate" id="validate-insuranceCost"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label class="form-label">คืนค่าประกัน</label>
+            <div class="my-1">
+              <input type="number" data-insurance="<%= booking[0].insurance_cost_refund %>" data-insurance="<%= booking[0].insurance_cost_refund %>" value="<%= booking[0].insurance_cost_refund %>" min="0" id="insuranceCostRefund" class="custom-select">
+              <p class="empty-validate" id="validate-insuranceCostRefund"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <% if( booking[0].insurance_cost_data.length > 0){ %>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">รายละเอียดการหักค่าประกัน</label>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table table-striped">
+                <thead class="bg-gradient-secondary">
+                  <tr>
+                    <th scope="row">จ่ายค่าเช่า</th>
+                    <th scope="row">ค่าเสียหาย</th>
+                    <th scope="row">รวม</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="number" value="<%= booking[0].insurance_cost_data[0].overdue %>" id="" class="custom-select">
+                    </td>
+                    <td>
+                      <input type="number" value="<%= booking[0].insurance_cost_data[0].damages %>" id="" class="custom-select">
+                    </td>
+                    <td>
+                      <input type="number" value="<%= booking[0].insurance_cost_data[0].total  %>" id="insuranceCostDataTotal" class="custom-select">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <% } %>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">หมายเหตุ อื่นๆ</label>
+        <div class="col-md-10">
+          <div class="form-group">
+            <textarea id="other" class="form-control" rows="3" placeholder="ระบุ">
+      <%= booking[0].other %>
+              </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">ราคา</label>
+        <div class="col-md-10">
+          <div class="col-lg-4">
+            <input type="number" value="<%= rooms[0].price %>" disabled min="1" class="custom-select border-0 " id="price" placeholder="ราคา" />
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">ประเภทการเช่า</label>
+        <div class="col-md-10">
+          <div class="form-inline">
+            <div class="my-2">
+              <select disabled class="custom-select" id="rentalType">
+                <option value="" selected>ประเภท</option>
+                <option value="daily">รายวัน</option>
+                <option value="daily-no-limit">ไม่กำหนดวัน</option>
+                <option value="monthly">รายเดือน</option>
+              </select>
+            </div>
+          </div>
+          <p class="empty-validate" id="validate-rentaltype"></p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">เข้าพัก</label>
+        <div class="col-md-4">
+          <input type="date" value="<%= booking[0].checkin %>" class="form-control" id="checkin" onchange="currentTimeAmount('checkin')" />
+          <p class="empty-validate" id="validate-checkin"></p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">ออก</label>
+        <div class="col-md-4">
+          <input type="date" value="<%= booking[0].checkout %>" id="checkout" class="form-control" onchange="currentTimeAmount('checkout')" />
+          <p class="empty-validate" id="validate-checkout"></p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-left text-md-right">จำนวนเวลาพัก</label>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="my-2">
+                <input min="1" value="<%= booking[0].time_count %>" type="number" class="custom-select" oninput="currentTimeAmount('count')" onchange="currentTimeAmount('count')" id="timeCount" placeholder="จำนวนวันพัก" />
+                <p class="empty-validate" id="validate-timeCount"></p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="my-2">
+                <select disabled data-unittime="<%= booking[0].unit_time %>" class="custom-select" id="unitTime">
+                  <option value="" selected>หน่วยเวลา</option>
+                  <option value="days">วัน</option>
+                  <option value="months">เดือน</option>
+                </select>
+                <p class="empty-validate" id="validate-unitTime"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <label>รวมค่าเช่าทั้งหมด</label>
+      <input type="number" data-total="<%= booking[0].total %>" value="<%= booking[0].total %>" id="total" class="custom-select">
+      <div class="empty-validate" id="validate-total"></div>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">ค้างชำระ</label>
+      <input type="number" data-overdue="<%= booking[0].overdue %>" value="<%= booking[0].overdue %>" min="1" class="custom-select" id="overdue" placeholder="ป้อนยอดชำระ" />
+      <p class="empty-validate" id="validate-overdue"></p>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>ยอดชำระแล้ว</label>
+        <input type="number" data-paid="<%= booking[0].paid %>" oninput="currentOverdue()" onchange="currentOverdue()" value="<%= booking[0].paid %>" class="custom-select" id="paid">
+        <p class="empty-validate" id="validate-paid"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%- include ('rental/rental_edit_addtime_form') %>
+<%- include ('rental/transactionMonthlyData') %>
+
+
+<script src="/js/admin/rental/edit/rental_edit.js"></script>
+<script src="/js/admin/rental/edit/currentOverdue.js"></script>
+<script src="/js/admin/rental/edit/createTransactionByBtn.js"></script>
+<script src="/js/admin/rental/edit/addTimeCurrentTotal.js"></script>
+<script src="/js/admin/rental/edit/transactionMonthlyDelete.js"></script>
+<script src="/js/admin/rental/edit/activeEditTransaction.js"></script>
+<script src="/js/admin/rental/edit/disabledEditTransaction.js"></script>
+<script src="/js/admin/rental/edit/bookingTransactionSubmit.js"></script>
+<script src="/js/func/getDateStampMonthly.js"></script>
+<script src="/js/admin/rental/edit/rental_edit_insert.js"></script>
+
+<script>
+  function setDateInput(input) {
+    $('[name="transaction-paid"]').attr('data-paste', 'false')
+    $(input).attr('data-paste', 'true')
+    pasteData($($(input)), isValidAmonthisNumber)
+  }
+
+  function isValidAmonthisNumber() {
+    const input = $('[name="transaction-paid"]').filter('[data-paste="true"]')
+    const amount = parseFloat($(input).val().trim())
+    if (isNaN(amount)) $(input).val(0)
+  }
+
+
+  $('#bookingTransactionEdit').click(function() {
+    $('[name="transaction-paid"]')
+      .removeClass('form-control-plaintext')
+      .addClass('custom-select')
+      .prop('disabled', false)
+    activeEditTransaction()
+  })
+  $('#bookingTransactionCancel').click(function() {
+    const transactionOldBefore = JSON.parse($('#transactionOldBefore').val())
+    createTransactionByBtn(transactionOldBefore, $('#transactionTable'))
+    $('#transactionOldAfter').val(JSON.stringify(transactionOldBefore))
+    disabledEditTransaction()
+  })
+
+
+
+
+  $('button[name="addtime-delete"]').click(function() {
+    $(this).parent().parent().remove()
+  })
+</script>

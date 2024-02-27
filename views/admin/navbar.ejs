@@ -1,0 +1,110 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#"><%= admin %></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <% if(admin_role =='finance' || admin_role =='manager' || data_role.report_view ){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin?p=booking_report">รายงาน</a>
+        </li>
+        <% }  %>
+
+        <% if(admin_role =='finance'){ %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            ประจำวัน
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/admin?p=cf_pay">ยืนยันการชำระเงิน</a>
+            <a class="dropdown-item" href="/admin?p=checkin">เช็คอิน</a>
+            <a class="dropdown-item" href="/admin?p=checkin_isvalid">ตรวจการห้องว่าง</a>
+          </div>
+        </li>
+        <% } %>
+        <% if(admin_role =='finance' || data_role.booking_view ){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin?p=booking_room">จองห้องพัก</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            การจอง
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/admin?p=rental_m">จัดการการเช่า</a>
+            <a class="dropdown-item" href="/admin?p=rental_dly">แบบรายวัน</a>
+            <a class="dropdown-item" href="/admin?p=rental_mly">แบบรายเดือน</a>
+          </div>
+        </li>
+        <% }  %>
+
+        <% if(admin_role =='administrator' || data_role.room_view ){ %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            ห้องพัก
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/admin?p=rm_m">จัดการห้องพัก</a>
+            <% if(admin_role == 'administrator' || data_role.room_create) { %>
+            <a class="dropdown-item" href="/admin?p=rm_ins">เพิ่มห้องพัก</a>
+            <% } %>
+
+          </div>
+        </li>
+        <% }  %>
+        <% if(admin_role =='administrator' || admin_role=='admin' ){ %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            ข้อมูลพื้นฐาน
+          </a>
+          <div class="dropdown-menu">
+            <% if(admin_role =='administrator'){ %>
+            <a class="dropdown-item" href="/admin?p=building">อาคาร</a>
+            <a class="dropdown-item" href="/admin?p=additional_cost_m">ค่าไฟฟ้า และ ค่าน้ำประปา</a>
+            <% }  %>
+            <% if(admin_role =='admin'){ %>
+            <a class="dropdown-item" href="/admin?p=officer_m">ผู้ดูแล / เจ้าหน้าที่</a>
+            <% }  %>
+            <% if(admin_role =='administrator'){ %>
+            <a class="dropdown-item" href="/admin?p=company_contact">ข้อมูลติดต่อเกี่ยวกับเรา</a>
+            <a class="dropdown-item" href="/admin?p=logo">ปรับแต่ง โลโก้ และไอคอน</a>
+            <a class="dropdown-item" href="/admin?p=meta">คำค้นหา - Meta</a>
+            <a class="dropdown-item" href="/admin?p=room-about">เกี่ยวกับห้องพัก</a>
+            <a class="dropdown-item" href="/admin?p=manage-slide">ภาพสไลด์</a>
+            <a class="dropdown-item" href="/admin/?p=payment">เพิ่มบัญชีธนาคาร</a>
+            <a class="dropdown-item" href="/admin/?p=qrcode">จัดการ QRCode</a>
+            <a class="dropdown-item" href="/admin?p=social_contact">ช่องการติดตามข้อมูล</a>
+            <a class="dropdown-item" href="/admin?p=promotion">โปรโมชั่น</a>
+            <% }  %>
+          </div>
+        </li>
+        <% }  %>
+
+      </ul>
+
+      <%= admin_role %>
+      <li class="text-light list-unstyled dropdown m-0">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+          <i class="fa-regular fa-circle-user h3 text-white"></i>
+        </a>
+        <div class="dropdown-menu">
+          <% if(admin_role !='admin'){ %>
+          <a href="/admin/?p=profile&user=<%= officer_id %>" class="dropdown-item  p-2 m-1">แก้ไขข้อมูลส่วนตัว</a>
+          <% }  %>
+
+          <button id="sign-out" class="dropdown-item">ออกจากระบบ</button>
+        </div>
+      </li>
+
+
+
+
+    </div>
+  </div>
+</nav>

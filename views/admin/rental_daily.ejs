@@ -1,0 +1,96 @@
+<%- include ('rental/rental_query_form') %>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+
+<div class="entries-d">
+  <span class="entries-text">แสดง</span>
+  <span class="entries-count"><%= entries.length  %></span>
+  <span>รายการ</span>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%;" class="text-center"> รายการ </th>
+        <th style="width: 24%;">เลขที่จอง</th>
+        <th style="width: 8%;" class="text-center">คัดลอก</th>
+        <th style="width: 12%;" class="text-center">คัดลอกข้อมูล</th>
+        <th style="width: 14%;">ชื่อ - นามสกุล</th>
+        <th style="width: 10%;">ประเภท</th>
+        <th style="width: 15%;" class="text-right">ยอดรวม</th>
+        <th style="width: 17%;" class="text-center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(entries.length==0) { %>
+      <tr class="align-middle">
+        <td colspan="9" class="text-center"> ไม่มีข้อมูล </td>
+      </tr>
+      <%  } %>
+      <% for(let i=0;i<entries.length;i++){ %>
+      <tr>
+        <td class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </td>
+        <td>
+          <input type="text" disabled class="form-control-plaintext p-0" id="<%= entries[i].booking_id  %>" value="<%= entries[i].booking_id  %>">
+        </td>
+
+        <td class="text-center">
+          <div class="position-absolute">
+            <p id="rentalDailyAlert-<%= entries[i].booking_id %>" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+
+          <button class="btn bg-gradient-light" onclick="copyData($(`#<%= entries[i].booking_id  %>`), $(`#rentalDailyAlert-<%= entries[i].booking_id %>`))">
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </td>
+        <td class="text-center">
+          <div class="position-absolute">
+            <p id="rentalDataAlert-<%= entries[i].booking_id %>" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+          <button class="btn bg-gradient-light" onclick="copyData($(`#rentalData-<%= entries[i].booking_id  %>`), $(`#rentalDataAlert-<%= entries[i].booking_id %>`))">
+            <i class="fa-solid fa-copy"></i>
+          </button>
+          <input type="text" disabled class="d-none" id="rentalData-<%= entries[i].booking_id  %>" value="<%= entries[i].rental_data  %>">
+        </td>
+        <td><%= entries[i].fname +' '+ entries[i].lname   %></td>
+        <td><%= entries[i].rental_type_display  %></td>
+        <td class="text-right"><%= entries[i].total_format   %></td>
+        <td class="text-center">
+          <% if( admin_role=='cashier' || data_role.booking_edit) { %>
+          <% if(status =='checkin' && entries[i].rental_type !='daily-no-limit') { %>
+          <button class="btn bg-gradient-secondary" name="addtime" data-id="<%= entries[i].booking_id  %>">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <% } %>
+
+          <% if(entries[i].status != 'checkout') { %>
+          <button class="btn btn-sm bg-gradient-success" name="checkout" data-id="<%= entries[i].booking_id  %>">
+            <span class="font-weight-bold">เช็คเอ้าท์</span>
+          </button>
+          <% } %>
+          <% } %>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+
+<%- include ('paginateQuery') %>
+<%- include('rental/rental_checkout_modal') %>
+<%- include ('rental/rental_monthly_detail') %>
+<%- include ('rental/rental_addtime_modal') %>
+
+
+<script src="/js/admin/rental/currentTotalCheckout.js"></script>
+<script src="/js/admin/rental/rental_checkout.js"></script>
+<script src="/js/admin/rental/addtime/rental_addtime.js"></script>
+<script src="/js/admin/rental/addtime/rental_addtime_submit.js"></script>
+<script src="/js/paginate.js"></script>
+<script src="/js/admin/rental/rental.js"></script>
+<script src="/js/retainValue.js"></script>
+<script src="/js/admin/rental/rentalDaily.js"></script>

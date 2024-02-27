@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="/src/css/mlogo.css">
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header bg-gradient-secondary">
+        <h5 class="card-title">โลโก้</h5>
+      </div>
+    </div>
+    <section>
+      <label for="logo-file" id="label-file-logo" class="btn bg-gradient-primary">
+        <i class="fa-solid fa-paperclip"></i>
+        <span class="ml-1">เลือกรูปภาพ</span>
+        <input id="logo-file" class="d-none" type="file" accept="image/*">
+      </label>
+      <input type="hidden" id="logo-file-old" value="<%= logo_file %>">
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-around">
+            <div class="col-md-4">
+              <label class="my-1 p-1">โลโก้เดิม</label>
+              <div class="my-2">
+                <div id="logoOldPreview" class="picture-logo-preview">
+                  <% if(logo_file != ''){ %>
+                  <img src="/src/img/logo/<%= logo_file %>">
+                  <%  } %>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-4">
+              <label class="my-1 p-1">โลโก้ใหม่</label>
+              <div class="my-2">
+                <div id="logoNewPreview" class="picture-logo-preview"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="custom-control custom-radio m-1">
+          <input class="custom-control-input" type="radio" value="old" id="oldlogoFile" name="logo-file-opt" <%= logo_opt_checked %>>
+          <label for="oldlogoFile" class="custom-control-label">เดิม</label>
+        </div>
+        <div class="custom-control custom-radio m-1">
+          <input class="custom-control-input" type="radio" value="new" id="newlogoFile" name="logo-file-opt">
+          <label for="newlogoFile" class="custom-control-label">เพิ่มใหม่</label>
+        </div>
+      </div>
+      <p class="empty-validate" id="validate-logoOpt"></p>
+    </section>
+    <div class="my-2">
+      <label class="p-1 my-1">โลโก้แบบข้อความ</label>
+      <input type="text" class="form-control" id="logo-text" value="<%= logo_text %>" placeholder="ป้อน logo เป็นข้อความ">
+    </div>
+    <div class="card">
+      <div class="card-header bg-gradient-secondary">
+        <h5 class="card-title">Icon</h5>
+      </div>
+    </div>
+    <section>
+      <div>
+        <label for="icon-file" id="label-file-icon" class="btn bg-gradient-primary">
+          <i class="fa-solid fa-paperclip"></i>
+          <span class="ml-1">เลือกไอคอน</span>
+          <input id="icon-file" class="d-none" type="file" accept="image/*">
+        </label>
+        <input type="hidden" id="icon-old" value="<%= icon %>">
+        <div class="card">
+          <div class="card-body">
+            <div class="row justify-content-around">
+              <div class="col-md-4">
+                <label class="p-1 my-2">ไอคอนเดิม</label>
+                <div class="my-2">
+                  <div class="icon-preview" id="iconOldPreview">
+                    <% if(icon != ''){ %>
+                    <img src="/src/img/logo/<%= icon %>">
+                    <%  } %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="p-1 my-2">ไอคอนใหม่</label>
+                <div class="my-2">
+                  <div class="icon-preview" id="iconNewPreview"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="custom-control custom-radio m-1">
+            <input class="custom-control-input" type="radio" value="old" id="oldIcon" name="icon-opt" <%= icon_opt_checked %>>
+            <label for="oldIcon" class="custom-control-label">เดิม</label>
+          </div>
+          <div class="custom-control custom-radio m-1">
+            <input class="custom-control-input" type="radio" value="new" id="newIcon" name="icon-opt">
+            <label for="newIcon" class="custom-control-label">เพิ่มใหม่</label>
+          </div>
+        </div>
+      </div>
+      <p class="empty-validate" id="validate-iconOpt"></p>
+    </section>
+    <section>
+      <label class="p-1 my-1">Title </label>
+      <input type="text" value="<%= title %>" class="form-control my-1" placeholder="ป้อน Title ของเว็บไซต์" id="title">
+    </section>
+
+    <div class="my-2">
+      <button class="btn btn-sm bg-gradient-success" id="logoSubmit">
+        <i class="fa-solid fa-pen"></i>
+        <span class="font-weight-bold ml-1"> บันทึก</span>
+      </button>
+    </div>
+  </div>
+</div>
+<script src="/js/logo/logo.js"></script>
+<script src="/js/logo/logoSubmit.js"></script>

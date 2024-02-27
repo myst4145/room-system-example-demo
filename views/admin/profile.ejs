@@ -1,0 +1,175 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label> ชื่อผู้ใช้</label>
+              <input type="text" disabled value="<%= entries[0].username %>" class="form-control" id="username">
+              <p class="empty-validate" id="validate-username"></p>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label> รหัสผ่าน </label>
+              <input type="password" class="form-control" id="password">
+              <p class="empty-validate" id="validate-password"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class=""> ชื่อ </label>
+              <input type="text" value="<%= entries[0].officer_fname %>" maxlength="120" class="form-control" id="fname">
+              <p class="empty-validate" id="validate-fname"></p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label> นามสกุล</label>
+              <input type="text" value="<%= entries[0].officer_lname %>" maxlength="120" class="form-control" id="lname">
+              <p class="empty-validate" id="validate-lname"></p>
+            </div>
+          </div>
+        </div>
+
+       
+      </div>
+      <div class="text-center p-2 my-1">
+        <button data-id="<%= entries[0].officer_id %>" class="btn btn-success font-weight-bold" id="officerSubmit">
+          บันทึก
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<input type="hidden" value="<%= entries[0].role %>" id="roleRetain">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const role = $('#roleRetain').val()
+    console.log(role)
+    retainRadioValue($('[name="role"]'), role)
+    $.each($('[name="role"]'), (i, opt) => {
+      console.log(opt)
+      if ($(opt).attr('id') != role) {
+        console.log(opt)
+        $(opt).css('display', 'none')
+      }
+    })
+  })
+
+  $('#officerSubmit').click(function() {
+    const act = $(this).attr('data-act')
+    const officerForm = [{
+        'formtype': 'username',
+        'input': $('#username'),
+        'validate': $('#validate-username'),
+        'msg': 'กรุณาป้อนผู้ใช้'
+      },
+      {
+        'formtype': 'password',
+        'input': $('#password'),
+        'validate': $('#validate-password'),
+        'msg': 'กรุณาป้อนรหัสผ่าน'
+      },
+      {
+        'formtype': 'text',
+        'input': $('#fname'),
+        'validate': $('#validate-fname'),
+        'msg': 'กรุณาป้อนชื่อ'
+      },
+      {
+        'formtype': 'text',
+        'input': $('#lname'),
+        'validate': $('#validate-lname'),
+        'msg': 'กรุณาป้อนนามสกุล'
+      }
+    ]
+    let validateCount = 0
+    officerForm.forEach((fd) => {
+      const {
+        formtype,
+        input,
+        validate,
+        msg
+      } = fd
+
+      if (formtype == 'radio') {
+        const c = input.filter(':checked').length
+        if (c == 0) {
+          validateCount++
+          validateformEmpty(true, validate, msg)
+        }
+        if (c > 0) {
+          validateformEmpty(false, validate, '')
+        }
+      }
+
+      if (formtype == 'text') {
+        const v = input.val().trim()
+        if (v == '') {
+          validateCount++
+          validateformEmpty(true, validate, msg)
+        }
+        if (v != '') {
+          validateformEmpty(false, validate, '')
+        }
+      }
+
+      if (formtype == 'username') {
+        const u = input.val().trim()
+        if (u == '') {
+          validateCount++
+          validateformEmpty(true, validate, msg)
+        }
+      }
+      if (formtype == 'password') {
+        const pass = input.val().trim()
+        if (pass == '') {
+          validateCount++
+          validateformEmpty(true, validate, msg)
+        }
+        if (pass != '') {
+          const {
+            result,
+            textErr
+          } = validatePassword(pass)
+          if (!result) {
+            validateCount++
+            validateformEmpty(true, validate, textErr)
+          } else {
+            validateformEmpty(false, validate, '')
+          }
+        }
+      }
+    })
+
+    if (validateCount == 0) {
+
+      const id = $('#officerSubmit').attr('data-id')
+      const data = {
+        'password': $('#password').val(),
+        'fname': $('#fname').val(),
+        'lname': $('#lname').val(),
+        'role': $('[name="role"]').filter(':checked').val()
+      }
+      axios.put(`/officer/user/update/${id}`, data)
+        .then((response) => {
+          if (response.data.result) querySuccess("แก้ไขข้อมูลผู้ใช้เรียบร้อย")
+          if (!response.data.result) {
+            queryFail('ข้อมูลส่วนตัว', 'เกิดข้อผิดพลาดไม่สามารถแก้ไขข้อมูลได้', response.data.err)
+          }
+        })
+        .catch((err) => {
+          queryFail('ข้อผิดพลาด', err, '')
+        })
+
+    }
+  })
+</script>

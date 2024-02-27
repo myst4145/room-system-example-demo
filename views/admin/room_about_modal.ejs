@@ -1,0 +1,53 @@
+<div class="modal fade" id="roomAboutModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ข้อมูลเกี่ยวกับห้องพัก</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="img" class="btn bg-gradient-success rounded-0">
+          เลือกรูปภาพ
+          <input class="d-none" type="file" id="img" accept="image/*">
+        </label>
+
+        <div class="empty-validate" id="validate-img"></div>
+        <input class="form-control my-1" type="text" id="title" placeholder="ป้อน Title">
+        <div class="empty-validate" id="validate-title"></div>
+        <div class="row">
+          <div class="col-lg-8">
+            <textarea id="room-desc" class="form-control" name="" id="" cols="30" rows="10"></textarea>
+            <div class="empty-validate" id="validate-desc"></div>
+          </div>
+          <div class="col-lg-4">
+            <div id="about-preview"></div>
+          </div>
+        </div>
+        <div class="m-1">
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="collect" value="collect" checked id="collect">
+            <label for="collect" class="custom-control-label">บันทึกรูปภาพ</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="collect" value="remove" id="remove">
+            <label for="remove" class="custom-control-label">ลบรูปภาพ</label>
+          </div>
+         
+        
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn rounded-0 font-weight-bold bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="ml-1">ปิด</span>
+        </button>
+        <button id="aboutSubmit" class="font-weight-bold rounded-0  btn bg-gradient-primary">
+          <span class="ml-1">บันทึก</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

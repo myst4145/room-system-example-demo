@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>จองห้องพัก</title>
+  <% if(data.meta.length > 0){ %>
+  <% for(let i =0 ;i< data.meta.length;i++){ %>
+  <meta name="<%= data.meta[i].meta_name  %>" content="<%= data.meta[i].content  %>">
+  <% } %>
+  <% } %>
+
+  <head>
+    <%- include('head') %>
+
+  </head>
+</head>
+
+<body>
+  <%- include('navbar') %>
+  <div class="booking-wrapper">
+    <div class="container">
+
+      <div class="row g-2 p-3 justify-content-center">
+        <div class="col-md-5 col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row my-2 justify-content-center align-items-center">
+                <div class="col-sm-12 col-md-4">
+                  <img class="rounded-3" src="/src/img/example_room/<%= example_room[0] %>" style="width: 100%;object-fit: contain;">
+                </div>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>หมายเลขห้อง</strong>
+                <p class="p-2"> <%= room_number %></p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>เลขที่จอง</strong>
+                <p class="p-2 text-muted"> <%= booking[0].booking_id %></p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>ชื่อ - นามสกุล</strong>
+                <p class="p-2 text-muted">
+                  <span><%= booking[0].fname %></span>
+                  <span><%= booking[0].lname %></span>
+                </p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>จำนวน</strong>
+                <p class="p-2 text-muted">
+                  <span><%= booking[0].time_count %></span>
+                  <span><%= booking[0].unit_display %></span>
+                </p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>วันที่จอง</strong>
+                <p class="p-2 text-muted"><%= booking[0].created %></p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>เช็คอิน</strong>
+                <p class="p-2 text-muted"><%= booking[0].checkin %></p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>เช็คเอ้าท์</strong>
+                <p class="p-2 text-muted"><%= booking[0].checkout %></p>
+              </div>
+              <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <strong>ยอดรวม</strong>
+                <p class="p-2 text-danger"><%= booking[0].total_display %></p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-md-5 col-lg-4">
+          <% if(booking[0].status == 'cancel'){%>
+          <div class="card bg-gradient bg-danger text-light">
+            <p class="card-header">ถูกยกเลิกแล้ว</p>
+          </div>
+
+          <% } %>
+          <% if(booking[0].status != 'cancel'){%>
+          <div class="card">
+            <div class="card-header bg-gradient bg-primary text-light">
+              <h5 class="card-title m-0">การชำระเงิน</h5>
+            </div>
+            <div class="card-body text-center">
+              <p>
+                <span>ต้องชำระ</span>
+                <span class="h5 text-danger fw-bold"><%= booking[0].paid_display %></span>
+                <span>บาท</span>
+              </p>
+              <div class="d-flex flex-wrap align-items-center justify-content-around">
+                <strong>สถานะ</strong>
+                <p class="p-2"> <%= booking[0].pay_status_display %></p>
+              </div>
+
+              <section class="text-center <%= payment_display %>">
+                <% if(is_payment  ) { %>
+                <h3 class="text-center">ช่องทางการชำระเงิน</h3>
+                <div class="text-center">
+                  <h5 class="fw-bold"> QR Payment</h5>
+                  <img src="/src/img/qrcode/<%= qrcode[0].img %>" class="qrcode-img">
+                </div>
+
+                <% for(let i=0;i<payment.length;i++){ %>
+                <div class="row align-items-center my-1">
+                  <div class="col-lg-3">
+                    <img src="/src/img/bkicon/<%= payment[i].bank_name  %>.png" class="bank-title-img">
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="d-flex align-items-center justify-content-between p-2">
+                      <div>
+                        <strong><%= payment[i].bank_display  %></strong>
+                        <p class="m-0"><%= payment[i].account_name  %></p>
+                      </div>
+                      <div>
+                        <p class="m-0 bank-number <%= payment[i].bank_name %> "><%= payment[i].bank_number  %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                <%  } %>
+                <div class="my-3">
+                  <label for="statement" class="form-label btn btn-secondary text-white rounded bg-gradient">
+                    อัพโหลดหลักฐานการชำระเงิน
+                  </label>
+                  <input class="form-control d-none" type="file" id="statement">
+                </div>
+                <div class="text-center p-2 my-1">
+                  <button data-id="<%= booking[0].booking_id %>" id="confirm-payment" class="btn btn-success bg-gradient">
+                    ยืนยัน
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <%- include('footer') %>
+  <script>
+    $('#confirm-payment').click(function() {
+      const statement = $('#statement')[0].files
+      if (statement.length == 0) {
+        queryFail('ยืนยันการชำระเงิน', 'โปรดอัพโหลดหลักฐานการชำระเงิน', '')
+      }
+
+      if (statement.length > 0) {
+        const id = $('#confirm-payment').attr('data-id')
+
+
+        axios.patch(`/booking/statement/${id}`, {
+            'slip_payment': statement[0]
+          }, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then((response) => {
+            console.log(response)
+            if (response.data.result) {
+              querySuccess('ชำระเงินสำเร็จ')
+            }
+
+            if (!response.data.result) {
+              let msg = ''
+              let err = ''
+              let is_err = false
+              if (response.data.err == 'TokenLoginIsValid') {
+                msg = 'โปรดลงชื่อเข้าใช้งานใหม่'
+                is_err = true
+              } else {
+                msg = 'เกิดข้อผิดพลาดไม่สามารถชำระเงินได้'
+                msg += ' ' + response.data.err
+                is_err = true
+              }
+              if (is_err) {
+                alertMsg('ยืนยันการชำระเงิน', msg)
+                  .then((result) => {
+                    if (result.isConfirmed) {
+                      location.reload()
+                    }
+                  })
+              }
+
+            }
+          }).catch((err) => {
+            queryFail('ยืนยันการชำระเงิน', 'เกิดข้อผิดพลาดไม่สามารถชำระเงินได้', err)
+          })
+      }
+    })
+  </script>
+</body>
+
+</html>

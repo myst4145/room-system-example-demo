@@ -1,0 +1,101 @@
+<div class="row my-2">
+  <div class="col-md-4">
+    <div class="my-1">
+      <%- include ('label/room_roomtype') %>
+      <div class="input-group">
+        <select data-room-type="<%= entries[0].room_type %>" id="roomType" class="form-control custom-select">
+          <option value="" selected>เลือกประเภทห้อง </option>
+          <option value="standard">Standard</option>
+          <option value="superior">Superior</option>
+          <option value="deluxe">Deluxe</option>
+          <option value="suite">Suite</option>
+          <option value="family">Family</option>
+          <option value="studio">Studio</option>
+          <option value="connecting">Connecting</option>
+          <option value="duplex">Duplex</option>
+          <option value="villa">Villa</option>
+          <option value="adjoining">adjoining</option>
+          <option value="cabana">Cabana</option>
+          <option value="honeymoon">Honeymoon</option>
+          <option value="roomtype-no-specify">ไม่ระบุ</option>
+        </select>
+
+      </div>
+      <p class="empty-validate" id="validate-roomtype"></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="my-1">
+      <%- include ('label/room_bedtype') %>
+      <div class="input-group">
+        <select data-bedtype="<%= entries[0].bed_type %>" id="bedType" class="form-control custom-select">
+          <option value="" selected>เลือกประเภทเตียง </option>
+          <option value="king-sized">King Sized</option>
+          <option value="queen-sized">Queen Sized</option>
+          <option value="single-bed">Single</option>
+          <option value="twin-bed">Twin</option>
+          <option value="double-bed">Double</option>
+          <option value="triple-bed">Triple</option>
+          <option value="quad-bed">Quad</option>
+          <option value="bedtype-no-specify">ไม่ระบุ</option>
+        </select>
+
+      </div>
+      <p class="empty-validate" id="validate-bedtype"></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="my-1">
+      <%- include ('label/room_roomview') %>
+      <div class="input-group">
+        <select data-room-view="<%= entries[0].roomview %>" id="roomView" class="form-control custom-select">
+          <option value="" selected>เลือกวิวห้อง</option>
+          <option value="garden-view">Garden View</option>
+          <option value="seaview">Seaview</option>
+          <option value="poolview">Poolview</option>
+          <option value="pool-access">Pool Access</option>
+          <option value="beach-front">Beach Front</option>
+          <option value="view-no-specify">ไม่ระบุ</option>
+        </select>
+
+      </div>
+      <p class="empty-validate" id="validate-roomview"></p>
+    </div>
+
+  </div>
+  <div class="col-md-3">
+    <div class="my-2">
+      <label class="form-label">ราคา <sub>*</sub></label>
+      <div class="input-group">
+        <input type="number" value="<%= entries[0].price %>" min="0" class="custom-select" placeholder="ป้อนราคาต่อ 1 เดือน" id="price">
+      </div>
+      <p class="empty-validate" id="validate-price"></p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="my-2">
+      <label class="p-0">ค่าคนเกินจำนวน (ต่อคน)</label>
+      <div class="input-group">
+        <input type="number" value="<%= entries[0].cost_people_exceed %>" min="0" class="form-control custom-select" placeholder="ป้อนราคาต่อ 1 วัน" id="cost-people-exceed">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="my-2">
+      <label class="p-0">ต่อเวลา คิดเป็นชั่วโมง <sub>*</sub></label>
+      <div class="input-group">
+        <input type="number" value="<%= entries[0].cost_expense_time %>" min="0" class="form-control custom-select" placeholder="ป้อนราคาต่อ 1 วัน" id="cost-expense-time">
+      </div>
+      <p class="empty-validate" id="validate-costExpenseTime"></p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="my-2">
+      <label class="p-0">ค่ามัดจำล่วงหน้า <sub>*</sub></label>
+      <div class="input-group">
+        <input type="number" value="<%= entries[0].deposit %>" min="0" class="form-control custom-select" placeholder="ป้อนค่ามัดจำล่วงหน้า" id="deposit">
+      </div>
+      <p class="empty-validate" id="validate-deposit"></p>
+    </div>
+  </div>
+</div>

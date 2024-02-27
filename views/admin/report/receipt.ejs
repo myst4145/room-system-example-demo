@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ใบเสร็จ เลขที่จอง <%= booking[0].booking_id %></title>
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+  <style>
+    @media print {
+      .container {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="my-1 p-2 text-end">
+      <button class="btn btn-sm btn-secondary bg-gradient" onclick="window.close()">
+        <i class="fa-solid fa-xmark"></i>
+        <span class="ms-1 fw-bold">ปิด</span>
+      </button>
+      <button class="btn btn-sm btn-primary bg-gradient" onclick="window.print()">
+        <i class="fa-solid fa-print"></i>
+        <span class="ms-1 fw-bold ">พิมพ์</span>
+      </button>
+
+
+    </div>
+
+  </div>
+  <div class="container-fluid">
+    <% if(company_info.length > 0) { %>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <% if (logo=='true') { %>
+          <img src="/src/img/logo/<%= company_info[0].data.shop_logo   %>" style="width: 40px;object-fit: contain;">
+          <%  } %>
+        </div>
+        <% if (company=='true') { %>
+        <h2 class="m-0"> <%= company_info[0].data.company   %></h2>
+        <%  } %>
+      </div>
+    </div>
+
+    <div class="row justify-content-end text-end">
+      <div class="col-md-8">
+        <% if (location=='true') { %>
+        <p class="m-0">
+          <%= company_info[0].data.location   %>
+          <%= company_info[0].data.road_alley   %>
+        </p>
+        <p class="m-0">
+          ต. <%= company_info[0].data.sub_district   %>
+          อ. <%= company_info[0].data.district   %>
+          จ. <%= company_info[0].data.province   %>
+          <%= company_info[0].data.postcode   %>
+        </p>
+        <%  } %>
+        <% if (contact_number=='true') { %>
+        <p class="m-0"><span class="fw-bold">โทร</span> <%= company_info[0].data.contact_number   %></p>
+        <%  } %>
+        <% if (email=='true') { %>
+        <p class="m-0"><span class="fw-bold">อีเมล</span> <%= company_info[0].data.email   %></p>
+        <%  } %>
+
+
+      </div>
+    </div>
+    <%  } %>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <% if (company_info.length > 0) { %>
+        <% if(company_info[0].data.tax_id !='' && is_customer_tax) { %>
+        <p class="text-end m-0"><span class="fw-bold">เลขประจําตัวผู้เสียภาษี</span> <%= company_info[0].data.tax_id %></p>
+
+        <section>
+          <% if(customer_name !='') { %>
+          <p class="m-0"><span class="fw-bold">ชื่อลูกค้า</span> <%= customer_name %></p>
+          <%  } %>
+          <% if(customer_tax_id !='') { %>
+          <p class="m-0"><span class="fw-bold">เลขประจําตัวผู้เสียภาษี</span> <%= customer_tax_id %></p>
+          <%  } %>
+          <% if(customer_address !='') { %>
+          <p class="m-0"><span class="fw-bold">ที่อยู่ลูกค้า</span> <%= customer_address %></p>
+          <%  } %>
+        </section>
+        <%  } %>
+        <% } %>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr class="align-middle">
+              <th style="width: 18%;" scope="row">เลขที่จอง</th>
+              <td style="width: 32%;"><%= booking[0].booking_id %></td>
+              <td style="width: 18%;">ชื่อ - นามกุล</td>
+              <td style="width: 32%;"><%= booking[0].fname %> <%= booking[0].lname %></td>
+            </tr>
+            <tr class="align-middle">
+              <th scope="row">ตึก/ชั้น</th>
+              <td><%= building_name %> ชั้น <%= building_floor %></td>
+              <th scope="row">หมายเลขห้อง</th>
+              <td><%= room_number %></td>
+            </tr>
+
+            <tr class="align-middle">
+              <th scope="row">เช็คอิน</th>
+              <td><%= booking[0].checkin %></td>
+              <th scope="row">เช็คเอ้าท์</th>
+              <td><%= booking[0].checkout %></td>
+            </tr>
+
+
+            <tr class="align-middle">
+              <th scope="row">จำนวนคนเข้าพัก</th>
+              <td class="align-middle"><%= booking[0].amount_people_stay %> คน</td>
+              <th scope="row">จำนวนการพัก</th>
+              <td><%= booking[0].time_count %> <%= booking[0].unit_time %></td>
+            </tr>
+            <tr class="align-middle">
+              <th scope="row">ประเภทการเช่า/พัก</th>
+              <td><%= booking[0].rental_type %></td>
+              <th scope="row">ค่าเสียหาย</th>
+              <td><%= booking[0].damages %></td>
+            </tr>
+            <tr class="align-middle">
+              <th scope="row">วันที่ทำรายการ</th>
+              <td><%= booking[0].created %></td>
+              <th scope="row">ยอดค่าเช่าจอง</th>
+              <td><%= booking[0].total %></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="">
+          <% if(additional_cost.electricity_bill) { %>
+          <div class="table-responsive">
+            <h5 class="m-0">รายละเอียดการชำระค่าไฟฟ้า</h5>
+            <% const electricity_user_number = additional_cost.electricity_bill.electricity_user_number %>
+            <p>หมายเลขผู้ใช้ไฟฟ้า <span class="fw-bold"><%= electricity_user_number%></span> </p>
+            <table class="table table-striped">
+              <thead class="bg-light">
+                <tr>
+                  <th scope="col">ปี เดือน</th>
+                  <th scope="col">สถานะ</th>
+                  <th scope="col">ประเภทค่าชำระ</th>
+                  <th class="text-end" scope="col">ยอดรวม</th>
+                  <th class="text-end" scope="col">ชำระแล้ว</th>
+                  <th class="text-end" scope="col">ค้างชำระ</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <% const electricity_bill = additional_cost.electricity_bill.data %>
+                <% for(let i=0;i<electricity_bill.length;i++) { %>
+                <tr>
+                  <td><%= electricity_bill[i].date %></td>
+                  <td><%= electricity_bill[i].display_status %></td>
+                  <td><%= electricity_bill[i].display_type %></td>
+                  <td class="text-end"><%= electricity_bill[i].total_format %></td>
+                  <td class="text-end"><%= electricity_bill[i].paid_format %></td>
+                  <td class="text-end"><%= electricity_bill[i].overdue_format %></td>
+
+                </tr>
+                <%  } %>
+
+                <tr>
+                  <td class="text-center" colspan="3">รวม</td>
+                  <td class="text-end">
+                    <%= additional_cost.electricity_bill.elcbill_overdue %>
+                  </td>
+                  <td class="text-end">
+                    <%= additional_cost.electricity_bill.elcbill_paid %>
+                  </td>
+                  <td class="text-end">
+                    <%= additional_cost.electricity_bill.elcbill_overdue %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <% } %>
+        </div>
+        <div class="">
+          <% if(additional_cost.water_bill) { %>
+          <div class="table-responsive">
+            <% const water_user_number = additional_cost.water_bill.water_user_number %>
+            <h5 class="m-0">รายละเอียดการชำระค่าน้ำประปา</h5>
+            <p>หมายเลขผู้ใช้น้ำประปา <span class="fw-bold"><%= water_user_number %></span> </p>
+
+
+
+            <table class="table table-striped">
+              <thead class="bg-light">
+                <tr>
+                  <th scope="col">ปี เดือน</th>
+                  <th scope="col">สถานะ</th>
+                  <th scope="col">ประเภทค่าชำระ</th>
+                  <th class="text-end" scope="col">ยอดรวม</th>
+                  <th class="text-end" scope="col">ชำระแล้ว</th>
+                  <th class="text-end" scope="col">ค้างชำระ</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <% const water_bill = additional_cost.water_bill.data %>
+                <% for(let i=0;i<water_bill.length;i++) { %>
+                <tr>
+                  <td><%= water_bill[i].date %></td>
+                  <td><%= water_bill[i].display_status %></td>
+                  <td><%= water_bill[i].display_type %></td>
+                  <td class="text-end"><%= water_bill[i].total_format %></td>
+                  <td class="text-end"><%= water_bill[i].paid_format %></td>
+                  <td class="text-end"><%= water_bill[i].overdue_format %></td>
+
+                </tr>
+                <%  } %>
+
+                <tr>
+                  <td class="text-center" colspan="3">รวม</td>
+                  <td class="text-end">
+                    <%= additional_cost.water_bill.watbill_total  %>
+                  </td>
+                  <td class="text-end">
+                    <%= additional_cost.water_bill.watbill_overdue %>
+                  </td>
+                  <td class="text-end">
+                    <%= additional_cost.water_bill.watbill_overdue %>
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</body>
+
+</html>

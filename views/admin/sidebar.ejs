@@ -1,0 +1,272 @@
+<div class="sidebar">
+  <div class="user-panel py-1 my-1 d-flex">
+    <div class="info m-0">
+      <h5 class="m-0 text-white"> <%= admin %></h5>
+      <p class="text-white">
+        <% if(admin !='admin') { %>
+        <%= admin_fname %>
+        <%  } %>
+      </p>
+    </div>
+  </div>
+
+  <nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <% if( admin_role=='finance' || admin_role == 'manager' ||  data_role.report_role ) { %>
+      <li id="dailyOrd" class="nav-item">
+        <a href="" class="nav-link">
+          <p>
+            รายงาน
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/system?p=booking_report" class="nav-link">
+              <p> รายงาน </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=pdf" class="nav-link">
+              <p>PDF</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <%} %>
+
+      <% if (admin_role =='cashier' || (data_role.booking_create && data_role.booking_view)   ) { %>
+      <li class="nav-item">
+        <a href="/system?p=booking_room" class="nav-link">
+          <p>จองห้องพัก</p>
+        </a>
+      </li>
+      <%  } %>
+      <% if (admin_role =='cashier' || (data_role.booking_edit && data_role.booking_view)   ) { %>
+      <li id="dailyOrd" class="nav-item">
+        <a href="" class="nav-link">
+          <p>
+            ประจำวัน
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/system?p=cf_pay" class="nav-link">
+              <p> ยืนยันการชำระเงิน </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=checkin" class="nav-link">
+              <p> เช็คอิน</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/system?p=additional_m" class="nav-link">
+              <p>ค่าไฟฟ้า และ ค่าน้ำประปา</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <%  } %>
+      <% if (admin_role =='cashier' || data_role.booking_role   ) { %>
+      <li id="rental" class="nav-item">
+        <a class="nav-link">
+          <p>
+            ข้อมูลการจอง
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/system?p=rental_m" class="nav-link">
+              <p>จัดการการเช่า</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=rental_dly" class="nav-link">
+              <p>แบบรายวัน</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=rental_mly" class="nav-link">
+              <p>แบบรายเดือน</p>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+      <%  } %>
+
+      <% if (admin_role =='administrator' || data_role.room_role) { %>
+      <li id="room" class="nav-item">
+        <a class="nav-link">
+          <p>
+            ข้อมูลห้องพัก
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/system?p=building" class="nav-link">
+              <p> อาคาร/สถานที่ </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=rm_m" class="nav-link">
+              <p> จัดการห้องพัก</p>
+            </a>
+          </li>
+
+          <% if (admin_role =='administrator' || data_role.room_create) { %>
+          <li class="nav-item">
+            <a href="/system?p=rm_ins" class="nav-link">
+              <p>เพิ่มห้องพัก </p>
+            </a>
+          </li>
+          <% } %>
+        </ul>
+      </li>
+
+      <% } %>
+      <% if (admin_role =='administrator' ||  admin_role == 'finance' || data_role.basic_info) { %>
+      <li id="paymentConfig" class="nav-item">
+        <a class="nav-link">
+          <p>
+            การชำระเงิน
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/system/?p=payment" class="nav-link">
+              <p>เพิ่มบัญชีธนาคาร</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/system/?p=qrcode" class="nav-link">
+              <p>จัดการ QRCode</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li id="basicInfo" class="nav-item">
+        <a class="nav-link">
+          <p>
+            ข้อมูลพื้นฐาน
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+            <a href="/system?p=promotion" class="nav-link">
+              <p>โปรโมชั่น</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/system?p=company_contact" class="nav-link">
+              <p> ข้อมูลติดต่อเกี่ยวกับเรา </p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <% } %>
+      <% if(admin_role =='website' || data_role.web_manage) { %>
+      <li id="website" class="nav-item">
+        <a class="nav-link">
+          <p>
+            เกี่ยวกับเราและหน้าเว็บ
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/system?p=logo" class="nav-link">
+              <p> ปรับแต่ง โลโก้ และไอคอน</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=meta" class="nav-link">
+              <p>คำค้นหา - Meta</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/system?p=room-about" class="nav-link">
+              <p>เกี่ยวกับห้องพัก</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/system?p=m_slide" class="nav-link">
+              <p>ภาพสไลด์</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/system?p=social_contact" class="nav-link">
+              <p>ช่องการติดตามข้อมูล</p>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+      <% } %>
+
+
+      <li id="system" class="nav-item">
+        <a class="nav-link">
+          <p>
+            ระบบ
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+            <a href="/system?p=sys_font" class="nav-link">
+              <p>ตัวอักษร</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/system?p=sys_config" class="nav-link">
+              <p>กำหนดค่าขนาด และตัวอักษร</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <% if (admin_role =='administrator' || data_role.basic_info) { %>
+      <li class="nav-item">
+        <a href="/system?p=member" class="nav-link">
+          <p>สมาชิก</p>
+        </a>
+      </li>
+      <% }  %>
+      <% if(admin_role !='admin'){ %>
+      <li class="nav-item">
+        <a href="/system?p=profile&user=<%= officer_id %>" class="nav-link">
+          <p>แก้ไขข้อมูลส่วนตัว</p>
+        </a>
+      </li>
+      <% }  %>
+      <% if(admin_role =='admin'){ %>
+      <li class="nav-item">
+        <a href="/system?p=officer_m" class="nav-link">
+          <p>ผู้ดูแล / เจ้าหน้าที่</p>
+        </a>
+      </li>
+      <% }  %>
+      <li class="nav-item">
+        <a class="nav-link" id="sign-out">
+          <p>ออกจากระบบ</p>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+</div>

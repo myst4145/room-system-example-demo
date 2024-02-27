@@ -1,0 +1,265 @@
+<link rel="stylesheet" href="/css/user_admin.css">
+<h5 class="fw-bold">สร้างบัญชีผู้ใช้งานระบบ</h5>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card card-teal">
+      <div class="card-header">
+        <h3 class="card-title m-0">ชื่อ</h3>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input type="text" oninput="countCharLen('#fname',
+            '#fname-len',30)" class="form-control" id="fname" placeholder="กรุณาป้อนชื่อ">
+        </div>
+        <p class="m-2 p-2 fw-bold">
+          <span>
+            ป้อนไม่เกิน 30 ตัวอักษร
+          </span>
+          <span>เหลือ</span>
+          <span class="form-text-alert" id="fname-len">30</span>
+        </p>
+        <p class="empty-validate" id="validate-fname"></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card card-teal">
+      <div class="card-header">
+        <h3 class="card-title m-0">นามสกุล</h3>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input type="text" oninput="countCharLen('#lname',
+          '#lname-len',30)" class="form-control" id="lname" placeholder="กรุณาป้อนนามสกุล">
+        </div>
+        <p class="m-2 p-2 fw-bold">
+          <span>
+            ป้อนไม่เกิน 30 ตัวอักษร
+          </span>
+          <span>เหลือ</span>
+          <span class="form-text-alert" id="lname-len">30</span>
+        </p>
+        <p class="empty-validate" id="validate-lname"></p>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title m-0">ผู้ใช้งานระบบ</h3>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input type="text" oninput="countCharLen('#username',
+          '#username-len',30)" class="form-control" id="username" placeholder="username">
+        </div>
+        <p class="m-2 p-2 fw-bold">
+          <span>
+            ป้อนไม่เกิน 30 ตัวอักษร
+          </span>
+          <span>เหลือ</span>
+          <span class="form-text-alert" id="username-len">30</span>
+        </p>
+        <p class="empty-validate" id="validate-username"></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card card-danger">
+      <div class="card-header">
+        <h3 class="card-title m-0">รหัสผ่าน</h3>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input type="text" oninput="countCharLen('#password',
+          '#password-len',30)" class="form-control" id="password" placeholder="กรุณาป้อนรหัสผ่าน">
+        </div>
+        <p class="m-2 p-2 fw-bold">
+          <span>
+            ป้อนไม่เกิน 30 ตัวอักษร
+          </span>
+          <span>เหลือ</span>
+          <span class="form-text-alert" id="password-len">30</span>
+        </p>
+        <p class="empty-validate" id="validate-password"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper-content-page">
+  <h5 class="fw-bold form-label">ระดับการเข้าถึง</h5>
+  <div class="row p-2 my-2">
+    <div class="col-md-4">
+      <div class="custom-control custom-radio" id="form-check-genaral">
+        <input class="custom-control-input" type="radio" name="private-level" id="genaral" value="genaral">
+        <label class="custom-control-label" for="genaral">
+          ทั่วไป
+        </label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="custom-control custom-radio" id="form-check-manager">
+        <input class="custom-control-input" type="radio" name="private-level" id="manager" value="manager">
+        <label class="custom-control-label" for="manager">
+          ผู้จัดการ
+        </label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="custom-control custom-radio" id="form-check-admin">
+        <input class="custom-control-input" type="radio" name="private-level" id="admin-p" value="admin-p">
+        <label class="custom-control-label" for="admin-p">
+          ผู้ดูแลระบบ
+        </label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="custom-control custom-radio" id="form-check-cashier">
+        <input class="custom-control-input" type="radio" name="private-level" id="cashier" value="cashier">
+        <label class="custom-control-label" for="cashier">
+          แคชเชียร์
+        </label>
+      </div>
+    </div>
+  </div>
+  <p class="empty-validate" id="validate-private-level"></p>
+</div>
+<div class="wrapper-content-page">
+  <label for="profile" class="fw-bold label-upload bg-blue " id="label-profile">
+    <i class="fa-solid fa-paperclip"></i>
+    เลือกรูปโปรไฟล์
+    <input type="file" id="profile" accept="image/*">
+  </label>
+  <div class="my-2" id="profile-preview"></div>
+  <p class="empty-validate" id="validate-profile"></p>
+  <button class="fw-bold btn btn-light text-primary" id="user-admin-submit">
+    <i class="fa-solid fa-plus"></i>
+    บันทึก
+  </button>
+</div>
+
+
+<script>
+  $('#user-admin-submit').click(function() {
+    const adminForm = [{
+        'name': 'fname',
+        'formtype': 'text',
+        'input': $('#fname'),
+        'validate': $('#validate-fname'),
+        'msg': 'กรุณาป้อนชื่อ'
+      },
+      {
+        'name': 'lname',
+        'formtype': 'text',
+        'input': $('#lname'),
+        'validate': $('#validate-lname'),
+        'msg': 'กรุณาป้อนนามสกุล'
+      },
+      {
+        'name': 'username',
+        'formtype': 'text',
+        'input': $('#username'),
+        'validate': $('#validate-username'),
+        'msg': 'กรุณาป้อนชื่อผู้ใช้'
+      },
+      {
+        'name': 'password',
+        'formtype': 'text',
+        'input': $('#password'),
+        'validate': $('#validate-password'),
+        'msg': 'กรุณาป้อนรหัสผ่าน'
+      }, {
+        'name': 'private-level',
+        'formtype': 'radio',
+        'input': $('[name="private-level"]'),
+        'validate': $('#validate-private-level'),
+        'msg': 'กรุณาเลือกระดับการเข้าถึง'
+      }, {
+        'name': 'profile',
+        'formtype': 'file',
+        'input': $('#profile'),
+        'validate': $('#validate-profile'),
+        'msg': 'กรุณาเลือกรูปโปรไฟล์'
+      }
+    ]
+    let emptyCount = 0
+    adminForm.forEach((fd) => {
+      const {
+        formtype,
+        input,
+        validate,
+        msg
+      } = fd
+      if (formtype == 'text') {
+        const v = input.val().trim()
+        if (v == '') {
+          validateformEmpty(true, validate, msg)
+          emptyCount++
+        } else {
+          validateformEmpty(false, validate, msg)
+
+        }
+      }
+
+      if (formtype == 'radio') {
+        const check = input.filter(':checked').length
+        if (check == 0) {
+          validateformEmpty(true, validate, msg)
+          emptyCount++
+        } else {
+          validateformEmpty(false, validate, msg)
+
+        }
+      }
+
+      if (formtype == 'file') {
+        const file = input[0].files.length
+        if (file == 0) {
+          validateformEmpty(true, validate, msg)
+          emptyCount++
+        } else {
+          validateformEmpty(false, validate, msg)
+
+        }
+      }
+    })
+
+    if (emptyCount == 0) {
+      const formData = new FormData()
+      formData.append('fname', $('#fname').val())
+      formData.append('lname', $('#lname').val())
+      formData.append('username', $('#username').val())
+      formData.append('password', $('#password').val())
+      formData.append('private_level', $('[name="private-level"]').filter(':checked').val())
+      formData.append('profile', $('#profile')[0].files[0])
+      axios.post('/api/add-admin', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((res) => {
+          const result = res.data.result
+          if (result) {
+            querySuccess('เพิ่มสำเร็จ', 1000)
+          }
+
+          if (!result) {
+            queryFail('เพิ่มพนักงาน', 'ไม่สามารถเพิ่มได้', res.data.err)
+          }
+        })
+        .catch((err) => {
+          statusErr()
+        })
+    }
+  })
+  $('#profile').change(function() {
+    const file = $(this)[0].files[0]
+    if (file != undefined) {
+      const img = `<img src="${URL.createObjectURL(file)}">`
+      $('#profile-preview').html(img)
+    } else {
+      $('#profile-preview').children().remove()
+    }
+  })
+</script>

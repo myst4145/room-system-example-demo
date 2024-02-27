@@ -1,0 +1,21 @@
+<div>
+  <%- include ('rm_opt') %>
+  <div>
+    <div id="special-options">
+      <div id="n-special-options">
+        <%if (entries[0].special_options.trim() !='') { %>
+        <% const special_options = entries[0].special_options.split(',')  %>
+        <%for (let i=0 ;i< special_options.length;i++) { %>
+        <div class="input-group my-1">
+          <input type="text" class="form-control" value="<%= special_options[i] %>" name="special-options-text" placeholder="ป้อนข้อมูลเพิ่มสิ่งของเครื่องใช้ เช่น โชฟา ตู้เย็น">
+          <button class="btn btn-sm bg-gradient-secondary border-0 rounded-0" onclick="deleteSpecialText(event)">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+        <% } %>
+        <% } %>
+      </div>
+      <p class="empty-validate" id="validate-options"></p>
+    </div>
+  </div>
+</div>

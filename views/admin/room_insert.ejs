@@ -1,0 +1,92 @@
+<%- include ('room/label/room_rentaltype') %>
+<div class="d-flex">
+  <div class="custom-control custom-radio m-1">
+    <input class="custom-control-input" value="daily" type="radio" id="daily" name="rentaltype">
+    <label for="daily" class="custom-control-label">แบบรายวัน</label>
+  </div>
+  <div class="custom-control custom-radio m-1">
+    <input class="custom-control-input" type="radio" value="daily-no-limit" id="dailyNoLimit" name="rentaltype">
+    <label for="dailyNoLimit" class="custom-control-label">รายวัน (ไม่กำหนดวัน)</label>
+  </div>
+  <div class="custom-control custom-radio m-1">
+    <input class="custom-control-input" value="monthly" type="radio" id="monthly" name="rentaltype">
+    <label for="monthly" class="custom-control-label">รายเดือน</label>
+  </div>
+</div>
+
+
+<p class="empty-validate" id="validate-rentaltype"></p>
+<%- include('room/rm_ins_roomsub') %>
+<%- include('room/rm_ins_form') %>
+
+<div class="row">
+  <div class="col-md-3 ">
+    <div class="my-1">
+      <label class="form-label">จำนวนเตียง <sub>*</sub></label>
+      <input type="number" value="" id="bedAmount" min="1" class="form-control form-control-sm custom-select" placeholder="ป้อนจำนวน">
+      <p class="empty-validate" id="validate-bedAmount"></p>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="my-1">
+      <label class="form-label">จำนวนคนเข้าพักสูงสุด</label>
+      <input type="number" id="maxPeople" min="1" class="form-control form-control-sm custom-select" placeholder="ป้อนจำนวน" />
+      <p class="empty-validate" id="validate-maxpeople"></p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group my-1">
+      <label class="form-label">จำนวนห้องน้ำ <sub>*</sub></label>
+      <input type="number" min="1" id="toiletCount" class="form-control form-control-sm custom-select" placeholder="ป้อนจำนวน" />
+      <p class="empty-validate" id="validate-toilet-count"></p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="my-1">
+      <label class="form-label">ค่าของเสียหาย <sub>*</sub></label>
+      <input type="number" min="0" id="damage" class="form-control form-control-sm custom-select" placeholder="ป้อนราคา" />
+      <p class="empty-validate" id="validate-damage"></p>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="my-1">
+      <label class="form-label">เบอร์ติดต่อภายในห้อง (ถ้ามี)</label>
+      <input type="text" maxlength="18" id="tel" class="form-control" placeholder="ป้อนเบอร์ติดต่อ" />
+    </div>
+  </div>
+</div>
+<%- include('room/rm_ins_opt') %>
+<%- include('room/label/room_example_upload') %>
+<%- include('room/label/room_detail') %>
+
+<div class="my-1">
+  <textarea class="form-control" id="descript-room" rows="12"></textarea>
+</div>
+<div class="text-center p-2 m-1">
+  <button type="button" class="btn bg-gradient-success font-weight-bold" id="roomSubmit" data-act="insert">
+    <span class="ml-1">บันทึก</span>
+  </button>
+</div>
+
+<%- include('info_modal/roomview_modal_info') %>
+<%- include('info_modal/roomtype_modal_info') %>
+<%- include('info_modal/bedtype_modal_info') %>
+<script src="/js/Admin/rooms/room.js"></script>
+<script src="/js/admin/rooms/buildingfloorItems.js"></script>
+<script src="/js/admin/rooms/deleteInputNumber.js"></script>
+<script src="/js/admin/rooms/addRoomsubCount.js"></script>
+<script src="/js/admin/rooms/duplicateRoom.js"></script>
+<script src="/js/admin/rooms/deleteSpecialText.js"></script>
+<script src="/js/admin/rooms/addSpecialOption.js"></script>
+<script src="/js/Admin/rooms/roomSubmit.js"></script>
+<script>
+
+
+  $('[type="number"]').keyup(function() {
+    if (isNaN(Number.parseInt($(this).val()))) {
+      $(this).val("");
+    }
+  });
+</script>
+</div>

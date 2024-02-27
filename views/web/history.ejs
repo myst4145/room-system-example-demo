@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ประวัติการจอง</title>
+
+  <head>
+    <%- include('head') %>
+  </head>
+</head>
+
+<body>
+  <%- include('navbar') %>
+  <main class="min-vh-100">
+    <div class="container ">
+      <div class="my-2">
+        <h5 class="p-2 text-muted">ประวัติการจอง</h5>
+        <div class="my-2">
+          <div class="row">
+            <div class="col-md-3">
+              <select id="queryByStatus" class="form-select form-select-lg rounded-0">
+                <option value="" selected>สถานะ</option>
+                <option value="all">ทั้งหมด</option>
+                <option value="progress">รอการยืนยัน</option>
+                <option value="checkout">เช็คเอ้าท์แล้ว</option>
+                <option value="confirm">รอเข้าพัก</option>
+              </select>
+            </div>
+          </div>
+
+          <% if(entries.length==0){ %>
+          <p class="p-3 m-2">ไม่พบข้อมูล</p>
+          <% } %>
+
+          <% for (let i =0;i< entries.length;i++){ %>
+          <a class="booking-link" href="/booking/<%= entries[i].booking_id %>">
+            <div class="card my-2">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-auto">
+                    <img src="/src/img/example_room/<%= entries[i].example_room[0] %>" class="card-img" style="height: 4rem;object-fit: cover;">
+                  </div>
+                  <div class="col-sm-11">
+                    <div class="row">
+                      <div class="col-md-9">
+                        <p class="m-0">
+                          <span>ห้อง</span>
+                          <strong><%= entries[i].room_number %></strong>
+                        </p>
+                        <p class="m-0"> <%= entries[i].booking_id %></p>
+                        <p class="m-0">
+                          <span>จำนวน</span>
+                          <span class="text-muted"><%= entries[i].time_count %></span>
+                          <span><%= entries[i].unit_display %></span>
+                        </p>
+                      </div>
+                      <div class="col-md-3 text-md-end">
+                        <span><%= entries[i].created %></span>
+                      </div>
+                    </div>
+                    <p class="text-end text-muted fw-bold m-0"><%= entries[i].total_format %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <%- include('../paginateQuery') %>
+  </main>
+
+  <script src="/js/paginate_room.js"></script>
+  <script src="/js/get_params_script.js"></script>
+  <script src="/js/web/getPathByThisPage.js"></script>
+
+  <script>
+    $('#queryByStatus').change(function() {
+      const status = $(this).val().trim()
+      if (status != '') location.assign(`/history?status=${status}`)
+    })
+    document.addEventListener('DOMContentLoaded', function() {
+      const query = JSON.parse($('#query').val())
+      const status = query.status
+      const index = parseInt($('#paginate-page').val())
+      const count = parseInt($('#paginate-page-all').val())
+      const row = parseInt($('#paginate-row').val())
+      let route = `${getPathByThisPage()}`
+      const entries = entries_row_query(route, row)
+      route += `?row=${row}`
+      route += `&status=${status}`
+      const page = create_pagination(index, count, route)
+      $('#paginate').html(page)
+      $('#entries-query').html(entries)
+
+      $.each($('#queryByStatus').children(), (i, opt) => {
+        if ($(opt).val() == status) {
+          $(opt).prop('selected', true)
+        }
+      })
+    })
+  </script>
+
+  <%- include('footer')  %>
+</body>
+
+</html>

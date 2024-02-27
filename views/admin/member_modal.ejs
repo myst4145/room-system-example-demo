@@ -1,0 +1,61 @@
+<div class="modal fade" id="memberModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ข้อมูลสมาชิก</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="memberForm">
+          <div class="form-group">
+            <label>บัญชีผู้ใช้งาน</label>
+            <input type="text" class="form-control" id="username" placeholder="ป้อนชื่อบัญชีผู้ใช้งาน">
+          </div>
+          <div class="form-group">
+            <label>ชื่อ</label>
+            <input type="text" class="form-control" id="fname" placeholder="ป้อนชื่อ">
+          </div>
+          <p class="empty-validate" id="validate-fname"></p>
+          <div class="form-group">
+            <label>นามสกุล</label> 
+            <input type="text" class="form-control" id="lname" placeholder="ป้อนนามสกุล">
+          </div>
+          <p class="empty-validate" id="validate-lname"></p>
+          <div class="form-group">
+            <label>เบอร์ติดต่อ</label>
+            <input type="text" class="form-control" id="phone" placeholder="ป้อนเบอร์ติดต่อ">
+          </div>
+          <p class="empty-validate" id="validate-phone"></p>
+          <label class="my-1 p-2">เปลี่ยนรหัสผ่านหรือไม่ ?</label>
+          <div class="d-flex flex-wrap">
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" value="true" id="change" name="change-password">
+              <label for="change" class="custom-control-label">ใข่</label>
+            </div>
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" value="false" id="no-change" name="change-password">
+              <label for="no-change" class="custom-control-label">ไม่</label>
+            </div>
+          </div>
+          <div class="form-group" id="passwordDisplay" style="display: none;">
+            <label>รหัสผ่าน</label>
+            <input type="text" class="form-control" id="password" placeholder="ป้อนรหัสผ่าน">
+          </div>
+          <p class="empty-validate" id="validate-password"></p>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="ml-1">ปิด</span>
+        </button>
+        <button id="memberSubmit" class="btn bg-gradient-primary">
+          <strong>ตกลง</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

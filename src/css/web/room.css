@@ -1,0 +1,70 @@
+.card-img {
+  height: 6rem !important;
+  object-fit: cover;
+}
+/*
+.form-control::placeholder,.form-select::placeholder {
+  color: #757575 !important;
+}
+
+.form-control:focus,.form-select:focus {
+  box-shadow: none !important;
+}
+
+.form-control:focus::placeholder,.form-select:focus::placeholder {
+  color: #bdbdbd !important;
+} */
+
+.query-room-form {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 12px 0;
+}
+
+.room-items {
+  position: relative;
+}
+.r-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  z-index: 10;
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  transform: translate(-90%, -5%);
+}
+.r-opt-label {
+  width: max-content;
+  border-radius: 14px;
+  padding: 2px 12px;
+  margin: 4px 0;
+}
+
+/* .query-text {
+  color: #0d6efd;
+} */
+
+.include-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 32px;
+}
+
+.include-empty i {
+  font-size: 2rem;
+}
+
+.room-number {
+  display: block;
+  padding: 2px 14px;
+  background-color: whitesmoke;
+  border-radius: 18px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+}

@@ -1,0 +1,158 @@
+<div class="card">
+  <div class="card-header bg-gradient-primary">
+    <h5 class="card-title">เกี่ยวกับบริษัท แบรนด์</h5>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <label class="my-1 p-2">ชื่อบริษัท</label>
+    <div class="my-1">
+      <input type="text" class="form-control" placeholder="ป้อนชื่อบริษัท" id="company" value="<%= company  %>">
+      <p class="empty-validate" id="validate-company"></p>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header bg-gradient-secondary">
+    <h5 class="card-title m-0">ที่ตั้ง</h5>
+  </div>
+  <div class="card-body">
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label text-right">
+        บ้านเลขที่ ชื่ออาคาร
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="location" placeholder="ป้อนบ้านเลขที่ ชื่ออาคาร" value="<%= location  %>">
+        <p class="empty-validate" id="validate-location"></p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label text-right">
+        ถนน/ซอย
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="form-control rounded-0 p-3" id="road-alley" placeholder="ป้อนถนน/ซอย" value="<%= road_alley  %>">
+        <p class="empty-validate" id="validate-road-alley"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label class="my-1 p-2"> แขวง/ตำบล</label>
+        <div class="form-group">
+          <input type="text" class="form-control" id="sub-district" placeholder="ป้อนแขวง/ตำบล" value="<%= sub_district  %>">
+          <p class="empty-validate" id="validate-sub-district"></p>
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <label class="my-1 p-2">เขต/อำเภอ</label>
+        <div class="form-group">
+          <input type="text" class="form-control" id="district" placeholder="ป้อนเขต/อำเภอ" value="<%= district  %>">
+          <p class="empty-validate" id="validate-district"></p>
+        </div>
+      </div>
+      <div class="col-md-3">
+
+        <label class="my-1 p-2">จังหวัด</label>
+        <div class="form-group">
+          <input type="text" class="form-control" id="province" placeholder="ป้อนจังหวัด" value="<%= province  %>">
+          <p class="empty-validate" id="validate-province"></p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label class="my-1 p-2">รหัสไปรษณีย์</label>
+        <div class="form-group">
+          <input type="text" class="form-control" id="postcode" placeholder="ป้อนรหัสไปรษณีย์" value="<%= postcode  %>">
+          <p class="empty-validate" id="validate-postcode"></p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label text-right">
+        อีเมล
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" placeholder="ป้อนอีเมล" id="email" value="<%= email  %>">
+        <p class="empty-validate" id="validate-email"></p>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label text-right">เบอร์ติดต่อ</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" placeholder="ป้อนเบอร์ติดต่อ" id="contact-number" value="<%= contact_number  %>">
+        <p class="empty-validate" id="validate-contact"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header bg-gradient-secondary text-light">
+    <h5 class="card-title">หมายเลขประจําตัวผู้เสียภาษี</h5>
+  </div>
+  <div class="card-body">
+    <input type="text" value="<%= tax_id %>" class="form-control" maxlength="13" id="taxIdNumber" placeholder="ป้อนหมายเลขประจําตัวผู้เสียภาษี">
+  </div>
+</div>
+<div class="card">
+  <div class="card-header bg-gradient-secondary text-light">
+    <h5 class="card-title">โลโก้บริษัท หรือ เจ้าของร้าน</h5>
+  </div>
+  <div class="card-body">
+    <% const shop_logo_src = shop_logo !='' && shop_logo ? `src=/src/img/logo/${shop_logo}`:'' %>
+    <label class="my-1 p-2">แสดงรูปโลโก้ตัวอย่าง</label>
+    <div class="row my-2 p-2">
+      <div class="col-md-3">
+        <div class="border">
+          <img <%= shop_logo_src %> style="width: 100%;height: 12rem;object-fit: contain;">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="border">
+          <img id="newLogoPreview" style="width: 100%;height: 12rem;object-fit: contain;">
+        </div>
+      </div>
+    </div>
+    <% const defaultDisabled = shop_logo=='' ? 'disabled' : '' %>
+    <% const defaultChecked = shop_logo=='' ? '' : 'checked' %>
+    <% const newChecked = shop_logo=='' ? 'checked'  : ''  %>
+    <label for="logo" class="btn bg-gradient-success">อัพโหลดรูปโลโก้</label>
+    <input type="file" class="d-none" id="logo">
+    <label class="d-flex p-2 my-1">รูปแบบการบันทึกโลโก้</label>
+    <div class="d-flex">
+      <div class="custom-control custom-radio m-1">
+        <input class="custom-control-input" type="radio" value="old" id="defaultLogo" name="logo-collect" <%= defaultDisabled %> <%= defaultChecked  %>>
+        <label for="defaultLogo" class="custom-control-label">
+          เดิม
+        </label>
+      </div>
+      <div class="custom-control custom-radio m-1">
+        <input class="custom-control-input" type="radio" value="new" id="newLogo" name="logo-collect" <%= newChecked  %>>
+        <label for="newLogo" class="custom-control-label">ใหม่</label>
+      </div>
+    </div>
+    <p class="empty-validate" id="validate-collect"></p>
+  </div>
+</div>
+<div class="text-center">
+  <button class="btn btn-sm bg-gradient-primary" id="contact-submit">
+    <span class="ml-1 font-weight-bold">บันทึก</span>
+  </button>
+</div>
+<script src="/src/js/admin/companyContact/contactSubmit.js"></script>
+<script>
+  $('#logo').change(function() {
+    const f = $(this)[0].files
+    if (f.length > 0) {
+      const src = URL.createObjectURL(f[0])
+      $('#newLogoPreview').attr('src', src)
+    }
+  })
+</script>

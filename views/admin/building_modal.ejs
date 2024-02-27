@@ -1,0 +1,42 @@
+<div class="modal fade" id="buildingModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">อาคาร</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="buildingForm">
+          <div class="form-group">
+            <label class="p-2 my-1">ชื่ออาคาร/ตึก</label>
+            <input type="text" class="form-control" placeholder="ป้อนชื่อตึก หรือ อาคาร" id="buildingName">
+            <p class="empty-validate" id="validate-buildingname"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="p-2 my-1">หมายเลขอาคาร/ตึก</label>
+            <input type="text" class="form-control" placeholder="ป้อนหมายเลขตึก หรือ อาคาร " id="buildingNumber">
+          </div>
+
+          <div class="form-group">
+            <label class="p-2 my-1">จำนวนชั้น</label>
+            <input type="number" maxlength="4" class="form-control custom-select" placeholder="ป้อนจำนวนชั้น" id="floorCount" min="1">
+            <p class="empty-validate" id="validate-floorCount"></p>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="ml-1 font-weight-bold">ปิด</span>
+        </button>
+        <button class="btn bg-gradient-primary" id="building-submit">
+          <span class="font-weight-bold">บันทึก</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

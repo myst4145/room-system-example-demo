@@ -1,0 +1,218 @@
+<div class="modal fade" id="continuousBookingModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header align-items-center bg-gradient-primary">
+        <h5 class="modal-title">การเช่าต่อเนื่อง</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group my-1">
+          <input type="text" id="getDataByBookingId" oninput="getBookingDataById()" onchange="getBookingDataById()" class="form-control" placeholder="รหัสการจอง/เลขที่จอง">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="pasteData($('#getDataByBookingId'),getBookingDataById)">
+              <i class="fa-solid fa-paste"></i>
+            </button>
+          </div>
+
+        </div>
+
+
+
+
+
+        <div>
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">สถานะ</label>
+            <div class="col-lg-4">
+              <select class="custom-select" id="status">
+                <option value="" selected>เลือก</option>
+                <option value="checkin">กำลังพักอยู่</option>
+                <option value="checkout">ออกแล้ว</option>
+                <option value="confirm">กำลังย้ายเข้า</option>
+                <option value="progress">รอการยืนยัน</option>
+                <option value="cancel">ยกเลิก</option>
+              </select>
+              <p class="empty-validate" id="validate-status"></p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">รหัสข้อมูลห้องพัก</label>
+            <div class="col-lg-4">
+              <div class="input-group">
+                <input type="text" class="form-control" id="room-id" disabled />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">รหัสห้องพัก</label>
+            <div class="col-lg-4">
+              <div class="input-group">
+                <input type="text" class="form-control" id="room-number-id" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">หมายเลขห้อง</label>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <input type="text" class="form-control" id="room-number" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">พนักงาน</label>
+            <div class="col-lg-4">
+              <div class="my-1">
+                <input type="text" value="<%= officer_id %>" class="form-control" id="employeeId" placeholder="ป้อนรหัสพนักงาน">
+                <p class="empty-validate" id="validate-employeeId"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">ชื่อ - นามสกุล</label>
+            <div class="col-lg-4">
+              <div class="form-group m-1">
+                <input type="text" class="form-control" id="fname" placeholder="ป้อนชื่อ" />
+                <p class="empty-validate" id="validate-fname"></p>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group m-1">
+                <input type="text" class="form-control" min="1" id="lname" placeholder="ป้อนนามสกุล" />
+                <p class="empty-validate" id="validate-lname"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label text-left text-lg-right">เบอร์ติดต่อ</label>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <input type="text" maxlength="18" class="form-control" id="phone" placeholder="ป้อนเบอร์ติดต่อ" />
+              </div>
+              <p class="empty-validate" id="validate-phone"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-lg-right">ค่ามัดจำล่วงหน้า</label>
+          <div class="col-lg-3 col-md-6">
+            <div class="my-1">
+              <input type="number" min="0" id="deposit" class="custom-select" placeholder="ป้อนค่ามัดจำล่วงหน้า">
+              <p class="empty-validate" id="validate-deposit"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-lg-right">ค่าประกันห้อง</label>
+          <div class="col-lg-3 col-md-6">
+            <div class="my-1">
+              <input type="number" min="0" class="custom-select" id="insuranceCost" placeholder="ป้อนค่าประกันห้อง" oninput="currentTotal('insuranceCost')" onchange="currentTotal('insuranceCost')">
+              <p class="empty-validate" id="validate-insuranceCost"></p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-md-right">หมายเหตุ อื่นๆ</label>
+          <div class="col-lg-9">
+            <div class="form-group">
+              <textarea id="other" class="form-control" rows="3" placeholder="ระบุ"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-md-right">ราคา</label>
+          <div class="col-lg-4">
+            <input type="number" disabled min="1" class="custom-select border-0 " id="price" placeholder="ราคา" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-md-right">ประเภทการเช่า</label>
+          <div class="col-lg-4">
+            <div class="my-2">
+              <select disabled class="custom-select" id="rentalType">
+                <option value="" selected>ประเภท</option>
+                <option value="daily">รายวัน</option>
+                <option value="daily-no-limit">ไม่กำหนดวัน</option>
+                <option value="monthly">รายเดือน</option>
+              </select>
+            </div>
+            <p class="empty-validate" id="validate-rentaltype"></p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-md-right">เข้าพัก</label>
+
+          <div class="col-lg-4">
+            <input type="date" class="form-control" id="checkin" />
+            <p class="empty-validate" id="validate-checkin"></p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label text-left text-md-right">ออก</label>
+          <div class="col-lg-4">
+            <input type="date" id="checkout" class="form-control" />
+            <p class="empty-validate" id="validate-checkout"></p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label text-left text-md-right">จำนวนเวลาพัก</label>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="my-2">
+              <input min="1" type="number" class="custom-select" id="timeCount" oninput="currentTimeAmount('count')" placeholder="จำนวนวันพัก" />
+              <p class="empty-validate" id="validate-timeCount"></p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="my-2">
+              <select disabled class="custom-select" id="unitTime">
+                <option value="" selected>หน่วยเวลา</option>
+                <option value="days">วัน</option>
+                <option value="months">เดือน</option>
+              </select>
+              <p class="empty-validate" id="validate-unitTime"></p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-3">
+            <label>รวมค่าเช่าทั้งหมด</label>
+            <input type="number" id="total" class="custom-select" placeholder="ป้อนยอดรวม">
+            <div class="empty-validate" id="validate-total"></div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <label class="form-label">ค้างชำระ</label>
+            <input type="number" min="1" class="custom-select" id="overdue" placeholder="ป้อนยอดค้างชำระ" />
+            <p class="empty-validate" id="validate-overdue"></p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="form-group">
+              <label>ยอดชำระแล้ว</label>
+              <input type="number" class="custom-select" id="paid" oninput="currentPaidAmount()" placeholder="ป้อนยอดที่ชำระ">
+              <p class="empty-validate" id="validate-paid"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="font-weight-bold ml-1">ปิด</span>
+        </button>
+        <button class="btn bg-gradient-primary" id="continousBooking">
+          <span class="font-weight-bold">บันทึก</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

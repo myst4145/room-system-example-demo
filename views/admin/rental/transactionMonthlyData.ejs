@@ -1,0 +1,194 @@
+<% const transaction_display =  booking[0].transaction.length == 0 ?  `style="display:none;"` : `style="display:block;"`  %>
+<div id="transactionMonthlyData" <%- transaction_display %>>
+  <section>
+    <div class="card">
+      <div class="card-header bg-gradient-secondary">
+        <h5 class="card-title font-weight-bold">ต้องการเปลี่ยนสถานะให้กำหนดค่าตามนี้</h5>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="form-inline my-1">
+            <p class="my-1 mr-2">จ่ายทั้งหมด</p>
+            <div class="input-group">
+              <input disabled type="text" id="allText" value="all" class="font-weight-bold px-2">
+              <div class="input-group-append">
+                <button class="input-group-text btn bg-gradient-light" onclick="copyData($(`#allText`), $(`#alert-allText`))">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <p id="alert-allText" class="tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+          <div class="form-inline my-1">
+            <p class="my-1 mr-2">จ่ายบางส่วน </p>
+            <div class="input-group">
+              <input disabled type="text" id="partialText" value="partial" class="font-weight-bold px-2">
+              <div class="input-group-append">
+                <button class="input-group-text btn bg-gradient-light" onclick="copyData($(`#partialText`), $(`#alert-partialText`))">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <p id="alert-partialText" class="tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+          <div class="form-inline my-1">
+            <p class="my-1 mr-2">ยกเลิก</p>
+            <div class="input-group">
+              <input disabled type="text" id="cancelText" value="cancel" class="font-weight-bold px-2">
+              <div class="input-group-append">
+                <button class="input-group-text btn bg-gradient-light" onclick="copyData($(`#cancelText`), $(`#alert-cancelText`))">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <p id="alert-cancelText" class="tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+          <div class="form-inline my-1">
+            <p class="my-1 mr-2">รอดำเนินการ </p>
+            <div class="input-group">
+
+              <input disabled type="text" id="progressText" value="progress" class="font-weight-bold  px-2">
+              <div class="input-group-append">
+                <button class="input-group-text btn bg-gradient-light" onclick="copyData($(`#progressText`), $(`#alert-progressText`))">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <p id="alert-progressText" class="tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header bg-gradient-primary">
+        <h5 class="card-title"> ตารางการชำระเงินรายเดือน</h5>
+      </div>
+      <div class="card-body">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <h5 class="font-weight-bold">ข้อมูลเดิม <span class="text-muted">*สำหรับดูเปรียบเทียบการแก้ไขข้อมูล</span></h5>
+            <section class="transaction-table">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead class="bg-gradient-secondary">
+                    <tr>
+                      <th class="text-center" style="width: 5%;" scope="col">รายการ</th>
+                      <th style="width:45% ;" scope="col">วันที่</th>
+                      <th style="width: 25%;" scope="col">สถานะ</th>
+                      <th class="text-center" style="width: 25%;" scope="col">ยอดชำระ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for (let i = 0 ;i< booking[0].transaction.length;i++) { %>
+                    <tr class="p-0">
+                      <th class="text-center" scope="col"><%= i+1 %></th>
+
+                      <td class="align-middle">
+                        <p class="m-0 font-weight-bold">
+                          <%=  booking[0].transaction[i].date_thai  %>
+                        </p>
+                        <p class="m-0 text-muted"> <%=  booking[0].transaction[i].date  %></p>
+                      </td>
+                      <td class="align-middle font-weight-bold">
+                        <%=  booking[0].transaction[i].status  %>
+                      </td>
+                      <td class="align-middle text-right font-weight-bold">
+                        <%=  booking[0].transaction[i].paid  %>
+                      </td>
+                    </tr>
+                    <%  } %>
+                  </tbody>
+                </table>
+              </div>
+
+            </section>
+          </div>
+          <div class="col-lg-7">
+            <h5 class="my-1 p-2 font-weight-bold"> การแก้ไขใช้ตารางนี้</h5>
+            <p class="m-0 font-weight-bold text-muted"><sub>*</sub>การลบสามารถลบได้เฉพาะช่วงเวลาแบบต่อเนื่องเท่านั้น</p>
+            <section>
+              <div class="text-right my-1 p-2">
+                <button name="static" class="btn btn-sm bg-gradient-light" id="bookingTransactionEdit">
+                  <i class="fa-solid fa-pen"></i>
+                  <span class="ml-1 font-weight-bold">แก้ไข</span>
+                </button>
+                <button name="dynamic" class="btn btn-sm bg-gradient-primary d-none" id="bookingTransactionSubmit" disabled>
+                  <i class="fa-solid fa-check"></i>
+                  <span class="ml-1 font-weight-bold">ตกลง</span>
+                </button>
+                <button name="dynamic" class="btn btn-sm bg-gradient-secondary d-none" id="bookingTransactionCancel" disabled>
+                  <span class="ml-1 font-weight-bold">ยกเลิก</span>
+                </button>
+              </div>
+            </section>
+            <section class="transaction-table">
+              <div class="table-responsive">
+                <table class="table bg-white table-striped">
+                  <thead class="bg-gradient-secondary">
+                    <tr>
+                      <th class="text-center" style="width:5% ;" scope="col">รายการ</th>
+                      <th style="width:30% ;" scope="col">วันที่</th>
+                      <th style="width: 30%;" scope="col">สถานะ</th>
+                      <th class="text-right" style="width: 35%;" scope="col">ยอดชำระ</th>
+                      <th class="text-center" style="width: 10%;" scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="transactionTable">
+                    <% for (let i = 0 ;i< booking[0].transaction.length;i++) { %>
+                    <tr class="p-0">
+                      <th class="text-center" scope="col"><%= i+1 %></th>
+                      <td class="align-middle">
+                        <p class="m-0 font-weight-bold">
+                          <%=  booking[0].transaction[i].date_thai  %>
+                        </p>
+                        <p class="m-0 text-muted">
+                          <%=  booking[0].transaction[i].date  %>
+                        </p>
+                      </td>
+                      <td class="align-middle">
+                        <div class="input-group">
+                          <input type="text" id="<%= booking[0].transaction[i].date  %>" disabled name="transaction-status" class="form-control-plaintext font-weight-bold" value="<%=  booking[0].transaction[i].status  %>">
+                          <div class="input-group-append">
+                            <button name="paste-status" class="d-none input-group-text btn bg-gradient-light" onclick="pasteData($('#<%= booking[0].transaction[i].date  %>'))">
+                              <i class="fa-solid fa-paste"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-right">
+                        <div class="input-group">
+                          <input type="number" id="trans-paid-<%= booking[0].transaction[i].date  %>" disabled name="transaction-paid" class="text-right font-weight-bold form-control-plaintext m-0" value="<%=  booking[0].transaction[i].paid  %>" onchange="currentTransactionPaid()" oninput="currentTransactionPaid()">
+                          <div class="input-group-append">
+                            <button name="paste-amount" class="d-none input-group-text btn bg-gradient-light" onclick="setDateInput('#trans-paid-<%= booking[0].transaction[i].date  %>')">
+                              <i class="fa-solid fa-paste"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td class="align-middle text-center" style="width:15% ;">
+                        <button class="btn btn-sm bg-gradient-danger font-weight-bold" data-date="<%=  booking[0].transaction[i].date  %>" disabled name="transaction-delete" onclick="transactionMonthlyDelete(event)">
+                          ลบ
+                        </button>
+                      </td>
+                    </tr>
+                    <%  } %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <textarea id="transactionOldBefore" cols="30" rows="10" class="d-none w-100 rounded  m-3 p-2 font-weight-bold" disabled>
+<%= JSON.stringify(booking[0].transaction) %>
+    </textarea>
+  <textarea id="transactionOldAfter" cols="30" rows="10" class="d-none w-100 rounded  m-3 p-2 font-weight-bold" disabled>
+<%= JSON.stringify(booking[0].transaction) %>
+    </textarea>
+</div>

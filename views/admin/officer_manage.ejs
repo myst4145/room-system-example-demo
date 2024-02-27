@@ -1,0 +1,56 @@
+<div class="text-right my-1 p-2">
+  <button class="btn bg-gradient-primary font-weight-bold" data-bs-toggle="modal" data-bs-target="#officerInfoModal">
+    <i class="fa-solid fa-info"></i>
+  </button>
+  <a class="btn bg-gradient-secondary" href="/system?p=officer_role">
+    <i class="fa-solid fa-pen"></i>
+    <span class="ml-1 font-weight-bold">จัดการบทบาท หน้าที่</span>
+  </a>
+  <button class="btn bg-gradient-primary font-weight-bold" data-act="add" name="open-officer-modal">
+    <i class="fa-solid fa-plus"></i>
+    <span class="ml-1">เพิ่ม</span>
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%;" scope="col">รายการ</th>
+        <th style="width: 30%;" scope="col">username</th>
+        <th style="width: 15%;" scope="col">บทบาท</th>
+        <th style="width: 20%;" scope="col">ชื่อ - นามสกุล</th>
+        <th style="width: 20%;" scope="col">สร้างเมื่อ</th>
+        <th style="width: 15%;" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0;i< entries.length;i++) { %>
+      <tr>
+        <th class="text-center" scope="row">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </th>
+        <td><%= entries[i].username %></td>
+        <td><%= entries[i].role %></td>
+        <td><%= entries[i].officer_fname + ' ' + entries[i].officer_lname %></td>
+        <td><%= entries[i].created  %></td>
+        <td>
+          <button class="btn bg-gradient-secondary" data-id="<%= entries[i].officer_id %>" data-act="edit" name="open-officer-modal">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include ('paginateQuery') %>
+<%- include ('officer_manage_modal') %>
+<%- include ('officer_manage_info_modal') %>
+<script src="/src/js/admin/officer/officer.js"></script>
+<script src="/src/js/admin/officer/getOfficerDataById.js"></script>
+<script src="/src/js/admin/officer/officerSubmit.js"></script>

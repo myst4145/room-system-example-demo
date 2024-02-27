@@ -1,0 +1,79 @@
+<div class="modal fade" id="rentalMonthlyTransactionModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-secondary align-items-center">
+        <h5 class="modal-title">ชำระเงินค่าเช่า</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center p-2">
+          <div class="col-md-6">
+            <label>ปี</label>
+            <input type="text" disabled id="rentalMonthlyYear" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label>เดือน</label>
+            <input type="text" disabled id="rentalMonthlyMonth" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right">วันที่</label>
+          <div class="col-md-10">
+            <input type="text" disabled class="form-control" id="rentalMonthlyDate">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right">ชำระแล้ว</label>
+          <div class="col-md-10">
+            <input type="number" disabled value="0" min="0" class="form-control" id="rentalMonthlyPaid">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right">ค่ามัดจำ</label>
+          <div class="col-md-10">
+            <input type="number" disabled value="0" min="0" class="form-control" id="rentalMonthlyDeposit">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right">หักจากค่ามัดจำ</label>
+          <div class="col-md-10">
+            <input type="number" value="0" min="0" class="form-control" oninput="deductDeposit()" onchange="deductDeposit()" id="rentalMonthlyDeductDeposit">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right">ชำระเพิ่ม</label>
+          <div class="col-md-10">
+            <input type="number" value="0" min="0" class="form-control" id="rentalMonthlyAmount">
+          </div>
+        </div>
+        <p class="empty-validate" id="validate-rentalMonthlyAmount"></p>
+        <div class="form-group">
+          <label for="">รูปแบบการชำระ</label>
+          <select class="custom-select" id="rentalMonthlyOptionPay">
+            <option value="" selected>เลือกชำระ</option>
+            <option value="all">จ่ายทั้งหมด</option>
+            <option value="partial">จ่ายบางส่วน</option>
+            <option value="cancel">ยกเลิก</option>
+            <option value="progress">รอดำเนินการ</option>
+          </select>
+        </div>
+
+        <p class="empty-validate" id="validate-optionPay"></p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+        <button class="btn  bg-gradient-success" id="rentalMonthlySubmit">
+          <strong>ชำระเงิน</strong>
+        </button>
+        
+      </div>
+    </div>
+  </div>
+</div>

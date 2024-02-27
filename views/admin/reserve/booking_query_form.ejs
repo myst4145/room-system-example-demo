@@ -1,0 +1,114 @@
+ <div class="row">
+   <div class="col-12">
+     <div class="input-group my-1">
+       <select class="form-control custom-select" id="findByRoomType">
+         <option value="" selected>เลือกประเภท</option>
+         <option value="standard">Standard</option>
+         <option value="superior">Superior</option>
+         <option value="deluxe">Deluxe</option>
+         <option value="suite">Suite</option>
+         <option value="family">Family</option>
+         <option value="studio">Studio</option>
+         <option value="connecting">Connecting</option>
+         <option value="duplex">Duplex</option>
+         <option value="villa">Villa</option>
+         <option value="adjoining">Adjoining</option>
+         <option value="cabana">Cabana</option>
+         <option value="honeymoon">Honeymoon</option>
+       </select>
+     </div>
+   </div>
+   <div class="col-12">
+     <div class="input-group my-1">
+       <select class="form-control custom-select" id="findByBedType">
+         <option selected value="">เลือกรูปแบบเตียง</option>
+         <option value="king-sized">King Sized</option>
+         <option value="queen-sized">Queen Sized</option>
+         <option value="single-bed">Single</option>
+         <option value="twin-bed">Twin</option>
+         <option value="double-bed">Double</option>
+         <option value="triple-bed">Triple</option>
+         <option value="quad-bed">Quad</option>
+       </select>
+     </div>
+   </div>
+   <div class="col-12">
+     <div class="input-group my-1">
+       <select class="form-control custom-select" id="findByRoomView">
+         <option value="" selected>เลือกวิว</option>
+         <option value="garden-view">Garden View</option>
+         <option value="seaview">Seaview</option>
+         <option value="poolview">Poolview</option>
+         <option value="pool-access">Pool Access</option>
+         <option value="beach-front">Beach Front</option>
+       </select>
+     </div>
+   </div>
+
+
+
+   <div class="col-12">
+     <label>ประเภทการเช่า</label>
+     <div>
+       <div class="custom-control custom-radio">
+         <input class="custom-control-input" value="monthly" type="radio" id="findByMonthly" name="findByRentalType">
+         <label for="findByMonthly" class="custom-control-label">รายเดือน</label>
+       </div>
+       <div class="custom-control custom-radio">
+         <input class="custom-control-input" value="daily" type="radio" id="findByDaily" name="findByRentalType">
+         <label for="findByDaily" class="custom-control-label">รายวัน</label>
+       </div>
+       <div class="custom-control custom-radio">
+         <input class="custom-control-input" type="radio" value="daily-no-limit" id="findBydailyNoLimitFind" name="findByRentalType">
+         <label for="findBydailyNoLimitFind" class="custom-control-label">ไม่กำหนดวัน</label>
+       </div>
+     </div>
+   </div>
+   <div class="col-12">
+     <div class="form-group">
+       <label>เข้าพัก</label>
+       <input type="date" class="form-control" id="findByCheckin" onchange="currentBookingTime('checkin')" />
+     </div>
+   </div>
+   <div class="col-12">
+     <div class="form-group">
+       <label>จำนวนเวลาพัก</label>
+       <div class="row">
+         <div class="col-lg-6 col-12">
+           <div class="my-2">
+             <input min="1" type="number" class="form-control custom-select" oninput="currentBookingTime('#findByCheckout','count',)" onchange="currentBookingTime('#findByCheckout','count')" id="findByTimeCount" placeholder="จำนวน" />
+           </div>
+         </div>
+         <div class="col-lg-6 col-12">
+           <div class="my-2">
+             <select disabled class="form-control custom-select" id="findByUnitTime">
+               <option value="" selected>หน่วย</option>
+               <option value="days">วัน</option>
+               <option value="months">เดือน</option>
+             </select>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="col-12">
+     <div class="form-group">
+       <label class="text-left text-md-right">ออก</label>
+       <input type="date" disabled id="findByCheckout" class="form-control" />
+     </div>
+   </div>
+   <div class="col-auto">
+     <div class="my-1">
+       <button class="btn rounded-0 bg-gradient-secondary" id="roomReset">
+         <span class="font-weight-bold">รีเซ็ตค่า</span>
+       </button>
+       <button class="btn rounded-0 bg-gradient-secondary" id="roomEntries">
+         <span class="font-weight-bold">ทั้งหมด</span>
+       </button>
+       <button class="btn rounded-0 bg-gradient-primary" id="getDataByQueryForm">
+         <i class="fa-solid fa-magnifying-glass"></i>
+         <span class="ml-1 font-weight-bold">ค้นหา</span>
+       </button>
+     </div>
+   </div>
+ </div>

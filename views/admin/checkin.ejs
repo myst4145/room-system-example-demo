@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%;" class="text-center" scope="col">รายการ</th>
+        <th style="width: 10%;" scope="col">เช็คอิน</th>
+        <th style="width: 25%;" scope="col">เลขที่จอง</th>
+        <th style="width: 15%;" scope="col">รหัสห้องพัก</th>
+        <th style="width: 10%;" scope="col">ประเภท</th>
+        <th style="width: 15%;" scope="col">ชื่อ - นามสกุล</th>
+        <th style="width: 10%;" scope="col">เช็คเอ้าท์</th>
+        <th style="width: 10%;" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(entries.length == 0){ %>
+      <tr>
+        <td colspan="9" class="text-center">
+          ไม่มีข้อมูล
+        </td>
+      </tr>
+      <% } %>
+      <% for (let i =0;i< entries.length;i++){ %>
+      <tr>
+        <td scope="row" class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </td>
+        <td><%= entries[i].checkin %></td>
+        <td>
+          <div class="input-group flex-wrap">
+            <input type="text" value="<%= entries[i].booking_id  %>" class="form-control-plaintext" id="<%= entries[i].booking_id  %>" disabled />
+            <div class="input-group-prepend">
+              <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#<%= entries[i].booking_id  %>'), $('#alert-<%= entries[i].booking_id  %>'))">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="position-absolute">
+            <p id="alert-<%= entries[i].booking_id  %>" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+          </div>
+        </td>
+        <td><%= entries[i].room_number_id %></td>
+        <td><%= entries[i].rental_type_display %> </td>
+        <td><%= entries[i].fname %> <%= entries[i].lname %></td>
+     
+        <td> <%= entries[i].checkout %></td>
+        <td>
+          <% if(data_role.booking_edit || admin_role =='cashier') { %>
+          <button data-id="<%= entries[i].booking_id %>" name="checkin" class="btn bg-gradient-success rounded-0">
+            <span class="font-weight-bold">เช็คอิน</span>
+          </button>
+          <%   } %>
+        </td>
+      </tr>
+      <% } %>
+
+
+    </tbody>
+  </table>
+</div>
+
+<%- include ('paginateQuery') %>
+<%- include ('checkin_modal') %>
+<script src="/src/js/admin/checkin/checkin.js"></script>
+<script src="/src/js/admin/checkin/checkinConfirm.js"></script>
+<script src="/src/js/admin/checkin/getCurrentOverdue.js"></script>
+<script src="/src/js/admin/checkin/getCurrentPrice.js"></script>

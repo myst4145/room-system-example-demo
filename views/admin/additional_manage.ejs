@@ -1,0 +1,86 @@
+<div class="text-right my-1 p-2">
+  <button class="btn  bg-gradient-success" data-act="add" name="open-electricity-modal">
+    <i class="fa-solid fa-plus"></i>
+    <span class="ml-1">เพิ่ม</span>
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+<div class="row my-1">
+  <div class="col-md-5">
+    <div class="input-group">
+      <div class="input-group-append">
+        <button class="input-group-text btn bg-gradient-light rounded-0" onclick="pasteData($('#findDataByBookingId'))">
+          <i class="fa-solid fa-paste"></i>
+        </button>
+      </div>
+      <input type="text" id="findDataByBookingId" value="<%= query.id %>" class="form-control" placeholder="ป้อนรหัสเลขที่จอง">
+      <div class="input-group-append">
+        <button class="input-group-text btn bg-gradient-primary" id="findDataByBookingIdBtn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-sm bg-gradient-secondary" id="getDataAll">
+      <span class="font-weight-bold">ทั้งหมด</span>
+    </button>
+  </div>
+</div>
+<div class="col-md-3" id="entries-query"></div>
+<div>
+  <div class="table-responsive ">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 5%;" class="text-center" scope="col">รายการ</th>
+          <th style="width: 30%;" scope="col">เลขที่จอง</th>
+          <th style="width: 10%;" scope="col">คัดลอก</th>
+          <th style="width: 25%;" scope="col">ชื่อ - นามสกุล</th>
+          <th style="width: 30%;" scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i =0;i<entries.length;i++){ %>
+        <tr>
+          <th class="text-center" scope="row">
+            <%= (paginate.page*paginate.row)+i+1 %>
+          </th>
+          <td>
+            <input type="text" value="<%= entries[i].booking_id %>" class="form-control-plaintext p-0" id="<%= entries[i].booking_id %>" disabled />
+          </td>
+          <td>
+            <button class="btn bg-gradient-light" onclick="copyData($('#<%= entries[i].booking_id %>'), $('#alert-<%= entries[i].booking_id %>'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+            <div class="position-absolute">
+              <p id="alert-<%= entries[i].booking_id %>" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+            </div>
+          </td>
+          <td><%= entries[i].fname +' '+ entries[i].lname  %></td>
+          <td>
+            <a href="/system?p=additional_transt&id=<%= entries[i].additional_id %>" class="btn btn-sm bg-gradient-success">
+              <i class="fa-solid fa-check"></i>
+              <span class="ml-1 font-weight-bold">เลือก</span>
+            </a>
+            <button class="btn btn-sm bg-gradient-primary" data-id="<%= entries[i].additional_id %>" data-act="edit" name="open-electricity-modal">
+              <i class="fa-solid fa-pen"></i>
+              <span class="ml-1 font-weight-bold">แก้ไข</span>
+            </button>
+            <button class="btn btn-sm bg-gradient-secondary" data-id="<%= entries[i].additional_id %>" name="additional-delete">
+              <span class="font-weight-bold">ลบ</span>
+            </button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include ('paginateQuery') %>
+<%-  include('additional/additional_cost_modal') %>
+<script src="/src/js/admin/additional/additionalManage.js"></script>
+<script src="/src/js/admin/additional/additionalSubmit.js"></script>

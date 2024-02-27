@@ -1,0 +1,22 @@
+.success-icon {
+  color: #2ecc71;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.success-icon i {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+}
+.booking-detail-text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+#place-booking {
+  min-height: 50vh;
+  padding: 1rem;
+}

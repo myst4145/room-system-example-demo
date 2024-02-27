@@ -1,0 +1,245 @@
+<div class="modal fade" id="rentalCheckoutModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="m-0">เช็คเอ้าท์</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped ">
+          <tbody>
+            <tr>
+              <th scope="row">เลขที่จอง </th>
+              <td colspan="3" class="rental-daily-data"></td>
+            </tr>
+            <tr>
+              <th scope="row">อาคาร / ชั้น </th>
+              <td class="rental-daily-data"></td>
+              <th scope="row">หมายเลขห้อง </th>
+              <td class="rental-daily-data"></td>
+
+            </tr>
+            <tr>
+              <th scope="row">ประเภทการเช่า</th>
+              <td class="rental-daily-data"></td>
+              <th scope="row">จำนวนการพัก</th>
+              <td class="rental-daily-data"></td>
+            </tr>
+
+            <tr>
+              <th scope="row">วันที่เข้าพัก</th>
+              <td class="rental-daily-data"></td>
+              <th scope="row">ออก</th>
+              <td class="rental-daily-data"></td>
+            </tr>
+            <tr>
+              <th style="width: 15%;" scope="row">ชื่อ - นามสกุล </th>
+              <td style="width: 35%" class="rental-daily-data"></td>
+              <th style="width: 15%" scope="row">เบอร์ติดต่อ </th>
+              <td style="width: 35%" class="rental-daily-data"></td>
+
+            </tr>
+            <tr>
+              <th scope="row">จำนวนคนเข้าพัก</th>
+              <td class="rental-daily-data"></td>
+            </tr>
+
+            <tr>
+              <th scope="row">ทำรายการ</th>
+              <td class="rental-daily-data"></td>
+              <th scope="row">แก้ไขล่าสุด</th>
+              <td class="rental-daily-data"></td>
+            </tr>
+
+          </tbody>
+        </table>
+        <div class="row justify-content-center" id="dailyNoLiimitForm">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label class="p-2 my-1">เช็คอิน</label>
+              <input type="date" disabled class="form-control" id="checkin">
+              <p class="empty-validate" id="validate-checkin"></p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label class="p-2 my-1">เช็คเอ้าท์</label>
+              <input type="date" class="form-control" id="checkout" oninput="currentChangeCheckoutAmount()" onchange="currentChangeCheckoutAmount()">
+              <p class="empty-validate" id="validate-checkout"></p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label class="p-2 my-1">จำนวนการพัก</label>
+              <input type="number" disabled class="custom-select" id="timeCount">
+              <p class="empty-validate" id="validate-timeCount"></p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label class="p-2 my-1">ราคา</label>
+              <input disabled type="number" class="custom-select" id="price">
+              <p class="empty-validate" id="validate-price"></p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group ">
+          <div class="icheck-success d-inline">
+            <input type="checkbox" name="payat" id="insurance-cost" value="insurance-cost">
+            <label for="insurance-cost">หักจากค่าประกัน</label>
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="icheck-success d-inline">
+            <input type="checkbox" name="payat" id="deposit" value="deposit">
+            <label for="deposit">หักจากค่ามัดจำล่วงหน้า</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">ค่าเช่า</label>
+            <input type="text" disabled id="rentalTotal" class="form-control border-0 font-weight-bold text-muted">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">ค่ามัดจำล่วงหน้า</label>
+            <input type="text" disabled min="0" id="rentalDeposit" class="form-control border-0 font-weight-bold text-muted">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">ค้างชำระ</label>
+            <input type="text" disabled id="rentalOverdue" class="form-control border-0 font-weight-bold text-muted">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">ค่าประกัน</label>
+            <input type="text" disabled min="0" id="rentalInsuranceCost" class="form-control border-0 font-weight-bold text-muted" value="0">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">คืนค่ามัดจำ</label>
+            <input type="text" disabled min="0" id="rentalDepositRefund" class="form-control border-0 font-weight-bold text-muted" value="0">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">คืนเงินค่าประกัน</label>
+            <input type="text" disabled min="0" id="rentalInsuranceCostRefund" class="form-control border-0 font-weight-bold text-muted">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">ค่าใช้จ่ายทั้งหมด</label>
+            <input type="text" disabled min="0" id="rentalExpense" class="form-control border-0 font-weight-bold text-muted" value="0">
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 p-1">ค่าเสียหาย</label>
+            <input type="number" min="0" oninput="currentTotalCheckout()" onchange="currentTotalCheckout()" id="rentalDamages" class="custom-select">
+            <div class="empty-validate" id="validate-rentalDamages"></div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 w-100 text-right p-1">ชำระเงินทั้งสิ้น</label>
+            <input type="text" disabled min="0" id="rentalPayMore" class="form-control-plaintext text-right  font-weight-bold border-0 text-muted" value="0">
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="m-1 text-right w-100 p-1">คืนเงินทั้งสิ้น</label>
+            <input type="text" disabled min="0" id="rentalRefundPay" class="form-control-plaintext text-right font-weight-bold border-0 text-muted" value="0">
+          </div>
+        </div>
+        <div class="m-1">
+          <div class="form-group row my-1">
+            <label class="col-md-2 col-form-label text-left text-md-right">
+              ชำระเงินทั้งสิ้น
+            </label>
+            <div class="col-md-10">
+              <input type="text" disabled class="form-control border-0  font-weight-bold text-muted bg-none" id="rentalPayMoreThaiFormat">
+            </div>
+          </div>
+          <div class="form-group row my-1">
+            <label class="col-md-2 col-form-label text-left text-md-right">
+              คืนเงินทั้งสิ้น
+            </label>
+            <div class="col-md-10">
+              <input type="text" disabled class="form-control border-0  font-weight-bold text-muted bg-none" id="rentalRefundPayThaiFormat">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+        <button id="rentalCheckout" class="btn  bg-gradient-success">
+          <strong>เช็คเอ้าท์</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#rentalCheckout').click(function() {
+    const checkoutForm = [{
+      'name': 'damages',
+      'input': $('#rentalDamages'),
+      'msg': 'กรุณาป้อนค่าเสียหาย ไม่มีโปรดใส่ค่าเป็น 0',
+      'validate': $('#validate-rentalDamages')
+    }, {
+      'name': 'checkout',
+      'input': $('#checkout'),
+      'msg': 'กรุณาป้อนเลือกวันเช็คเอ้าท์',
+      'validate': $('#validate-checkout')
+    }]
+    const id = $(this).data('id')
+    const rentaltype = $(this).attr('data-rentaltype')
+    let validateCount = 0
+    const damages = parseFloat($('#rentalDamages').val())
+    const is_damages = !isNaN(damages)
+    let is_checkout = true
+    if (rentaltype == 'daily-no-limit') {
+      const checkout = $('#checkout').val().trim()
+      is_checkout = checkout != ''
+      console.log('ffff', checkout)
+      validateformEmpty(!is_checkout, checkoutForm[1].validate, checkoutForm[1].msg)
+    }
+
+    validateformEmpty(!is_damages, checkoutForm[0].validate, checkoutForm[0].msg)
+
+
+
+    console.log(is_checkout, is_damages, rentaltype)
+
+
+
+
+    if (is_damages && is_checkout) {
+      const data = {
+        'insurance_cost_refund': $('#rentalInsuranceCostRefund').val(),
+        'damages': $('#rentalDamages').val(),
+        'overdue': $('#rentalOverdue').val(),
+        'payat': $('[name="payat"]').filter(':checked').length,
+        'checkout': $('#checkout').val(),
+        'rental_type': rentaltype,
+        'time_count': $('#timeCount').val(),
+        'checkin':$('#checkin').val()
+      }
+
+
+      axios.patch(`/booking/checkout/${id}`, data)
+        .then((response) => {
+          if (response.data.result) querySuccess('สำเร็จ')
+          if (!response.data.result) {
+            queryFail('ลงทะเบียนออก', 'ไม่สามารถลงทะเบียนออกได้', response.data.err)
+          }
+
+        }).catch((err) => {
+          queryFail('ลงทะเบียนออก', 'ไม่สามารถลงทะเบียนออกได้', err)
+        })
+
+
+    }
+
+
+  })
+</script>

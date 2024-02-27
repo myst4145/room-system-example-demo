@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>จองห้องพัก</title>
+  <% if(data.meta.length > 0){ %>
+  <% for(let i =0 ;i< data.meta.length;i++){ %>
+  <meta name="<%= data.meta[i].meta_name  %>" content="<%= data.meta[i].content  %>">
+  <% } %>
+  <% } %>
+
+  <head>
+    <%- include('head') %>
+    <link rel="stylesheet" href="/css/web/booking_room.css">
+  </head>
+</head>
+
+<body class="bg-light">
+  <%- include('navbar') %>
+  <div class="booking-wrapper">
+    <div class="container">
+
+
+      <section>
+        <% if(data.logo.length == 1) { %>
+
+        <% if(data.logo[0].logo_file != ''){ %>
+        <center>
+          <img class="rounded-circle" src="/src/img/logo/<%= data.logo[0].logo_file  %>" style="width: 100px;height: 100px;object-fit: contain;">
+        </center>
+        <%} %>
+
+
+        <%} %>
+
+
+        <div class="my-2 ">
+          <% const about = data.about %>
+          <% if(about.length > 0)  { %>
+          <section>
+            <h3 class="m-0 text-center text-muted fw-bold"> <%=  JSON.parse(about[0].data).company  %></h3>
+          </section>
+          <%  }%>
+        </div>
+        <h4 class="text-center fw-bold"> จองห้องพัก</h4>
+      </section>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <img src="/src/img/example_room/<%= entries.example_room[0] %>" style="width: 100%;object-fit: contain;border-radius: 12px;">
+          <h4 class="bg-primary bg-gradient badge p-2 my-3">
+            <span>หมายเลขห้อง</span>
+            <span><%= entries.room_number  %></span>
+          </h4>
+          <section class="bg-white bg-gradient p-2 rounded-3 shadow-sm border">
+
+            <%  if(entries.room_type != 'roomtype-no-specify') { %>
+            <p class="p-1 flex-wrap d-flex justify-content-between m-0">
+              <span>ประเภทห้อง</span>
+              <span class="fw-bold "><%= entries.room_type_display  %></span>
+            </p>
+            <% } %>
+            <%  if(entries.room_type != 'bedtype-no-specify') { %>
+            <p class="p-1 flex-wrap d-flex justify-content-between m-0">
+              <span>รูปแบบเตียง</span>
+              <span class="fw-bold"> <%= entries.bed_type_display  %></span>
+            </p>
+            <% } %>
+            <%  if(entries.roomview != 'view-no-specify') { %>
+            <p class="p-1 flex-wrap d-flex justify-content-between m-0">
+              <span>วิวห้อง</span>
+              <span class="fw-bold  "><%= entries.roomview_display  %></span>
+            </p>
+
+            <% } %>
+            <p class="m-0 d-flex justify-content-between flex-wrap">
+              <span>ราคา</span>
+              <span>
+                <strong class="text-danger"><%= entries.price_format %></strong>
+                <span>บาท</span>
+              </span>
+
+            </p>
+            <p class="m-0 d-flex justify-content-between flex-wrap">
+              <span>ค่ามัดจำล่วงหน้า</span>
+              <span>
+                <strong class=" text-danger">
+                  <%= entries.deposit_format %>
+                </strong>
+                <span>บาท</span>
+              </span>
+
+            </p>
+          </section>
+
+        </div>
+        <div class="col-md-6 ">
+          <div class="bg-white bg-gradient p-3 rounded-3 shadow-sm border">
+            <div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="my-1">
+                    <label class="my-1 p-2 fw-bold">ชื่อ</label>
+                    <input type="text" value="<%= member_data[0].fname %>" class="form-control border-0 border-bottom border-2 rounded-0" id="fname" placeholder="กรุณาป้อนชื่อ">
+                  </div>
+                  <p class="validate-empty" id="validate-fname"></p>
+                </div>
+                <div class="col-md-6">
+                  <div class="my-1">
+                    <label class="my-1 p-2 fw-bold">นามสกุล</label>
+                    <input type="text" value="<%= member_data[0].lname %>" class="form-control border-0 border-bottom border-2 rounded-0" id="lname" placeholder="นามสกุล">
+                  </div>
+
+                  <p class="validate-empty" id="validate-lname"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class=" my-1">
+                    <label class="my-1 p-2 fw-bold">เบอร์ติดต่อ</label>
+                    <input type="text" value="<%= member_data[0].phone %>" class="form-control border-0 border-bottom border-2 rounded-0" id="phone" placeholder="เบอร์ติดต่อ">
+
+                  </div>
+
+                  <p class="validate-empty" id="validate-phone"></p>
+                </div>
+                <div class="col-md-6">
+                  <div class="my-1">
+                    <label class="my-1 p-2 fw-bold">จำนวนคนที่พัก</label>
+                    <input type="number" class="form-control border-0 border-bottom border-2 rounded-0" min="1" id="amountPeopleStay" placeholder="จำนวน">
+
+                  </div>
+                  <p class="validate-empty" id="validate-amountPeopleStay"></p>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-md-6 <%= is_count_display %>">
+                  <div class="my-1">
+                    <label class="my-1 p-2 fw-bold">จำนวน</label>
+                    <input type="number" disabled value="<%= count %>" class="form-control border-0 border-bottom border-2 rounded-0">
+                  </div>
+                </div>
+                <div class="col-md-6 <%= is_unit_display %>">
+                  <div class="my-1">
+                    <label class="my-1 p-2 fw-bold">หน่วย</label>
+                    <input type="text" disabled value="<%=  unit_time_txt %>" class="form-control border-0 border-bottom border-2 rounded-0">
+                  </div>
+                  <p class="validate-empty" id="validate-amountPeopleStay"></p>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div class="my-1 ">
+                    <label class="my-1 p-2 fw-bold">เช็คอิน</label>
+                    <input type="date" <%= is_checkin_disbled %> value="<%= checkin %>" class="form-control border-0 border-bottom border-2 rounded-0" id="checkin">
+
+                  </div>
+                  <p class="validate-empty" id="validate-checkin"></p>
+                </div>
+                <div class="col-md-6 <%=  is_checkout_display %>">
+                  <div class="my-1">
+                    <label class="my-1 p-2 fw-bold">เช็คเอ้าท์</label>
+                    <input type="date" <%= is_checkout_disbled %> value="<%= checkout %>" class="form-control border-0 border-bottom border-2 rounded-0" id="checkout">
+                  </div>
+                  <p class="validate-empty" id="validate-checkout"></p>
+                </div>
+              </div>
+              <section>
+                <% if(is_promotion) { %>
+                <p class="text-end p-2 fw-bold">
+                  <span class="text-danger"><%= discount_txt %></span>
+                  <span><%= discount_time_in %></span>
+                </p>
+                <%  } %>
+
+                <p class="text-end p-2">ยอดชำระ <%= paid_format %></p>
+                <p class="my-2">
+                  <strong class="text-danger">หมายเหตุ</strong>
+                  <span>
+                    กรณีที่ลูกค้าจองแบบรายเดือน และ แบบไม่กำหนดวัน
+                    จะจ่ายเป็นค่ามัดล่วงหน้าก่อน
+                  </span>
+                  <span class="text-muted">
+                    หากจองแบบรายวันจะคิดเป็นยอดตามวัน
+                  </span>
+                </p>
+              </section>
+            </div>
+          </div>
+          <input type="hidden" id="is-promotion" class="" value="<%= is_promotion %>">
+          <input type="hidden" id="promotion" class="" value="<%= promotion %>">
+          <input type="hidden" id="promotion-discount" class="" value="<%= promotion_discount %>">
+          <input type="hidden" id="deposit" class="" value="<%= deposit %>">
+          <input type="hidden" id="total" class="" value="<%= total %>">
+          <input type="hidden" id="rentaltype" class="" value="<%= rental_type %>">
+          <input type="hidden" id="timeCount" class="" value="<%= count %>">
+          <div class="text-center p-2 my-2">
+            <button class="btn btn-primary bg-gradient" id="booking-submit" data-roomid="<%= entries.room_id %>" data-number="<%= entries.room_number_id %>">
+              แจ้งชำระเงิน
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('footer') %>
+  <script type="text/javascript" src="/src/js/web/bookingSubmit.js"></script>
+</body>
+
+</html>

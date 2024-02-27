@@ -1,0 +1,58 @@
+<div class="text-right m-1">
+  <button class="btn bg-gradient-success" data-act="insert" name="config-font-modal">
+    <i class="fa-solid fa-plus"></i>
+    <span class="ml-1 font-weight-bold">เพิ่มตัวอักษร</span>
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%;" class="text-center">ลำดับ</th>
+        <th style="width: 15%;">ชื่อตัวอักษร</th>
+        <th style="width: 25%;">ชื่อไฟล์</th>
+        <th style="width: 35%;">ตำแหน่งที่จัดเก็บ</th>
+        <th style="width: 20%;" class="text-center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(entries.length == 0){ %>
+      <tr>
+        <td class="text-muted text-center" colspan="6">ไม่พบข้อมูลนี้</td>
+      </tr>
+      <% } %>
+      <% for (let i = 0; i < entries.length; i++) { %>
+      <tr>
+        <th class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </th>
+        <td><%= entries[i].font_name  %></td>
+        <td> <%= entries[i].filename  %></td>
+        <td> <%= entries[i].storage %></td>
+        <td class="text-center">
+          <button name="config-font-modal" data-id="<%= entries[i].id %>" data-act="update" class="btn btn-sm bg-gradient-primary">
+            <i class="fa-solid fa-pencil"></i>
+            <span class="font-weight-bold ml-1">แก้ไข</span>
+          </button>
+          <button class="btn bg-gradient-secondary" name="font-delete" data-id="<%= entries[i].id %>">
+            <span class="font-weight-bold">ลบ</span>
+          </button>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+
+
+<%- include ('paginateQuery') %>
+<%- include ('system_config_font_modal') %>
+<script src="/js/admin/system/fontSubmit.js"></script>
+<script src="/js/admin/system/systemConfigFont.js"></script>
+<script src="/js/admin/system/getFontDataById.js"></script>

@@ -1,0 +1,50 @@
+<% if(booking[0].addtime.length > 0) { %>
+<div class="card">
+  <div class="card-header bg-gradient-secondary">
+    <h5 class="card-title">ข้อมูลการเพิ่มเวลา</h5>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th style="width: 5%;" class="text-center" scope="col">รายการ</th>
+            <th style="width: 15%;" scope="col">จำนวน</th>
+            <th style="width: 20%;" scope="col">ยอดที่เพิ่ม</th>
+            <th style="width: 30%;" scope="col">เช็คเอ้าท์ก่อนหน้า</th>
+            <th style="width: 30%;" scope="col">เช็คเอ้าท์ล่าสุด</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let t=0 ;t< booking[0].addtime.length;t++) { %>
+          <tr>
+            <th class="text-center" scope="col"><%= t+1 %></th>
+            <td>
+              <input type="hidden" name="addtime-unit-time" disabled class="form-control-plaintext" value="<%= booking[0].addtime[t].time_count + '-'+  booking[0].addtime[t].unit_time %>">
+              <%= booking[0].addtime[t].time_count + " "+  booking[0].addtime[t].unit_display %>
+            </td>
+            <td>
+              <input type="number" data-total="<%= booking[0].addtime[t].total %>" oninput="addTimeCurrentTotal(event)" onchange="addTimeCurrentTotal(event)" name="addtime-total" class="custom-select" value="<%= booking[0].addtime[t].total %>">
+            </td>
+            <td>
+              <input type="date" name="addtime-old-checkout" class="form-control" value="<%= booking[0].addtime[t].old_checkout %>">
+            </td>
+            <td>
+              <input type="date" name="addtime-checkout" class="form-control" value="<%= booking[0].addtime[t].last_checkout %>">
+            </td>
+            <td>
+              <button class="btn btn-sm bg-gradient-danger font-weight-bold" data-total="<%= booking[0].addtime[t].total %>" name="addtime-delete">
+                ลบ
+              </button>
+            </td>
+          </tr>
+          <%   } %>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</div>
+<% } %>

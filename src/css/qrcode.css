@@ -1,0 +1,27 @@
+.qrcode-img-bank {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.check-input {
+  margin-right: 12px;
+}
+
+
+#qrcode-preview {
+  margin: 24px 0;
+  width: 250px;
+  height: 350px;
+  border: 2px solid #eeeeee;
+}
+
+#qrcode-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.form-select:disabled {
+  background-color: white !important;
+}

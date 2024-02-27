@@ -1,0 +1,135 @@
+<div class="card my-4 border-0">
+  <div class="card-body">
+    <div>
+      <h5 class="m-0 p-2">
+        <i class="fa-solid fa-location-dot"></i>
+        <strong class="ms-1">ค้นหาห้องพัก</strong>
+      </h5>
+
+      <div class="row justify-content-between">
+        <div class="col-auto">
+          <div class="my-1">
+            <select class="form-control" id="findByRoomType">
+              <option value="">ประเภทห้อง</option>
+              <option value="standard">Standard</option>
+              <option value="superior">Superior</option>
+              <option value="deluxe">Deluxe</option>
+              <option value="suite">Suite</option>
+              <option value="family">Family</option>
+              <option value="studio">Studio</option>
+              <option value="connecting">Connecting</option>
+              <option value="duplex">Duplex</option>
+              <option value="villa">Villa</option>
+              <option value="adjoining">Adjoining</option>
+              <option value="cabana">Cabana</option>
+              <option value="honeymoon">Honeymoon</option>
+            </select>
+          </div>
+          <div class="my-1">
+            <select class="form-control" id="findByRoomView">
+              <option value="">วิวห้อง</option>
+              <option value="garden-view">Garden View</option>
+              <option value="seaview">Seaview</option>
+              <option value="poolview">Poolview</option>
+              <option value="pool-access">Pool Access</option>
+              <option value="beach-front">Beach Front</option>
+            </select>
+          </div>
+          <div class="my-1">
+            <select class="form-control" id="findByBedType">
+              <option value="">ประเภทเตียง</option>
+              <option value="king-sized">King Sized</option>
+              <option value="queen-sized">Queen Sized</option>
+              <option value="single-bed">Single</option>
+              <option value="twin-bed">Twin</option>
+              <option value="double-bed">Double</option>
+              <option value="triple-bed">Triple</option>
+              <option value="quad-bed">Quad</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="col-auto">
+          <div class="my-1">
+            <input class="form-control" id="findByMinPrice" value="<%= query_params.min %>" min="1" type="number" placeholder="ราคาเริ่มต้น" />
+          </div>
+          <div class="my-1">
+            <input class="form-control" value="<%= query_params.max %>" id="findByMaxPrice" min="1" type="number" placeholder="ราคาสูงสุด" />
+          </div>
+          <div class="validate-empty" id="validate-price"></div>
+        </div>
+        <div class="col-auto">
+          <label class="p-1 my-1 fw-bold">ประเภทการเช่า</label>
+          <div>
+            <div>
+              <input class="form-check-input" type="radio" value="daily-no-limit" name="rentaltype" id="findByDailyNoLimit">
+              <label class="form-check-label" for="findByDailyNoLimit">
+                แบบไม่กำหนดวัน
+              </label>
+            </div>
+            <div>
+              <input class="form-check-input" type="radio" value="daily" name="rentaltype" id="findByDaily">
+              <label class="form-check-label" for="findByDaily">
+                รายวัน
+              </label>
+            </div>
+            <div>
+              <input class="form-check-input" type="radio" name="rentaltype" value="monthly" id="findByMonthly">
+              <label class="form-check-label" for="findByMonthly">
+                รายเดือน
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group my-1">
+            <label class="p-1 my-1 fw-bold">เข้าพัก</label>
+            <input type="date" class="form-control" value="<%= query_params.checkin_retain %>" id="findByCheckin" onchange="currentBookingTime()" oninput="currentBookingTime()" />
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="form-group my-1">
+            <label class="p-1 my-1 fw-bold">ออก</label>
+            <input type="date" value="<%= query_params.checkout_retain %>" id="findByCheckout" disabled class="form-control" />
+          </div>
+        </div>
+        <div class="col-auto">
+
+          <label class="p-1 my-1 fw-bold">จำนวนเวลาพัก</label>
+          <div class="row">
+            <div class="col-auto">
+              <div class="my-1">
+                <input min="1" type="number" class="form-control" value="<%= query_params.time_count %>" onkeyup="currentBookingTime()" onchange="currentBookingTime()" id="timeCount" placeholder="จำนวนวันพัก" />
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="my-1">
+                <select disabled class="form-select border-0 fw-bold text-muted" id="unitTime">
+                  <option value="" selected>หน่วยเวลา</option>
+                  <option value="days">วัน</option>
+                  <option value="months">เดือน</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto h-100 align-items-center">
+          <div class="my-2 d-flex align-items-center h-100">
+            <button class="m-1 btn btn-sm btn-primary bg-gradient fw-bold" id="findDataByQueryForm">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              ค้นหา
+            </button>
+            <button class="btn btn-sm fw-bold btn-light m-1 bg-gradient" id="resetRoomDataBtn">
+              ล้างการค้นหา
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

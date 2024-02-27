@@ -1,0 +1,30 @@
+<% const title= data.logo.length == 1 ?  data.logo[0].title : 'ห้องพัก'  %>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><%= title  %></title>
+<% if(data.logo.length == 1){ %>
+<link rel="icon" type="image/x-icon" href="/src/img/logo/<%= data.logo[0].icon  %>">
+<% } %>
+<link rel="stylesheet" href="/css/web/index.css" />
+<link rel="stylesheet" href="/src/fontawesome-6.4.2/css/all.min.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="/sweetalert2/sweetalert2.min.css">
+<link rel="stylesheet" href="/css/web/navbar.css">
+<link rel="stylesheet" href="/css/web/footer.css">
+<script language="javascript" type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>
+<script language="javascript" type="text/javascript" src="/src/jquery-3.6.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="/sweetalert2/sweetalert2.min.js"></script>
+<script language="javascript" type="text/javascript" src="/axios"></script>
+<script language="javascript" type="text/javascript" src="/js/validate.js"></script>
+<script language="javascript" type="text/javascript" src="/js/sweetalert.js"></script>
+<script language="javascript" type="text/javascript" src="/js/dateFuncScript.js"></script>
+<script language="javascript" type="text/javascript" src="/js/funcScript.js"></script>
+<script language="javascript" type="text/javascript" src="/js/displayScript.js"></script>
+<script language="javascript" type="text/javascript" src="/src/js/retainValue.js"></script>
+<% if(data.logo.length == 1) { %>
+<% if (data.font.is_font){ %>
+<%- data.font.font_config %>
+<% } %>
+<% }  %>

@@ -1,0 +1,79 @@
+<div class="text-right my-1 p-2">
+  <button class="btn-sm btn bg-gradient-success " name="open-payment-modal" data-act="add">
+    <i class="fa-solid fa-plus"></i>
+    <span class="ml-1 font-weight-bold">เพิ่ม</span>
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+
+<div>
+  <div class="entries-d">
+    <span class="entries-text">แสดง</span>
+    <span class="entries-count"><%= entries.length  %></span>
+    <span> รายการ</span>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 5%;" class="text-center"> รายการ </th>
+          <th style="width: 15%;">ธนาคาร</th>
+          <th style="width: 25%;">สาขา</th>
+          <th style="width: 15%;">หมายเลขบัญชี</th>
+          <th style="width: 15%;">หมายชื่อบัญชี</th>
+          <th style="width: 15%;" class="text-center"></th>
+          <th style="width: 5%;" class="text-center">สถานะ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(entries.length==0){ %>
+        <tr class="align-middle">
+          <td class="text-center" colspan="7">ไม่มีข้อมูล</td>
+        </tr>
+        <% }  %>
+        <% for(let i=0;i<entries.length;i++){ %>
+        <tr>
+
+          <td class="text-center">
+            <%= (paginate.page*paginate.row)+i+1 %>
+          </td>
+          <td><%= entries[i].display_bank  %></td>
+          <td><%= entries[i].bank_branch  %></td>
+          <td><%= entries[i].display_number  %></td>
+          <td><%= entries[i].account_name %></td>
+          <td class="text-center">
+            <button class="btn btn-sm bg-gradient-primary" name="open-payment-modal" data-act="edit" data-id="<%= entries[i].payment_id  %>">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span class="ml-1 font-weight-bold">แก้ไข</span>
+            </button>
+
+            <button class="btn btn-sm bg-gradient-secondary" name="payment-delete" data-id="<%= entries[i].payment_id  %>">
+              <span class="font-weight-bold">ลบ</span>
+            </button>
+          </td>
+          <td class="text-center">
+            <% const  bankSwitch =  entries[i].toggle=='on' ?'checked' :''  %>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" value="<%= entries[i].payment_id  %>" class="custom-control-input bank-switch" id="<%= entries[i].payment_id %>" <%= bankSwitch  %>>
+              <label class="custom-control-label" for="<%= entries[i].payment_id %>"></label>
+            </div>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+
+
+<%- include ('paginateQuery') %>
+<script src="/js/paginate.js"></script>
+<%- include('payment_modal')  %>
+<script src="/js/admin/payment/payment.js"></script>
+<script src="/js/admin/payment/paymentSubmit.js"></script>
+<script src="/js/admin/payment/getPaymentById.js"></script>

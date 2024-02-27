@@ -1,0 +1,169 @@
+<%- include ('room/label/room_rentaltype') %>
+<input type="hidden" value="<%= entries[0].rental_type %>" id="retain-rentalType">
+
+<div class="d-flex">
+  <div class="custom-control custom-radio m-1">
+    <input class="custom-control-input" value="daily" type="radio" id="daily" name="rentaltype">
+    <label for="daily" class="custom-control-label">แบบรายวัน</label>
+  </div>
+  <div class="custom-control custom-radio m-1">
+    <input class="custom-control-input" type="radio" value="daily-no-limit" id="dailyNoLimit" name="rentaltype">
+    <label for="dailyNoLimit" class="custom-control-label">ไม่กำหนดวัน</label>
+  </div>
+  <div class="custom-control custom-radio m-1">
+    <input class="custom-control-input" value="monthly" type="radio" id="monthly" name="rentaltype">
+    <label for="monthly" class="custom-control-label">รายเดือน</label>
+  </div>
+</div>
+
+<p class="empty-validate" id="validate-rentaltype"></p>
+<%- include('room/rm_edit_roomsub') %>
+<%- include('room/rm_edit_form') %>
+<div class="row">
+  <div class="col-md-3 ">
+    <div class="my-1">
+      <label class="form-label">จำนวนเตียง <sub>*</sub></label>
+      <input type="number" value="<%= entries[0].bed_amount %>" id="bedAmount" min="1" class="form-control form-control-sm custom-select" placeholder="ป้อนจำนวน">
+      <p class="empty-validate" id="validate-bedAmount"></p>
+    </div>
+  </div>
+  <div class="col-md-3 ">
+    <div class="my-1">
+      <label class="form-label">จำนวนคนเข้าพักสูงสุด</label>
+      <input type="number" value="<%= entries[0].max_people %>" id="maxPeople" class="form-control form-control-sm custom-select" placeholder="ป้อนจำนวน">
+      <p class="empty-validate" id="validate-maxpeople"></p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="my-1">
+      <label class="form-label">จำนวนห้องน้ำ <sub>*</sub></label>
+      <input type="number" value="<%= entries[0].toilet_count %>" id="toiletCount" class="form-control form-control-sm custom-select" placeholder="ป้อนจำนวน">
+      <p class="empty-validate" id="validate-toilet-count"></p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="my-1">
+      <label class="form-label">ค่าของเสียหาย <sub>*</sub></label>
+      <input type="number" value="<%= entries[0].damage %>" id="damage" class="form-control form-control-sm custom-select" placeholder="ป้อนราคา">
+      <p class="empty-validate" id="validate-damage"></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="my-1">
+      <label class="form-label">เบอร์ติดต่อภายในห้อง (ถ้ามี)</label>
+      <input type="text" maxlength="18" id="tel" class="form-control" placeholder="ป้อนเบอร์ติดต่อ" />
+    </div>
+  </div>
+</div>
+<%- include('room/rm_edit_opt') %>
+
+<input type="hidden" id="example-old-delete">
+<input type="hidden" value="<%= entries[0].example_room %>" id="example-old-value">
+<p class="my-2 p-2 rounded font-weight-bold bg-gradient-secondary">
+  รูปภาพตัวอย่างเดิม
+</p>
+<div class="my-2">
+  <div id="example-old-preview" class="example-preview row justify-content-center">
+    <% example_room=entries[0].example_room.split(',') %>
+    <% for (let i=0; i < example_room.length; i++) { %>
+    <div class="col-md-3 p-3">
+      <div class="example-editing h-100">
+        <img src="/src/img/example_room/<%= example_room[i] %>" class="example-imgview"></img>
+        <button class="btn btn-danger img-acout" data-acout="<%= example_room[i] %>">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+    </div>
+    <% } %>
+  </div>
+</div>
+<%- include('room/label/room_example_upload') %>
+<%- include('room/label/room_detail') %>
+<div class="my-1">
+  <textarea class="form-control" id="descript-room" rows="12"></textarea>
+</div>
+<div class="text-center p-2 m-1">
+  <button class="btn bg-gradient-primary font-weight-bold" id="roomSubmit" data-act="update" data-id="<%= entries[0].room_id %>">
+    <span class="ml-1">บันทึก</span>
+  </button>
+</div>
+
+<%- include('info_modal/roomview_modal_info') %>
+<%- include('info_modal/roomtype_modal_info') %>
+<%- include('info_modal/bedtype_modal_info') %>
+<script src="/js/admin/rooms/room.js"></script>
+<script src="/js/admin/rooms/buildingfloorItems.js"></script>
+<script src="/js/admin/rooms/deleteInputNumber.js"></script>
+<script src="/js/admin/rooms/addRoomsubCount.js"></script>
+<script src="/js/admin/rooms/duplicateRoom.js"></script>
+<script src="/js/admin/rooms/deleteSpecialText.js"></script>
+<script src="/js/admin/rooms/addSpecialOption.js"></script>
+<script src="/js/Admin/rooms/roomSubmit.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    $.each($('[name="softdelete"]'), (i, opt) => {
+      const r = $(opt).attr('data-softdelete') != 'true' ? 'false' : 'true'
+      $.each($(opt).children(), (idx, el) => {
+        if ($(el).val() == r) {
+          $(el).prop('selected', true)
+        }
+      })
+    })
+
+    $.each($('select[name="status"]'), (i, opt) => {
+      const s = $(opt).attr('data-status') != 'unavailable' ? 'available' : 'unavailable'
+      console.log(s)
+      $.each($(opt).children(), (idx, el) => {
+        if ($(el).val() == s) {
+          $(el).prop('selected', true)
+        }
+      })
+    })
+    const retainRentalType = $('#retain-rentalType').val().trim()
+    $.each($('[name="rentaltype"]'), (i, opt) => {
+      if ($(opt).val() == retainRentalType) {
+        $(opt).prop('checked', true)
+      }
+    })
+
+    $('#roomType').val($('#roomType').data('room-type'))
+    $('#bedType').val($('#bedType').data('bedtype'))
+    $('#roomView').val($('#roomView').data('room-view'))
+  })
+
+  $('.img-acout').click(function() {
+    $(this).parent().remove()
+    const v = $(this).attr('data-acout')
+    const exampleOldValue = $('#example-old-value')
+    const exampleOldDelete = $('#example-old-delete')
+    const exampleOld = exampleOldValue.val().split(',')
+    const exampleOfterDelete = exampleOld.filter((e) => e != v)
+    let exampleDelete = exampleOldDelete.val().split(',')
+
+    if (exampleOldDelete.val() == '') {
+      exampleDelete = []
+    } else if (exampleOldDelete.val() != '') {
+      exampleDelete = exampleOldDelete.val().split(',')
+    }
+
+    exampleDelete.push(v)
+    exampleOldDelete.val(exampleDelete.join(','))
+
+    if (exampleOfterDelete.length == 0) {
+      exampleOldValue.val('')
+    } else if (exampleOfterDelete.length > 0) {
+      exampleOldValue.val(exampleOfterDelete.join(','))
+    }
+
+  })
+
+
+
+
+  $.each($('[name="building-floor-items"]'), (index, el) => {
+    $(el).val($(el).data('building-floor'))
+  })
+</script>

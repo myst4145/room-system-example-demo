@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เกี่ยวกับเรา</title>
+  <head>
+    <%- include('head') %>
+  </head>
+  <link rel="stylesheet" href="/css/web/about.css">
+</head>
+<body>
+  <%- include('navbar') %>
+  <main class="min-vh-100">
+    <section class="container">
+      <section class="border-bottom border-secondary p-5">
+        <div class="d-flex align-items-center p-2">
+          <% if(data.logo.length ==1) { %>
+          <% if(data.logo[0].logo_file !=''){ %>
+          <img src="/src/img/logo/<%= data.logo[0].logo_file  %>" style="height: 6rem;object-fit: contain;">
+          <% } %>
+          <% if(data.logo[0].logo_text !=''){ %>
+          <h3 class="m-2 rounded-pill bg-primary fw-bold p-3 text-light shadow-sm"><%= data.logo[0].logo_text %></h3>
+          <% } %>
+          <%} %>
+        </div>
+        <% const about = data.about %>
+        <% if(about.length > 0)  { %>
+        <h2> <%=  JSON.parse(about[0].data).company  %> </h2>
+        <div>
+          <h5> <%=  JSON.parse(about[0].data).location  %>
+          </h5>
+          <h5>
+            <%=  JSON.parse(about[0].data).road_alley  %>
+            <%=  JSON.parse(about[0].data).sub_district  %>
+          </h5>
+          <h5>
+            <%=  JSON.parse(about[0].data).district  %>
+            <%=  JSON.parse(about[0].data).province  %>
+            <%=  JSON.parse(about[0].data).postcode  %>
+          </h5>
+        </div>
+      </section>
+    </section>
+    <%  }%>
+    <div class="p-4">
+      <div class="container">
+        <% if(data.about.length >0) { %>
+        <h5 class="fw-bold">ติดต่อเรา</h5>
+        <div id="contact">
+          <div class="d-inline-flex p-2 my-1 text-white align-items-center rounded-pill bg-primary shadow-sm fw-bold">
+            <p class="m-0 me-1 rounded-circle  about-circle-icon">
+              <i class="fa-solid fa-phone-volume" style="font-size: 1.4rem;"></i>
+            </p>
+            <p class="m-0">
+              <%= JSON.parse(about[0].data).contact_number %>
+            </p>
+          </div>
+          <div class="d-inline-flex p-2 my-1 align-items-center text-light bg-dark rounded-pill shadow-sm fw-bold">
+            <p class="m-0 me-1 about-circle-icon">
+              <i class="fa-solid fa-envelope" style="font-size: 1.4rem;"></i>
+            </p>
+            <p class="m-0">
+              <%= JSON.parse(about[0].data).email  %>
+            </p>
+          </div>
+        </div>
+        <% } %>
+        <% if(data.social.length >0) { %>
+        <div id="social">
+          <h5 class="fw-bold">การติตตาม สอบถาม</h5>
+          <% const social = data.social %>
+          <% for(let i = 0;i< social.length;i++){ %>
+          <% if (social[i].data != '') { %>
+          <% if(social[i].group_type =='facebook' && social[i].input_type =='name'){ %>
+          <div class="about-tracking-items">
+            <i class="fa-brands fa-facebook"></i>
+            <div class="tracking-items-title">
+              <h6 class="tracking-items-subject">Facebook</h6>
+              <h6 class="tracking-items-text"><%= social[i].data %></h6>
+            </div>
+          </div>
+          <%  } %>
+          <% if(social[i].group_type =='twitter' && social[i].input_type =='name'){ %>
+          <div class="about-tracking-items">
+            <i class="fa-brands fa-twitter"></i>
+            <div class="tracking-items-title">
+              <h6 class="tracking-items-subject">Twitter</h6>
+              <h6 class="tracking-items-text"><%= social[i].data %></h6>
+            </div>
+          </div>
+          <%  } %>
+          <% if(social[i].group_type =='instagram' && social[i].input_type =='name'){ %>
+          <div class="about-tracking-items">
+            <i class="fa-brands fa-instagram"></i>
+            <div class="tracking-items-title">
+              <h6 class="tracking-items-subject">Instagram</h6>
+              <h6 class="tracking-items-text"><%= social[i].data %></h6>
+            </div>
+          </div>
+          <%  } %>
+          <% if(social[i].group_type == 'line' && social[i].input_type =='name'){ %>
+          <div class="about-tracking-items">
+            <i class="bi bi-line"></i>
+            <div class="tracking-items-title">
+              <h6 class="tracking-items-subject">LINE</h6>
+              <h6 class="tracking-items-text"><%= social[i].data %></h6>
+            </div>
+          </div>
+          <%  } %>
+          <% if(social[i].group_type == 'tiktok' && social[i].input_type =='name'){ %>
+          <div class="about-tracking-items">
+            <i class="fa-brands fa-tiktok"></i>
+            <div class="tracking-items-title">
+              <h6 class="tracking-items-subject">Tiktok</h6>
+              <h6 class="tracking-items-text"><%= social[i].data %></h6>
+            </div>
+          </div>
+          <%  } %>
+          <% if(social[i].group_type == 'youtube' && social[i].input_type =='name'){ %>
+          <div class="about-tracking-items">
+            <i class="fa-brands fa-youtube"></i>
+            <div class="tracking-items-title">
+              <h6 class="tracking-items-subject">Youtube</h6>
+              <h6 class="tracking-items-text"><%= social[i].data %></h6>
+            </div>
+          </div>
+          <%  } %>
+          <% } %>
+          <%  } %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </main>
+  <%- include('footer')  %>
+</body>
+</html>

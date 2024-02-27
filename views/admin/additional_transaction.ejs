@@ -1,0 +1,226 @@
+<% if(!is_booking) { %>
+<div class="card bg-gradient-success">
+  <div class="card-header">
+    <p class="m-0">ไม่มีเลขที่จองนี้</p>
+  </div>
+</div>
+<% } %>
+
+<div class="">
+  <div class="card-body">
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">เลขที่จอง</label>
+      <div class="col-md-auto">
+        <input type="text" disabled value="<%= booking_id %>" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">รหัสข้อมูลห้อง</label>
+      <div class="col-md-auto">
+        <input type="text" disabled value="<%= room_id %>" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">รหัสห้องพัก</label>
+      <div class="col-md-auto">
+        <input type="text" disabled value="<%= room_number_id %>" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">หมายเลขห้อง</label>
+      <div class="col-md-auto">
+        <input type="text" value="<%= room_number %>" disabled class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4">
+        <label>อาคาร</label>
+        <input type="text" disabled value="<%= building_name %>" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <label>ชั้น</label>
+        <input type="text" value="<%= building_floor %>" disabled class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">การประปาส่วนภูมิภาค</label>
+      <div class="col-md-auto">
+        <label>เลขที่ผู้ใช้น้ำ</label>
+        <div class="input-group my-1">
+          <input type="text" id="watUserNo" value="<%= wat_user_no %>" disabled class="form-control">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#watUserNo'), $('#alert-watUserNo'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <p id="alert-watUserNo" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">การประปานครหลวง</label>
+      <div class="col-md-auto">
+        <label>ทะเบียนผู้ใช้น้ำ</label>
+        <div class="input-group my-1">
+          <input type="text" id="watUserReg" value="<%=  wat_user_reg %>" disabled class="form-control">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#watUserReg'), $('#alert-watUserReg'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <p id="alert-watUserReg" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">การไฟฟ้าส่วนภูมิภาค</label>
+      <div class="col-md-4">
+        <label>รหัสเครื่องวัด</label>
+        <div class="input-group my-1">
+          <input type="text" id="elcMaterNo" value="<%= elc_meter_no %>" disabled class="form-control">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#elcMaterNo'), $('#alert-elcMaterNo'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <p id="alert-elcMaterNo" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+      </div>
+      <div class="col-md-4">
+        <label>หมายเลขผู้ใช้ไฟฟ้า</label>
+        <div class="input-group my-1">
+          <input type="text" id="elcUserNo" value="<%= elc_user_no %>" disabled class="form-control">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#elcUserNo'), $('#alert-elcUserNo'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <p id="alert-elcUserNo" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">การไฟฟ้านครหลวง</label>
+      <div class="col-md-4">
+        <label>เลขรับเรื่อง</label>
+        <div class="input-group my-1">
+          <input type="text" id="elcReceiptNo" value="<%= elc_receipt_no %>" disabled class="form-control">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#elcReceiptNo'), $('#alert-elcReceiptNo'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <p id="alert-elcReceiptNo" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+      </div>
+      <div class="col-md-4">
+        <label>บัญชีแสดงสัญญา</label>
+        <div class="input-group my-1">
+          <input type="text" id="elcAcctNo" value="<%= elc_acct_no %>" disabled class="form-control">
+          <div class="input-group-prepend">
+            <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#elcAcctNo'), $('#alert-elcAcctNo'))">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <p id="alert-elcAcctNo" class="position-relative  tooltop-alert bg-gradient-dark badge"></p>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">เช็คอิน</label>
+      <div class="col-md-auto">
+        <input type="text" id="checkin" value="<%= checkin %>" disabled class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">เช็คเอ้าท์</label>
+      <div class="col-md-auto">
+        <input type="text" id="checkout" value="<%= checkout %>" disabled class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>ชื่อ</label>
+          <input type="text" value="<%= additional_cost[0].fname %>" disabled class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>นามสกุล</label>
+          <input type="text" value="<%= additional_cost[0].lname %>" disabled class="form-control">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-right my-1 p-2">
+  <button class="btn bg-gradient-primary " name="open-additionalCost-modal" data-id="<%= additional_cost[0].additional_id %>" data-act="add">
+    <i class="fa-solid fa-plus"></i>
+    <span class="ml-1 font-weight-bold">เพิ่มรายการ</span>
+  </button>
+</div>
+
+<div class="card">
+  <div class="card-header bg-gradient-secondary">
+    <h5 class="card-title">รายละเอียดการชำระ</h5>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ปี เดือน</th>
+          <th scope="col">สถานะ</th>
+          <th scope="col">ประเภทค่าชำระ</th>
+          <th scope="col">ยอดรวม</th>
+          <th scope="col">ชำระแล้ว</th>
+          <th scope="col">ค้างชำระ</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% const transaction = additional_cost[0].transaction %>
+        <% for(let i=0;i<transaction.length;i++) { %>
+
+        <tr>
+          <td class="align-middle"><%= transaction[i].date %></td>
+          <td class="align-middle"><%= transaction[i].display_status %></td>
+          <td class="align-middle"><%= transaction[i].display_type %></td>
+          <td class="align-middle"><%= transaction[i].total_format %></td>
+          <td class="align-middle"><%= transaction[i].paid_format %></td>
+          <td class="align-middle"><%= transaction[i].overdue_format %></td>
+          <td class="align-middle">
+            <button class="btn btn-sm bg-gradient-success" data-type="<%= transaction[i].type %>" data-act="edit" data-date="<%= transaction[i].date %>" data-id="<%= additional_cost[0].additional_id %>" name="open-additionalCost-modal">
+              <i class="fa-solid fa-pen"></i>
+              <strong class="ml-1">แก้ไข</strong>
+            </button>
+            <button class="btn btn-sm bg-gradient-secondary" data-id="<%= additional_cost[0].additional_id %>" data-type="<%= transaction[i].type %>" data-act="edit" data-date="<%= transaction[i].date %>" data-date="<%= transaction[i].date %>" name="additional-trans-delete">
+              <strong>ลบ</strong>
+            </button>
+          </td>
+        </tr>
+        <%  } %>
+
+        <tr>
+          <td colspan="3">รวม</td>
+          <td>
+            <%= sum_total %>
+          </td>
+          <td>
+            <%= sum_paid %>
+          </td>
+          <td>
+            <%= sum_overdue %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include ('additional/additional_transaction_modal') %>
+<script src="/src/js/admin/additional/additional.js"></script>
+<script src="/src/js/admin/additional/getTransactionByDate.js"></script>
+<script src="/src/js/admin/additional/additionalTransactionSubmit.js"></script>

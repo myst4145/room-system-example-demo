@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ข้อมูลส่วนตัว</title>
+  <% if(data.meta.length > 0){ %>
+  <% for(let i =0 ;i< data.meta.length;i++){ %>
+  <meta name="<%= data.meta[i].meta_name  %>" content="<%= data.meta[i].content  %>">
+  <% } %>
+  <% } %>
+
+  <head>
+    <%- include('head') %>
+
+  </head>
+</head>
+
+<body class="bg-light">
+  <%- include('navbar') %>
+  <main class="min-vh-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+
+
+
+          <h5 class="my-2 p-2 text-center fw-bold">ข้อมูลผู้ใช้งาน</h5>
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <div>
+                <label class="p-1 my-1 fw-bold">บัญชีผู้ใช้</label>
+                <div class="input-group my-1">
+                  <input type="text" value="<%= entries[0].username %>" id="username" class="form-control border-0   rounded-0 bg-transparent" disabled placeholder="ป้อนชื่อผู้ใช้">
+                </div>
+              </div>
+              <div>
+                <label class="p-1 my-1 fw-bold">รหัสผ่าน</label>
+                <div class="input-group my-1">
+                  <input type="password" id="password" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนรหัสผ่านเพื่อยืนยันการแก้ไขข้อมูล">
+                  <button class="btn btn-light" onclick="obscureText('#password')">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+                <p class="validate-empty" id="validate-password"></p>
+              </div>
+              <div>
+                <label class="p-1 my-1 fw-bold">เบอร์ติดต่อ</label>
+                <div class="input-group my-1">
+                  <input type="text" id="phone" value="<%= entries[0].phone %>" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนเบอร์ติดต่อ">
+                </div>
+                <p class="validate-empty" id="validate-phone"></p>
+              </div>
+              <div>
+                <label class="p-1 my-1 fw-bold">ชื่อ</label>
+                <div class="input-group my-1">
+                  <input type="text" value="<%= entries[0].fname %>" id="memberFname" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนชื่อ">
+                </div>
+                <p class="validate-empty" id="validate-fname"></p>
+              </div>
+              <div>
+                <label class="p-1 my-1 fw-bold">นามสกุล</label>
+                <div class="input-group my-1">
+                  <input type="text" value="<%= entries[0].lname %>" id="memberLname" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนนามสกุล">
+                </div>
+                <p class="validate-empty" id="validate-lname"></p>
+              </div>
+              <div>
+                <div class="d-flex justify-content-center align-items-center my-1 p-2 flex-wrap">
+                  <button id="memberSubmit" class="btn btn-primary bg-gradient w-100">บันทึก</button>
+                  <button id="changePassword" class="btn bg-transparent border-0 text-dark w-100">เปลี่ยนรหัสผ่าน</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">เปลี่ยนรหัสผ่าน</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="changePasswordForm">
+            <div>
+              <label class="p-1 my-1 fw-bold">รหัสผ่านเดิม</label>
+              <div class="input-group my-1">
+                <input type="password" id="oldpassword" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนรหัสผ่าน">
+                <button type="button" class="btn btn-light" onclick="obscureText('#oldpassword')">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+              <p class="validate-empty" id="validate-oldpassword"></p>
+            </div>
+            <div>
+              <label class="p-1 my-1 fw-bold">รหัสผ่านใหม่</label>
+              <div class="input-group my-1">
+                <input type="password" id="newpassword" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนรหัสผ่าน">
+                <button type="button" class="btn btn-light" onclick="obscureText('#newpassword')">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+              <p class="validate-empty" id="validate-newpassword"></p>
+            </div>
+            <div>
+              <label class="p-1 my-1 fw-bold">ยืนยันรหัสผ่าน</label>
+              <div class="input-group my-1">
+                <input type="password" id="repassword" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent" placeholder="ป้อนรหัสผ่าน">
+                <button type="button" class="btn btn-light" onclick="obscureText('#repassword')">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+              <p class="validate-empty" id="validate-repassword"></p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient btn-secondary" data-bs-dismiss="modal">ปิด</button>
+          <button id="changePasswordSubmit" type="button" class="btn bg-gradient btn-primary">บันทึก</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('footer') %>
+  <script>
+    $('#changePasswordSubmit').click(function() {
+      const changePasswordForm = [{
+        'input': $('#oldpassword'),
+        'validate': $('#validate-oldpassword'),
+        'msg': 'กรุณาป้อนรหัสผ่านเดิมก่อน'
+      }, {
+        'input': $('#newpassword'),
+        'validate': $('#validate-newpassword'),
+        'msg': 'กรุณาป้อนรหัสผ่านไหม่ที่ต้องการเปลี่ยน'
+      }, {
+        'input': $('#repassword'),
+        'validate': $('#validate-repassword'),
+        'msg': 'กรุณาป้อนรหัสผ่านเพื่อยืนยันอีกครั้ง'
+      }]
+      let validateCount = 0
+      changePasswordForm.forEach((fd) => {
+        const {
+          input,
+          validate,
+        } = fd
+        let msg = ''
+        let is_valid = false
+        let is_err = false
+        const v = input.val().trim()
+        if (v == '') {
+          validateCount++
+          msg = fd.msg
+          is_err = true
+        }
+        if (v != '') {
+          const is_valid = input.attr('data-valid') == 'true'
+          console.log(',', is_valid)
+          if (!is_valid) {
+            validateCount++
+            is_err = true
+            msg = validate.text()
+          } else {
+            is_err = false
+          }
+        }
+        validateformEmpty(is_err, validate, msg)
+      })
+      if (validateCount == 0) {
+        axios.patch(`/member/update/password`, {
+            'password': $('#newpassword').val()
+          })
+          .then((response) => {
+            if (response.data.result) {
+              if (response.data.is_login == false) {
+                location.assign(`/login?route=${btoa('/member')}`)
+              } else {
+                queryFail('แจ้งเตือน', 'เกิดข้อผิดพลาด', '')
+              }
+            }
+            if (response.data.result) {
+              success('เปลี่ยนแปลงเรียบร้อย')
+              setInterval(() => {
+                formResetValue($('#changePasswordForm'))
+                clearValidateErr()
+              }, 1000)
+            }
+          })
+          .catch((err) => {
+            queryFail('แจ้งเตือน', 'เกิดข้อผิดพลาด', '')
+          })
+      }
+    })
+    $('#newpassword').on('input', function() {
+      const password = $(this).val().trim()
+      let is_valid = false
+      let validate = $('#validate-newpassword')
+      if (password != '') {
+        const {
+          result,
+          textErr
+        } = validatePassword(password)
+
+        if (!result) is_valid = true
+        console.log(result, textErr, is_valid)
+        $('#newpassword').attr('data-valid', !is_valid)
+        validateformEmpty(is_valid, validate, textErr)
+      }
+    })
+    $('#repassword').on('input', function() {
+      const password = $('#newpassword').val().trim()
+      const repassword = $(this).val().trim()
+      let is_valid = false
+      let validate = $('#validate-repassword')
+
+      if (password != repassword) {
+        is_valid = true
+      }
+      $('#newpassword').attr('data-valid', !is_valid)
+      validateformEmpty(is_valid, validate, 'รหัสผ่านไม่ตรงกัน')
+
+    })
+    $('#oldpassword').on('input', function() {
+      console.log('dddd')
+      const password = $(this).val().trim()
+      axios.post('/member/auth/password', {
+        'password': password
+      }).then((response) => {
+        let is_valid = false
+        console.log(response)
+        const validate = $('#validate-oldpassword')
+        if (response.data.result) {
+          is_valid = false
+        }
+        if (!response.data.result) {
+          if (response.data.is_login == false) {
+            location.assign(`/login?route=${btoa('/member')}`)
+          } else if (response.data.is_password == false) {
+            is_valid = true
+          }
+
+        }
+        $('#oldpassword').attr('data-valid', !is_valid)
+        validateformEmpty(is_valid, validate, 'กรุณาป้อนรหัสผ่านให้ถูกต้อง')
+      }).catch((err) => {
+        console.log(err)
+      })
+    })
+    $('#changePassword').click(function() {
+
+      formResetValue($('#changePasswordForm'))
+      $('.validate-empty').css('display', 'none')
+      $('#changePasswordModal').modal('show')
+    })
+    $('#memberSubmit').click(function() {
+      const memberForm = [{
+          'formtype': 'text',
+          'input': $('#memberFname'),
+          'validate': $('#validate-fname'),
+          'msg': 'กรุณาป้อนชื่อ'
+        },
+        {
+          'formtype': 'text',
+          'input': $('#memberLname'),
+          'validate': $('#validate-lname'),
+          'msg': 'กรุณาป้อนนามสกุล'
+        },
+        {
+          'formtype': 'password',
+          'input': $('#password'),
+          'validate': $('#validate-password'),
+          'msg': 'กรุณาป้อนรหัสผ่าน'
+        },
+        {
+          'formtype': 'text',
+          'input': $('#phone'),
+          'validate': $('#validate-phone'),
+          'msg': 'กรุณาป้อนเบอร์ติดต่อ'
+        }
+      ]
+      let validateCount = 0
+      memberForm.forEach((fd) => {
+        const {
+          input,
+          msg,
+          validate,
+          formtype
+        } = fd
+        let is_valid = false
+        if (formtype == 'text') {
+          const val = input.val().trim()
+          if (val == '') {
+            validateCount++
+            is_valid = true
+          }
+        }
+
+
+
+        if (formtype == 'password') {
+          const pass = input.val().trim()
+          if (pass == '') {
+            validateCount++
+            is_valid = true
+          }
+
+        }
+        validateformEmpty(is_valid, validate, msg)
+      })
+
+      if (validateCount == 0) {
+        axios.put(`/member/update/${$('#username').val()}`, {
+            'username': $('#username').val(),
+            'password': $('#password').val(),
+            'fname': $('#memberFname').val(),
+            'lname': $('#memberLname').val(),
+            'phone': $('#phone').val()
+          })
+          .then((response) => {
+            console.log(response)
+            const {
+              is_password,
+              result
+            } = response.data
+
+            if (result) {
+              querySuccess('เปลี่ยนแปลงสำเร็จ')
+            }
+            if (!result) {
+              let validateCount = 0
+              let msg = ``
+
+              if (is_password == false) {
+                msg = `กรุณาป้อนรหัสให้ถูกต้อง`
+                validateCount++
+              } else {
+                msg = `บันทึกข้อมูลล้มเหลว`
+                validateCount++
+              }
+              console.log(validateCount, msg)
+              if (validateCount > 0) queryFail('แจ้งเตือน', msg, '')
+            }
+
+          })
+          .catch((err) => {
+            queryFail('เกิดข้อผิดพลาด', 'ไม่สามารถบันทึดข้อมูลได้', '')
+          })
+
+
+      }
+    })
+  </script>
+</body>
+
+</html>

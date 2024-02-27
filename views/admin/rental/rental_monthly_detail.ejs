@@ -1,0 +1,55 @@
+<div class="modal fade" id="rentalMonthlyModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="m-0">ข้อมูลการเช่า</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xl-4 col-lg-6">
+            <table class="table table-bordered table-striped">
+              <tbody id="bookingTable"> </tbody>
+            </table>
+          </div>
+          <div class="col-xl-8  col-lg-6">
+            <div class="form-group">
+              <label class="">ชำระแล้ว</label>
+              <input type="text" disabled class="form-control font-weight-bold" id="rentalTransactionPaid">
+            </div>
+            <div class="form-group">
+              <label class="">ค้างชำระ</label>
+              <input type="text" disabled class="form-control font-weight-bold" id="rentalTransactionOverdue">
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead class="bg-gradient-secondary">
+                  <tr>
+                    <th style="width:25% ;" scope="col">เดือน</th>
+                    <th style="width:20% ;" scope="col">ยอดชำระ</th>
+                    <th style="width:15% ;" scope="col">สถานะ</th>
+                    <th style="width:30% ;" scope="col">วันที่ชำระ</th>
+                    <th style="width:10% ;" scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="transaction-table">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn  bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

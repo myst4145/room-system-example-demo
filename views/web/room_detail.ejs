@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <% const about = data.about %>
+  <% if(about.length > 0)  { %>
+  <meta name="keywords" content="ห้องเช่า ที่พัก ที่ <%=  JSON.parse(about[0].data).company  %>">
+  <meta name="description" content="ห้องเช่า ที่พัก ที่ <%=  JSON.parse(about[0].data).company  %>">
+  <meta name="keywords" content="<%=  JSON.parse(about[0].data).company  %>">
+  <meta name="description" content="<%=  JSON.parse(about[0].data).company  %>">
+  <meta name="auther" content="<%=  JSON.parse(about[0].data).company  %>">
+  <%  }%>
+  <meta name="description" content="ห้องเช่า ที่พัก">
+  <meta name="description" content="จองที่พัก จองห้องเช่า ">
+  <meta name="keywords" content="<%= entries.number %>">
+  <meta name="description" content="<%= entries.number %>">
+  <meta name="description" content="ห้องพักหมายเลข <%= entries.number %>">
+  <meta id="meta-rental" name="description" content="<%= entries.rental_type %>">
+  <meta name="description" content="ห้องเช่า<%= entries.rental_type_display %>">
+  <meta name="keywords" content="ห้องเช่า<%= entries.rental_type_display %>">
+
+
+  <% if(entries.room_type != 'roomtype-no-specify' ) { %>
+  <meta name="keywords" content="ห้องเช่าแบบ <%= entries.room %>">
+  <meta name="keywords" content="<%= entries.room %>">
+  <meta name="description" content="ห้องเช่าแบบ <%= entries.room %>">
+  <meta name="description" content="<%= entries.room %>">
+  <% } %>
+
+  <% if(entries.bed_type !='bedtype-no-specify') { %>
+  <meta name="keywords" content="ห้องเช่าเตียง <%= entries.bed %>">
+  <meta name="keywords" content="<%= entries.bed %>">
+  <meta name="description" content="เตียง <%= entries.bed %>">
+  <meta name="description" content="<%= entries.bed %>">
+  <% } %>
+
+  <% if(entries.roomview !='view-no-specify') { %>
+  <meta name="keywords" content="วิวห้องแบบ <%= entries.view %>">
+  <meta name="keywords" content="<%= entries.view %>">
+  <meta name="description" content="วิว <%= entries.view %>">
+  <meta name="description" content="<%= entries.view %>">
+  <%  } %>
+  <title><%= entries.number %></title>
+  <%- include('head') %>
+  <link rel="stylesheet" href="/css/web/room_detail.css">
+</head>
+
+<body class="bg-light">
+  <%- include('navbar') %>
+
+  <% const  example_room = entries.example_room.split(',') %>
+
+  <div class="container p-2">
+    <nav class="bg-white p-2 my-2 align-items-center">
+      <ol class="breadcrumb m-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/room">ห้องพัก</a></li>
+        <li class="breadcrumb-item active">
+          <%= entries.number %>
+        </li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col-md-3">
+        <div id="exampleCarousel" class="carousel slide" data-bs-ride="true">
+          <div class="carousel-indicators">
+            <% for(let i =0;i< example_room.length;i++){ %>
+            <% if(i==0){ %>
+            <button type="button" data-bs-target="#exampleCarousel" data-bs-slide-to="<%= i %>" class="active" aria-current="true" aria-label="Slide <%= i+1 %>"></button>
+            <% } %>
+            <% if(i > 0){ %>
+            <button type="button" data-bs-target="#exampleCarousel" data-bs-slide-to="<%= i %>" aria-current="true" aria-label="Slide <%= i+1 %>"></button>
+            <% } %>
+            <%  } %>
+          </div>
+          <div class="carousel-inner">
+            <% for(let i =0;i<example_room.length;i++){ %>
+            <% if(i==0){ %>
+            <div class="carousel-item active">
+              <img src="/src/img/example_room/<%= example_room[i]  %>" class="d-block w-100">
+            </div>
+            <% } %>
+            <% if(i>0){ %>
+            <div class="carousel-item">
+              <img src="/src/img/example_room/<%= example_room[i]  %>" class="d-block w-100">
+            </div>
+            <% } %>
+            <% } %>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#exampleCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#exampleCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <div class="m-2">
+              <h3 class="m-0"><%= entries.number %></h3>
+              <div class="m-2">
+                <% if(entries.room_type !='roomtype-no-specify') { %>
+                <section class="my-2">
+                  <h5 class="fw-bold m-0"><%= entries.room %></h5>
+                  <p class="m-0">
+                    <%= entries.room_descript %>
+                  </p>
+                </section>
+                <% } %>
+
+                <% if(entries.bed_type !='bedtype-no-specify') { %>
+                <section class="my-2">
+                  <h5 class="fw-bold m-0"><%= entries.bed %></h5>
+                  <p class="m-0">
+                    <%= entries.bed_descript %>
+                  </p>
+                </section>
+                <% } %>
+
+                <% if(entries.roomview !='view-no-specify') { %>
+                <section class="my-2">
+                  <h5 class="fw-bold m-0"><%= entries.view %></h5>
+                  <p class="m-0">
+                    <%= entries.view_descript %>
+                  </p>
+                </section>
+                <%  } %>
+              </div>
+            </div>
+            <section>
+
+              <% if(entries.special_options !=''){ %>
+              <div class="card border-0 ">
+                <div class="card-body bg-secondary bg-gradient badge p-2 text-start">
+                  <h5 class="card-title text-light m-0"> สิ่งอำนวยความสะดวก</h5>
+                </div>
+                <div class="card-body">
+
+                  <% const special_options = entries.special_options %>
+                  <% for(let i = 0 ;i< special_options.length;i++) { %>
+                  <p class="m-0">
+                    <i class="fa-solid fa-square-check text-primary fs-4"></i>
+                    <%= special_options[i] %>
+                  </p>
+                  <%  } %>
+
+
+                </div>
+              </div>
+              <% } %>
+              <h5>รายละเอียด </h5>
+              <div>
+                <% if(entries.detail !=''){ %>
+                <%= entries.detail  %>
+                <%  } %>
+              </div>
+              <div class="my-2">
+                <h5 class="m-0">
+                  เพิ่มเติม
+                </h5>
+                <ul class="more-opt">
+                  <li class="more-items">
+                    <span>-</span>
+                    <span>จำนวนเตียง</span>
+                    <span class="r-text-d text-danger"><%= entries.bed_amount %></span>
+                    <span>เตียง</span>
+                  </li>
+                  <li class="more-items">
+                    <span>-</span>
+                    <span>ห้องน้ำ</span>
+                    <span class="r-text-d text-danger"><%= entries.toilet_count %></span>
+                    <span>ห้อง</span>
+                  </li>
+                  <li class="more-items">
+                    <span>-</span>
+                    <span>จำนวนเข้าพักมากสุด</span>
+                    <span class="r-text-d text-danger"><%= entries.max_people %></span>
+                    <span>คน</span>
+                  </li>
+                  <li class="more-items">
+                    <span>-</span>
+                    <span>หากคนเกิน คิดคนละ </span>
+                    <span class="r-text-d text-danger"><%= entries.cost_people_exceed	 %></span>
+                    <span>บาท</span>
+                  </li>
+                  <li class="more-items">
+                    <span>-</span>
+                    <span>ค่าของเสียหาย</span>
+                    <span class="r-text-d text-danger"><%= entries.damage %></span>
+                    <span>บาท</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <div class="d-flex justify-content-center align-items-center p-2 my-2">
+      <h1 class="m-0">ตารางการจองห้อง</h1>
+      <h1 class="m-0 ms-1 fw-bold"><%= entries.number %></h1>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="m-2">
+          <select class="form-control form-control-lg " id="calendar-date">
+            <option value="1">---</option>
+            <option value="1">มกราคม</option>
+            <option value="2">กุมภาพันธ์</option>
+            <option value="3">มีนาคม</option>
+            <option value="4">เมษายน</option>
+            <option value="5">พฤษภาคม</option>
+            <option value="6">มิถุนายน</option>
+            <option value="7">กรกฎาคม</option>
+            <option value="8">สิงหาคม</option>
+            <option value="9">กันยายน</option>
+            <option value="10">ตุลาคม</option>
+            <option value="11">พฤศจิกายน</option>
+            <option value="12">ธันวาคม</option>
+
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="container">
+    <div class="card-body">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="table-responsive">
+            <table id="calendarReserveTable" class="table">
+              <thead class="bg-secondary text-white bg-gradient">
+                <tr>
+                  <th style="width: 10%" scope="col">อาทิตย์</th>
+                  <th style="width: 10%" scope="col">จันทร์</th>
+                  <th style="width: 10%" scope="col">อังคาร</th>
+                  <th style="width: 10%" scope="col">พุธ</th>
+                  <th style="width: 10%" scope="col">พฤหัสบดี</th>
+                  <th style="width: 10%" scope="col">ศุกร์</th>
+                  <th style="width: 10%" scope="col">เสาร์</th>
+                </tr>
+              </thead>
+              <tbody id="calendarBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script src="/src/js/web/reservations.js"></script>
+  <script src="/src/js/web/getMeetingBookingByDate.js"></script>
+  <%- include('reservat_calendar_modal.ejs') %>
+  <script>
+    function getParams() {
+      const url = new URL(location.href)
+      const params = url.searchParams
+      return params
+    }
+    $('#calendar-date').change(function() {
+      const [, , room_id, room_number_id] = location.pathname.split('/')
+
+      const room_number = new URLSearchParams(location.search).get('n')
+      const month = $(this).val()
+      const search = location.search
+      const href = location.href
+      console.log(month, 'month')
+      const route = `/room/${room_id}/${room_number_id}?n=${room_number}&month=${month}`
+      location.assign(route)
+    })
+  </script>
+  <%- include('footer') %>
+</body>
+
+</html>

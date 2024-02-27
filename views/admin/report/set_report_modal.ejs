@@ -1,0 +1,204 @@
+<div class="modal fade" id="setReportModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content ">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ตั้งค่ารายงาน</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="date-report" class="row">
+          <div class="col-xl-6">
+            <div class="form-group">
+              <label>เริ่มต้น</label>
+              <input type="date" class="form-control border-0" disabled id="startDate">
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <div class="form-group">
+              <label>ถึงวันที่</label>
+              <input type="date" class="form-control border-0" disabled id="endDate">
+            </div>
+          </div>
+        </div>
+
+        <div id="receipt">
+          <label class="p-2 my-1 bg-gradient-success badge">รหัสการจอง</label>
+          <input type="text" class="form-control border-0 my-2" id="bookingIdReport" disabled>
+
+          <div class="d-flex flex-wrap">
+            <div class="custom-control custom-checkbox m-1">
+              <input class="custom-control-input" value="tax-invice" type="checkbox" id="taxInvice" name="tax-invice">
+              <label for="taxInvice" class="custom-control-label">ขอใบกำกับภาษี</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>ชื่อลูกค้า</label>
+                <input type="text" class="form-control" id="customerName" placeholder="ป้อนชื่อลูกค้า">
+                <p class="empty-validate" id="validate-customerName"></p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>เลขประจําตัวผู้เสียภาษีลูกค้า</label>
+                <input type="text" maxlength="13" class="form-control" id="customerTaxId" placeholder="ป้อนเลขประจําตัวผู้เสียภาษีลูกค้า">
+                <p class="empty-validate" id="validate-customerTaxId"></p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>ที่อยู่ลูกค้า</label>
+                <input type="text" class="form-control" id="customerAddress" placeholder="ป้อนที่อยู่ลูกค้า">
+                <p class="empty-validate" id="validate-customerAddress"></p>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+        <div id="billReport">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="p-2 my-1 text-muted">บิลค่าไฟฟ้า</label>
+              <div class="form-inline">
+                <div class="custom-control custom-radio m-1">
+                  <input class="custom-control-input" value="true" type="radio" id="showElcBill" name="elc-bill">
+                  <label for="showElcBill" class="custom-control-label">แสดง</label>
+                </div>
+
+                <div class="custom-control custom-radio m-1">
+                  <input class="custom-control-input" value="false" type="radio" id="noElcBill" name="elc-bill" checked>
+                  <label for="noElcBill" class="custom-control-label">ไม่</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="p-2 my-1 text-muted">แสดงบิลค่าน้ำ</label>
+              <div class="form-inline">
+                <div class="custom-control custom-radio m-1">
+                  <input class="custom-control-input" value="true" type="radio" id="showWatBill" name="wat-bill">
+                  <label for="showWatBill" class="custom-control-label">แสดง</label>
+                </div>
+                <div class="custom-control custom-radio m-1">
+                  <input class="custom-control-input" value="no" type="radio" id="noWatBill" name="wat-bill" checked>
+                  <label for="noWatBill" class="custom-control-label">ไม่</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="p-1 my-1 text-muted">ชื่อบริษัท</label>
+            <div class="d-flex">
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="true" id="show-company" name="company" checked>
+                <label for="show-company" class="custom-control-label">แสดง</label>
+              </div>
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="false" id="no-company" name="company">
+                <label for="no-company" class="custom-control-label">ไม่</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="p-1 my-1 text-muted">โลโก้</label>
+            <div class="d-flex">
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="true" id="show-logo" name="logo" checked>
+                <label for="show-logo" class="custom-control-label">แสดง</label>
+              </div>
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="false" id="no-logo" name="logo">
+                <label for="no-logo" class="custom-control-label">ไม่</label>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="col-md-3">
+            <label class="p-1 my-1 text-muted">ที่ตั้ง</label>
+            <div class="d-flex">
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="true" id="show-location" name="location">
+                <label for="show-location" class="custom-control-label">แสดง</label>
+              </div>
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="false" id="no-location" name="location"  checked>
+                <label for="no-location" class="custom-control-label">ไม่</label>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="p-1 my-1 text-muted">เบอร์ติดต่อ</label>
+            <div class="d-flex">
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="true" id="show-contact-number" name="contact-number">
+                <label for="show-contact-number" class="custom-control-label">แสดง</label>
+              </div>
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="false" id="no-contact-number" name="contact-number"  checked>
+                <label for="no-contact-number" class="custom-control-label">ไม่</label>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="p-1 my-1 text-muted">อีเมล</label>
+            <div class="d-flex">
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="true" id="show-email" name="email">
+                <label for="show-email" class="custom-control-label">แสดง</label>
+              </div>
+              <div class="custom-control custom-radio m-1">
+                <input class="custom-control-input" type="radio" value="false" id="no-email" name="email"  checked>
+                <label for="no-email" class="custom-control-label">ไม่</label>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div id="alignment">
+          <label class="p-2 my-1">การวางแนว</label>
+          <div class="d-flex">
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" value="horizontal" id="horizontal" name="alignment" checked>
+              <label for="horizontal" class="custom-control-label">แนวนอน</label>
+            </div>
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" value="vertical" id="vertical" name="alignment">
+              <label for="vertical" class="custom-control-label">แนวตั้ง</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="font-weight-bold ml-1">ปิด</span>
+        </button>
+        <button name="report-submit" data-act="receipt" class="btn bg-gradient-success">
+          <span class="font-weight-bold">ตกลง</span>
+        </button>
+        <button name="report-submit" data-act="pdf" class="btn bg-gradient-success">
+          <i class="fa-solid fa-plus"></i>
+          <span class="font-weight-bold ml-1">สร้าง</span>
+        </button>
+        <button name="report-submit" data-act="report" class="btn bg-gradient-primary" id="receiptById">
+          <span class="font-weight-bold">แสดง</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

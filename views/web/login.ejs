@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ลงชื่อเข้าใช้งาน</title>
+
+  <head>
+    <%- include('head') %>
+  </head>
+  <link rel="stylesheet" href="/css/web/about.css">
+</head>
+
+<body class="bg-gradient bg-light ">
+  <%- include('navbar') %>
+  <main class="min-vh-100">
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="col-lg-4 col-md-6">
+          <h1 class="text-center my-1 p-2">ลงชื่อเข้าใช้บริการ</h1>
+          <section>
+            <h4 class="text-center m-0 text-muted">บริการห้องพัก ห้องเช่า โรงแรม โฮมสเตย์ </h4>
+            <% if(data.logo.length == 1) { %>
+            <% if(data.logo[0].logo_file != ''){ %>
+            <center>
+              <img class="rounded-circle" src="/src/img/logo/<%= data.logo[0].logo_file  %>" style="width: 100px;height: 100px;object-fit: contain;">
+            </center>
+            <% } %>
+            <%} %>
+            <div class="my-2 ">
+              <% const about = data.about %>
+              <% if(about.length > 0)  { %>
+              <section>
+                <h3 class="m-0 text-center text-muted fw-bold"> <%=  JSON.parse(about[0].data).company  %></h3>
+              </section>
+              <%  }%>
+            </div>
+          </section>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h5 class="my-1 p-2 text-center fw-bold">ลงชื่อเข้าใช้งาน</h5>
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <section>
+                <div class="">
+                  <div class="input-group my-1">
+                    <input type="text" id="username" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent p-2" placeholder="ชื่อผู้ใช้">
+                  </div>
+                  <p class="validate-empty" id="validate-username"></p>
+                  <div class="input-group my-1">
+                    <input type="password" id="password" class="form-control border-0 border-bottom border-2 rounded-0 bg-transparent p-2" placeholder="รหัสผ่าน">
+                  </div>
+                  <p class="validate-empty" id="validate-password"></p>
+                  <p class="validate-empty" id="validateLogin"></p>
+                  <div>
+                    <input class="form-check-input" type="checkbox" onchange="obscureText('#password')" id="showPassword">
+                    <label class="form-check-label" for="showPassword">
+                      แสดงรหัสผ่าน
+                    </label>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center my-1 p-2 w-100    flex-wrap">
+                  <button id="login" class="btn bg-gradient btn-primary w-100">ลงชื่อเข้าใช้งาน</button>
+                  <div class="p-2">
+                    <span class="m-2"> ยังไม่มีบัญชีผู้ใช้งาน </span>
+                    <a class="text-primary fw-bold" href="/register">
+                      สมัครสมาชิก
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script language="javascript" type="text/javascript" src="/src/js/web/login.js"></script>
+  <%- include('footer')  %>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<div class="m-1 p-1 text-right">
+  <button data-act="insert" name="open-member-modal" class="btn bg-gradient-success">
+    <i class="fa-solid fa-plus"></i>
+    <strong class="ml-1">เพิ่ม</strong>
+  </button>
+</div>
+<div class="row">
+  <div id="entries-query" class="col-md-3"></div>
+</div>
+
+<div class="entries-d">
+  <span class="entries-text">แสดง</span>
+  <span class="entries-count"><%= entries.length  %></span>
+  <span>รายการ</span>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-center" style="width: 5%;">รายการ</th>
+        <th style="width: 18%;">รหัสผู้ใช้งาน</th>
+        <th style="width: 13%;">บัญชีผู้ใช้งาน</th>
+        <th style="width: 12%;">ชื่อ</th>
+        <th style="width: 12%;">นามสกุล</th>
+        <th style="width: 22%;">วันที่สร้าง</th>
+        <th class="text-center" style="width: 18%;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%  if(entries.length == 0) { %>
+      <tr>
+        <td colspan="9" class="text-center">ไม่มีข้อมูล</td>
+      </tr>
+      <% } %>
+      <% for(let i =0;i<entries.length;i++) { %>
+      <tr>
+        <td class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </td>
+        <td><%= entries[i].member_id %></td>
+        <td><%= entries[i].username %></td>
+        <td><%= entries[i].fname %></td>
+        <td><%= entries[i].lname %></td>
+        <td><%= entries[i].created %></td>
+        <td class="text-center">
+
+          <button class="btn btn-sm bg-gradient-primary" data-act="update" name="open-member-modal" data-id="<%= entries[i].member_id  %>">
+            <i class="fa-solid fa-pen"></i>
+            <strong class="ml-1">แก้ไข</strong>
+          </button>
+          <button class="btn btn-sm bg-gradient-secondary" data-id="<%= entries[i].member_id  %>">
+            <strong>ลบ</strong>
+          </button>
+        </td>
+      </tr>
+      <% }%>
+    </tbody>
+  </table>
+</div>
+
+<%- include ('paginateQuery') %>
+<%- include ('member_modal') %>
+<script>
+  $('[name="open-member-modal"]').click(function() {
+    const act = $(this).attr('data-act')
+    const id = $(this).attr('data-id')
+    formResetValue($('#memberForm'))
+    clearValidateErr()
+    switch (act) {
+      case 'insert':
+        $('#memberModal').modal('show')
+        $('#memberSubmit')
+          .attr('data-act', act)
+        break;
+      case 'update':
+        $('#memberSubmit')
+          .attr('data-act', act)
+          .attr('data-id', id)
+        getMemberById(id)
+        break;
+      default:
+        break;
+    }
+  })
+  $('[name="change-password"]').change(function() {
+    const v = $(this).val()
+
+    const is_display = v == 'true' ? 'block' : 'none'
+    $('#passwordDisplay').css('display', is_display)
+  })
+  $('#memberSubmit').click(function() {
+    const memberForm = [{
+        'input': $('#fname'),
+        'validate': $('#validate-fname'),
+        'msg': 'กรุณาป้อนชื่อสมาชิก'
+      },
+      {
+        'input': $('#lname'),
+        'validate': $('#validate-lname'),
+        'msg': 'กรุณาป้อนชื่อสมาชิก'
+      },
+      {
+        'input': $('#phone'),
+        'validate': $('#validate-phone'),
+        'msg': 'กรุณาป้อนชื่อสมาชิก'
+      },
+      {
+        'formtype': 'password',
+        'input': $('#password'),
+        'validate': $('#validate-password'),
+        'msg': 'กรุณาป้อนชื่อสมาชิก'
+      }
+    ]
+    const change = $('[name="change-password"]').filter(':checked').val()
+    console.log(change || change == 'false')
+    let validateCount = 0
+    memberForm.forEach((fd) => {
+      const {
+        input,
+        msg,
+        validate,
+        formtype
+      } = fd
+      const val = input.val().trim()
+      let is_valid = false
+
+      if (val == '') {
+        if (formtype == 'password' && (!change || change == 'false')) {
+          is_valid = false
+        } else {
+          is_valid = true
+          validateCount++
+        }
+      }
+      console.log(is_valid, val, change)
+      validateformEmpty(is_valid, validate, msg)
+
+
+    })
+  })
+
+  function getMemberById(id) {
+    axios.get(`/member/data/${id}`)
+      .then((response) => {
+        if (response.data.result) {
+          console.log(response)
+          const entries = response.data.entries
+          $('#username').val(entries[0].username)
+          $('#fname').val(entries[0].fname)
+          $('#lname').val(entries[0].lname)
+          $('#phone').val(entries[0].phone)
+          $('#memberModal').modal('show')
+        }
+        if (!response.data.result) {
+          queryFail('แจ้งเตือน', 'โหลดข้อมูลล้มเหลว', response.data.err)
+        }
+      }).catch((err) => {
+        queryFail('เกิดข้อผิดพลาด', err, '')
+      })
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const query = JSON.parse($('#query').val())
+    createPaginateOnLoad()
+  })
+  $('#pdfSelectAll').click(function() {
+    $('[name="pdf"]').prop('checked', true)
+  })
+  $('#deleteBySelect').click(function() {
+    const items = $.map($('[name="pdf"]').filter(':checked'), (f) => $(f).val())
+    pdfDelete(items)
+  })
+
+  function pdfDelete(items) {
+    confirm('ลบข้อมูล', 'ต้องการลบไฟล์ทั้งหมดนี้ใช่ หรือไม่')
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios.post(`/pdf/delete`, {
+              'file': items
+            })
+            .then((response) => {
+              if (response.data.result) {
+                querySuccess('ลบเรียบร้อย')
+              }
+              if (!response.data.result) {
+                queryFail('แจ้งเตือน', 'โหลดข้อมูลล้มเหลว', response.data.err)
+              }
+            })
+            .catch((err) => {
+              queryFail('เกิดข้อผิดพลาด', err, '')
+            })
+        }
+      })
+
+  }
+  $('button[name="pdf-delete"]').click(function() {
+    const name = $(this).attr('data-name')
+    pdfDelete([name])
+  })
+</script>

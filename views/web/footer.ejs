@@ -1,0 +1,108 @@
+<footer class="bg-black bg-gradient">
+  <div class="container">
+    <% const about = data.about %>
+    <% if(about.length >0) { %>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4">
+        <h4 class="text-light">เกี่ยวกับเรา</h4>
+        <% if(data.logo.length == 1) { %>
+        <% if(data.logo[0].logo_file != ''){ %>
+        <img class="rounded-circle" src="/src/img/logo/<%= data.logo[0].logo_file  %>" style="width: 40px;height: 40px;object-fit: contain;">
+        <% } %>
+        <%} %>
+        <div class="text-light">
+          <p><%=  JSON.parse(about[0].data).company  %></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h4 class="text-light">ติดต่อเรา</h4>
+        <div class="text-light">
+          <div class="d-flex flex-wrap align-items-center  my-1 p-2">
+            <i class="fa-solid fa-phone fs-4"></i>
+            <span class="ms-3"><%= JSON.parse(about[0].data).contact_number %></span>
+          </div>
+          <div class="d-flex flex-wrap align-items-center my-1 p-2">
+            <i class="fa-regular fa-envelope fs-3"></i>
+            <span class="ms-3"><%= JSON.parse(about[0].data).email %></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h4 class="text-light">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="ms-1 fs-4">ที่ทำงาน</span>
+        </h4>
+        <div class="text-light">
+          <p> <%= about[0].location  %></p>
+          <p>
+            <span><%= JSON.parse(about[0].data).road_alley  %></span>
+            <span><%= JSON.parse(about[0].data).sub_district  %></span>
+          </p>
+          <p>
+            <span><%= JSON.parse(about[0].data).province %></span>
+            <span><%= JSON.parse(about[0].data).postcode %></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% }%>
+    <div class="footer-wrapper" id="footer-social">
+      <% const social = data.social %>
+      <% if(social.length > 0) { %>
+      <% const social_data = social[0].data %>
+      <ul class="footer-social-icon">
+        <%  for(let i =0 ;i< social.length;i++) { %>
+        <% if (social[i].data !='') { %>
+        <% if(social[i].group_type=='facebook' && social[i].input_type=='link'){ %>
+        <li>
+          <a href="<%= social[i].data %>" class="footer-social-link">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+        </li>
+        <% } %>
+        <% if(social[i].group_type=='twitter' && social[i].input_type=='link'){ %>
+        <li>
+          <a href="<%= social[i].data %>" class="footer-social-link">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+        </li>
+        <% } %>
+        <% if(social[i].group_type=='instagram' && social[i].input_type=='link'){ %>
+        <li>
+          <a href="<%= social[i].data %>" class="footer-social-link">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+        <% } %>
+        <% if(social[i].group_type=='line' && social[i].input_type=='link'){ %>
+        <li>
+          <a href="<%= social[i].data %>" class="footer-social-link">
+            <i class="fa-brands fa-line"></i>
+          </a>
+        </li>
+        <% } %>
+        <% if(social[i].group_type=='youtube' && social[i].input_type=='link'){ %>
+        <li>
+          <a href="<%= social[i].data %>" class="footer-social-link">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </li>
+        <% } %>
+        <% if(social[i].group_type=='tiktok' && social[i].input_type=='link'){ %>
+        <li>
+          <a href="<%= social[i].data %>" class="footer-social-link">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+        </li>
+        <% } %>
+        <%  } %>
+        <%  } %>
+      </ul>
+      <%  } %>
+      <div class="footer-bottom">
+        <div class="footer-brand">
+          CopyRight &copy; <span><%= new Date().getFullYear() %></span>
+        </div>
+      </div>
+    </div>
+</footer>

@@ -1,0 +1,70 @@
+<div class="text-right my-1 p-2">
+  <button name="open-building-modal" class="btn bg-gradient-success rounded-0" data-act="add">
+    <i class="fa-solid fa-plus"></i>
+    <strong class="ml-1">เพิ่ม</strong>
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+
+
+<div>
+  <div class="entries-d">
+    <span class="entries-text">แสดง</span>
+    <span class="entries-count"><%= entries.length  %></span>
+    <span> รายการ</span>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width:5% ;">รายการ</th>
+          <th style="width:15% ;">หมายเลขอาคาร</th>
+          <th style="width:50% ;">ชื่ออาคาร</th>
+          <th class="text-center" style="width:10% ;">จำนวนชั้น</th>
+          <th class="text-center" style="width:20% ;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(entries.length ==0) { %>
+        <tr>
+          <td class="text-center" colspan="5"> ไม่มีข้อมูล</td>
+        </tr>
+        <%  }  %>
+        <% for(let i =0 ;i<entries.length;i++) { %>
+        <tr>
+          <td class="text-center"> <%= (paginate.page*paginate.row)+i+1 %></td>
+          <td><%= entries[i].building_number !=''? entries[i].building_number : 'ไม่ระบุ'  %></td>
+          <td><%= entries[i].building_name !='' ? entries[i].building_name : 'ไม่ระบุ'   %></td>
+          <td class="text-center"><%= entries[i].floor_count %></td>
+          <td class="text-center">
+            <% if( admin_role == 'administrator' || data_role.room_edit) { %>
+            <button name="open-building-modal" class="btn btn-sm bg-gradient-primary" data-act="edit" data-id="<%= entries[i].building_id  %>">
+              <i class="fa-solid fa-pencil"></i>
+              <span class="font-weight-bold ml-1">แก้ไข</span>
+            </button>
+            <% } %>
+
+            <% if( admin_role == 'administrator' || data_role.room_remove) { %>
+            <button class="btn btn-sm bg-gradient-secondary" name="building-remove" data-id="<%= entries[i].building_id  %>">
+              <span class="font-weight-bold">ลบ</span>
+            </button>
+            <% } %>
+
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<%- include ('building_modal') %>
+<%- include ('paginateQuery') %>
+<script src="/js/paginate.js"></script>
+<script src="/js/admin/building/building.js"></script>
+<script src="/js/admin/building/getBuildingById.js"></script>
+<script src="/js/admin/building/buildingSubmit.js"></script>

@@ -1,0 +1,123 @@
+<form id="checkout-addtime-form">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="my-1">
+            <label class="form-label">รหัสการจอง</label>
+            <input type="text" class="border-0 form-control" id="checkout-bookingId" disabled>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="my-1">
+            <label class="form-label">ชื่อ</label>
+            <input type="text" class="border-0 form-control" id="checkout-fname" disabled>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="my-1">
+            <label class="form-label">นามสกุล</label>
+            <input type="text" class="border-0 form-control" id="checkout-lname" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="my-1">
+            <label class="form-label minutes">นาที</label>
+            <input type="number" class="border-0 form-control checkout-price-over" id="checkout-price-over-minutes" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="my-1">
+            <label class="form-label hour">ชั่วโมง</label>
+            <input type="number" class="border-0 form-control checkout-price-over" id="checkout-price-over-hour" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="my-1">
+            <label class="form-label">วัน</label>
+            <input type="number" class="border-0 form-control checkout-price-over" id="checkout-price-over-day" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="my-2">
+            <label class="form-label">สัปดาห์</label>
+            <input type="number" class="border-0 form-control checkout-price-over" id="checkout-price-over-week" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="my-2">
+            <label class="form-label">เดือน</label>
+            <input type="number" class="border-0 form-control checkout-price-over" id="checkout-price-over-month" disabled>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="my-2">
+            <label class="form-label">ปี</label>
+            <input type="number" class="border-0 form-control checkout-price-over" id="checkout-price-over-year" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+      <div class="my-2">
+        <label class="form-label">เลือกหน่วย</label>
+        <select class="form-select form-select-sm custom-select" id="time-over-unit" onchange="setPriceOver()">
+          <option value="" selected>เลือก</option>
+          <option value="minutes">นาที</option>
+          <option value="hour">ชั่วโมง</option>
+          <option value="day">วัน</option>
+          <option value="week">สัปดาห์</option>
+          <option value="month">เดือน</option>
+          <option value="year">ปี</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+      <div class="my-2">
+        <label class="form-label">เกินเวลา</label>
+        <input type="number" class="form-control form-control-sm custom-select" id="time-over-checkout" placeholder="ป้อนจำนวนเวลาเกิน">
+      </div>
+    </div>
+  </div>
+  <div class="card card-teal">
+    <div class="card-header">
+      <h3 class="card-title m-0">
+        ยอดชำระ
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <div class="my-2">
+            <div class="input-group">
+              <input type="number" min="0" value="0" class="form-control" id="price-over-total" onkeyup="inputNumber(event)" onchange="inputNumber(event)" disabled>
+              <button type="button" class="ac-btn text-darkgray bg-none" id="edit-price-over-total">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+            </div>
+          </div>
+          <div id="ac-control">
+            <button type="button" id="confirm-price-over-total" class="fw-bold btn btn-sm btn-light">
+              ตกลง
+            </button>
+            <button type="button" id="cancel-price-over-total" class="fw-bold btn btn-sm btn-light">
+              ยกเลิก
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-text">
+    ยอดชำระจะคำนวณค่าอัตโนมัติ หากต้องการ ปรับเปลี่ยนราคาสามารถแก้ไขได้
+  </div>
+</form>

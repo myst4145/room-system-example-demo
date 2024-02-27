@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%" scope="col">รายการ</th>
+        <th style="width: 18%" scope="col">เลขที่จอง</th>
+        <th style="width: 12%" scope="col">เช็คอิน</th>
+        <th style="width: 19%" scope="col">ทำรายการ</th>
+        <th style="width: 12%" scope="col">ชื่อ - นามสกุล</th>
+        <th style="width: 15%" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(entries.length == 0){ %>
+      <tr>
+        <td colspan="8" class="text-center">
+          ไม่มีข้อมูล
+        </td>
+      </tr>
+      <% } %>
+      <% for (let i =0;i< entries.length;i++){ %>
+      <tr>
+        <th class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </th>
+        <td>
+          <%= entries[i].booking_id %>
+        </td>
+        <td><%= entries[i].checkin %></td>
+        <td><%= entries[i].created %></td>
+        <td><%= entries[i].fname %> <%= entries[i].lname %></td>
+        <td>
+          <% if(data_role.booking_edit || admin_role=='cashier') { %>
+          <button data-id="<%= entries[i].booking_id %>" name="confirm-payment" class="btn bg-gradient-success rounded-0">
+            <i class="fa-solid fa-check"></i>
+            <span class="ml-1 font-weight-bold ">ยืนยัน</span>
+          </button>
+          <%   } %>
+
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include ('paginateQuery') %>
+<%- include ('confirm_payment_modal') %>
+<script src="/js/admin/confirmPayment/confirmPayment.js"></script>
+<script src="/js/admin/confirmPayment/confirmPaymentSubmit.js"></script>

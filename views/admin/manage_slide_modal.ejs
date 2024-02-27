@@ -1,0 +1,35 @@
+<div class="modal fade" tabindex="-1" id="manage-slide-modal">
+  <div class="modal-dialog  modal-dialog-scrollable modal-lg ">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">เพิ่มรูปภาพสไลด์</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="my-2">
+          <h6 class="form-label">หัวเรื่อง</h6>
+          <input type="text" class="form-control" id="slide-title" placeholder="ป้อนหัวเรื่อง">
+        </div>
+        <div class="my-2">
+          <h6 class="form-label">คำอธิบาย</h6>
+          <input type="text" class="form-control" id="slide-desc" placeholder="ป้อนคำอธิบาย">
+        </div>
+        <div>
+          <label for="upload-slide" class="btn bg-gradient-success rounded-0 ">
+            <input type="file" id="upload-slide" accept="image/*">
+            เลือกรูปภาพ
+          </label>
+          <div id="preview-slide"></div>
+          <p class="empty-validate" id="validate-slide"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-primary rounded-0" id="slide-submit">
+          บันทึก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

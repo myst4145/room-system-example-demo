@@ -1,0 +1,73 @@
+<div class="text-right m-2">
+  <button class="btn bg-gradient-success" data-act="insert" name="open-promotion-modal">
+    <i class="fa-solid fa-plus"></i>
+    <span class="ml-1 font-weight-bold">เพิ่มห้องพัก</span>
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+<div class="entries-d">
+  <span class="entries-text">แสดง</span>
+  <span class="entries-count"> <%= entries.length %> </span>
+  <span> รายการ </span>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%;" class="text-center">ลำดับ</th>
+        <th style="width: 35%;">รหัสข้อมูล</th>
+        <th class="text-center" style="width: 10%;">จำนวน</th>
+        <th style="width: 10%;">รูปแบบ</th>
+        <th style="width: 20%;">แก้ไขล่าสุด</th>
+        <th style="width: 20%;" class="text-center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(entries.length == 0){ %>
+      <tr>
+        <td class="text-muted text-center" colspan="6">ไม่พบข้อมูลนี้</td>
+      </tr>
+      <% } %>
+      <% for (let i = 0; i < entries.length; i++) { %>
+      <tr>
+        <th class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </th>
+        <td>
+          <input type="text" value="<%= entries[i].promotion_id  %>" class="form-control-plaintext" id="<%= entries[i].room_id  %>" disabled />
+        </td>
+        <td class="text-center">
+          <%= entries[i].amount %>
+        </td>
+        <td>
+          <%= entries[i].promotion_type %>
+        </td>
+        <td> <%= entries[i].modified %></td>
+        <td class="text-center">
+
+          <button data-act="update" name="open-promotion-modal" class="btn btn-sm bg-gradient-primary" data-id="<%= entries[i].promotion_id %>">
+            <i class="fa-solid fa-pencil"></i>
+            <span class="font-weight-bold ml-1">แก้ไข</span>
+          </button>
+
+
+          <button class="btn bg-gradient-secondary" name="promotion-remove" data-id="<%= entries[i].promotion_id %>">
+            <span class="font-weight-bold">ลบ</span>
+          </button>
+
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<%- include ('paginateQuery') %>
+<script src="/js/paginate.js"></script>
+<%- include ('promotion_modal') %>
+<script src="/js/admin/promotion/promotion.js"></script>
+<script src="/js/admin/promotion/promotion_modal.js"></script>
+<script src="/js/admin/promotion/getDataById.js"></script>
+<script src="/js/admin/promotion/getRoomData.js"></script>
+<script src="/js/admin/promotion/promotionSubmit.js"></script>

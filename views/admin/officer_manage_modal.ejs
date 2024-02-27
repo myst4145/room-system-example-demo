@@ -1,0 +1,86 @@
+<div class="modal fade" id="officerManageModal" tabindex="-1">
+  <div class="modal-dialog  modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ข้อมูลเจ้าหน้าที่</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="officerForm">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label> ชื่อผู้ใช้</label>
+                <input type="text" class="form-control" id="username" placeholder="ป้อนชื่อผู้ใช้">
+                <p class="empty-validate" id="validate-username"></p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label> รหัสผ่าน </label>
+                <input type="text" class="form-control" id="password" placeholder="ป้อนรหัสผ่าน">
+                <p class="empty-validate" id="validate-password"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class=""> ชื่อ </label>
+                <input type="text" maxlength="120" class="form-control" id="fname" placeholder="ป้อนชื่อ">
+                <p class="empty-validate" id="validate-fname"></p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label> นามสกุล</label>
+                <input type="text" maxlength="120" class="form-control" id="lname" placeholder="ป้อนนามสกุล">
+                <p class="empty-validate" id="validate-lname"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label> บทบาท / หน้าที่ </label>
+            <div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="role" value="cashier" id="cashier">
+                <label for="cashier" class="custom-control-label">แคชเชียร์</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="role" value="website" id="website">
+                <label for="website" class="custom-control-label">ผู้ดูแลเว็บไซต์</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="role" value="finance" id="finance">
+                <label for="finance" class="custom-control-label">การเงิน - บัญชี</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="role" value="administrator" id="administrator">
+                <label for="administrator" class="custom-control-label">ธุรการ - ข้อมูล</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="role" value="manager" id="manager">
+                <label for="manager" class="custom-control-label">ผู้จัดการ</label>
+              </div>
+              <p class="empty-validate" id="validate-role"></p>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="ml-1 font-weight-bold">ปิด</span>
+        </button>
+        <button class="btn bg-gradient-success font-weight-bold" id="officerSubmit">
+          บันทึก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

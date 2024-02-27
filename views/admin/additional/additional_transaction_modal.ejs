@@ -1,0 +1,87 @@
+<div class="modal fade" id="additionalCostModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ข้อมูลการชำระ</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="additionalTransactionForm">
+          <div class="form-group">
+            <label>สถานะ</label>
+            <select class="custom-select" id="status">
+              <option value="" selected>เลือก</option>
+              <option value="paid">ชำระแล้ว</option>
+              <option value="overdue">ค้างชำระ</option>
+            </select>
+            <p class="empty-validate" id="validate-status"></p>
+          </div>
+          <div class="form-group">
+            <label>ปี</label>
+            <input type="text" class="form-control" oninput="currentYear()" maxlength="4" id="year" placeholder="ป้อนปีแบบ ค.ศ. 4 หลัก">
+            <p class="empty-validate" id="validate-year"></p>
+          </div>
+          <div class="form-group">
+            <label>เดือน</label>
+            <select class="custom-select" id="month">
+              <option value="" selected>เลือก</option>
+              <option value="01">มกราคม</option>
+              <option value="02">กุมภาพันธ์</option>
+              <option value="03">มีนาคม</option>
+              <option value="04">เมษายน</option>
+              <option value="05">พฤษภาคม</option>
+              <option value="06">มิถุนายน</option>
+              <option value="07">กรกฎาคม</option>
+              <option value="08">สิงหาคม</option>
+              <option value="09">กันยายน</option>
+              <option value="10">ตุลาคม</option>
+              <option value="11">พฤศจิกายน</option>
+              <option value="12">ธันวาคม</option>
+            </select>
+            <p class="empty-validate" id="validate-month"></p>
+          </div>
+
+
+          <div class="d-flex">
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" name="type" value="wat" id="wat">
+              <label for="wat" class="custom-control-label">ค่าน้ำประปา</label>
+            </div>
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" name="type" value="elc" id="elc">
+              <label for="elc" class="custom-control-label">ค่าไฟฟ้า</label>
+            </div>
+
+          </div>
+          <p class="empty-validate" id="validate-type"></p>
+          <div class="form-group">
+            <label>ยอดชำระ</label>
+            <input type="number" class="custom-select" min="0" id="total" placeholder="ป้อนยอดชำระ">
+            <p class="empty-validate" id="validate-total"></p>
+          </div>
+          <div class="form-group">
+            <label>ชำระแล้ว</label>
+            <input type="number" oninput="currentPaid()" min="0" onchange="currentPaid()" class="custom-select" id="paid" placeholder="ป้อนชำระแล้ว">
+            <p class="empty-validate" id="validate-paid"></p>
+          </div>
+          <div class="form-group">
+            <label>ค้างชำระ</label>
+            <input type="number" disabled class="custom-select" min="0" id="overdue" placeholder="ป้อนค้างชำระ">
+            <p class="empty-validate" id="validate-overdue"></p>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+        <button class="btn bg-gradient-success font-weight-bold" id="additionalTransactionSubmit">
+          บันทึก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

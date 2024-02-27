@@ -1,0 +1,52 @@
+<div class="modal fade" tabindex="-1" id="systemConfigFontModal">
+  <div class="modal-dialog  modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">การกำหนดค่าตัวอักษร</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="fontForm">
+          <div class="form-group">
+            <label>ชื่อตัวอักษร</label>
+            <input type="text" class="form-control" id="fontName" placeholder="ป้อนชื่อตัวอักษร">
+          </div>
+          <p class="empty-validate" id="validate-fontName"></p>
+          <div class="form-group" id="storageDisplay">
+            <label>ที่จัดเก็บไฟล์เดิม</label>
+            <input type="text" class="form-control" id="storage" placeholder="ป้อนชื่อตัวอักษร">
+          </div>
+          <label for="">เลือกที่จัดเก็บไฟล์</label>
+          <div class="d-flex">
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" value="old" id="oldStorage" name="storage-type">
+              <label for="oldStorage" class="custom-control-label">เดิม</label>
+            </div>
+            <div class="custom-control custom-radio m-1">
+              <input class="custom-control-input" type="radio" value="new" id="newStorange" name="storage-type">
+              <label for="newStorange" class="custom-control-label">ใหม่</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>ที่จัดเก็บไฟล์</label>
+            <label class="btn bg-gradient-primary d-flex" for="fontUpload">อัพโหลดไฟล์ตัวอักษร</label>
+            <input type="file" class="d-none" id="fontUpload">
+          </div>
+          <p class="empty-validate" id="validate-fontUpload"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="ml-1">ปิด</span>
+        </button>
+        <button class="btn bg-gradient-success" id="fontSubmit">
+          <span class="font-weight-bold">บันทึก</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

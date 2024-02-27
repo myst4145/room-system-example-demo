@@ -1,0 +1,52 @@
+<div class="modal fade" id="booking-room-modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">จองห้องพัก</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body"><%- include('booking_room_form') %></div>
+      <div class="modal-footer justify-content-start">
+        <div class="d-flex justify-content-center w-100">
+          <div class="row justify-content-center w-100">
+            <div class="col-md-4">
+              <label class="form-label">ยอดชำระ</label>
+              <input min="1" type="number" class="form-control custom-select" id="total" placeholder="ยอดชำระ" />
+              <p class="empty-validate" id="validate-total"></p>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">จ่ายเงิน</label>
+              <input type="number" min="1" class="form-control custom-select" onchange="validatePaidiOverTotal()" oninput="validatePaidiOverTotal()" id="paid" placeholder="ป้อนยอดที่จ่าย" />
+              <p class="empty-validate" id="validate-paid"></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-right w-100">
+          <button class="btn rounded-0 bg-gradient-success" id="bookingSubmit">
+            <span class="font-weight-bold">จองห้องพัก</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function getRentalDataByPaste() {
+    try {
+      const data = JSON.parse($('#rentalDataPaste').val())
+      const {
+        fname,
+        lname,
+        phone
+      } = data
+      $('#fname').val(fname)
+      $('#lname').val(lname)
+      $('#phone').val(phone)
+    } catch (err) {
+      queryFail('ข้อผิดพลาด', 'ไม่สามารถรับข้อมูล', 'รับข้อมูลไม่ถูกต้อง')
+    }
+  }
+</script>

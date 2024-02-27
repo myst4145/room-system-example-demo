@@ -1,0 +1,120 @@
+<div class="m-1 p-1 sticky-top bg-gradient-light rounded" style="width: fit-content;">
+  <button id="deleteBySelect" class="btn rounded-0 bg-gradient-secondary font-weight-bold">
+    <i class="fa-solid fa-trash"></i>
+    <strong class="ml-1"> ลบที่เลือก</strong>
+  </button>
+  <button id="pdfSelectAll" class="btn rounded-0 bg-gradient-success font-weight-bold">
+    <i class="fa-solid fa-check"></i>
+    <strong class="ml-1">เลือกทั้งหมด</strong>
+  </button>
+</div>
+<div class="row">
+  <div id="entries-query" class="col-md-3"></div>
+</div>
+<div>
+  <button class="btn bg-gradient-secondary" onclick="location.assign(getPageIsSystem(location.search))">
+    <strong>ค่าเริ่มต้น</strong>
+  </button>
+</div>
+<div class="entries-d">
+  <span class="entries-text">แสดง</span>
+  <span class="entries-count"><%= entries.length  %></span>
+  <span>รายการ</span>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-center" style="width: 5%;">รายการ</th>
+        <th style="width: 30%;">ชื่อไฟล์</th>
+        <th style="width: 30%;">ตำแหน่งที่เก็บ</th>
+        <th style="width: 14%;">วันที่สร้าง</th>
+        <th class="text-center" style="width: 6%;">ลบ</th>
+        <th class="text-center" style="width: 6%;">เปิด</th>
+        <th class="text-center" style="width: 6%;">เลือก</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%  if(entries.length == 0) { %>
+      <tr>
+        <td colspan="9" class="text-center">ไม่มีข้อมูล</td>
+      </tr>
+      <% } %>
+      <% for(let i =0;i<entries.length;i++) { %>
+      <tr>
+        <td class="text-center">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </td>
+        <td>
+          <input type="text" value="<%= entries[i].filename %>" disabled class="form-control-plaintext">
+        </td>
+        <td>
+          <input type="text" value="<%= entries[i].src %>" disabled class="form-control-plaintext">
+        </td>
+        <td><%= entries[i].created %></td>
+
+        <td class="text-center">
+          <button class="btn btn-sm bg-gradient-dark" name="pdf-delete" data-name="<%= entries[i].filename  %>">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+
+        <td class="text-center">
+          <a href="/src/pdf/<%= entries[i].filename  %>" target="_blank" name="open-report-modal" class="btn btn-sm bg-gradient-light">
+            <i class="fa-regular fa-folder-open"></i>
+          </a>
+        </td>
+        <td class="text-center">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" value="<%= entries[i].filename %>" type="checkbox" id="<%= entries[i].filename %>" name="pdf">
+            <label for="<%= entries[i].filename %>" class="custom-control-label"></label>
+          </div>
+        </td>
+      </tr>
+      <% }%>
+    </tbody>
+  </table>
+</div>
+
+<%- include ('paginateQuery') %>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const query = JSON.parse($('#query').val())
+    createPaginateOnLoad()
+  })
+  $('#pdfSelectAll').click(function() {
+    $('[name="pdf"]').prop('checked', true)
+  })
+  $('#deleteBySelect').click(function() {
+    const items = $.map($('[name="pdf"]').filter(':checked'), (f) => $(f).val())
+    pdfDelete(items)
+  })
+
+  function pdfDelete(items) {
+    confirm('ลบข้อมูล', 'ต้องการลบไฟล์ทั้งหมดนี้ใช่ หรือไม่')
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios.post(`/pdf/delete`, {
+              'file': items
+            })
+            .then((response) => {
+              if (response.data.result) {
+                querySuccess('ลบเรียบร้อย')
+              }
+              if (!response.data.result) {
+                queryFail('แจ้งเตือน', 'ลบไฟล์ล้มเหลว', response.data.err)
+              }
+            })
+            .catch((err) => {
+              queryFail('เกิดข้อผิดพลาด', err, '')
+            })
+        }
+      })
+
+  }
+  $('button[name="pdf-delete"]').click(function() {
+    const name = $(this).attr('data-name')
+    pdfDelete([name])
+  })
+</script>

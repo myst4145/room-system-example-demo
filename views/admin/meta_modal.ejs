@@ -1,0 +1,68 @@
+<div class="modal fade" tabindex="-1" id="metaModal">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">Meta</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="my-1">
+          <select class="form-select form-select-sm custom-select" id="room-id">
+            <option value="" selected>เลือกหมายเลขห้อง</option>
+            <% for (let i =0;i<room_number.length;i++) { %>
+
+            <% const number =
+                  JSON.parse(room_number[i].room_sub).map((r)=>r.room_number).join('-')
+                  %>
+
+            <option value="<%= room_number[i].room_id  %>">
+              <%= number %>
+            </option>
+            <% } %>
+          </select>
+        </div>
+        <p class="empty-validate" id="validate-room-id"></p>
+        <div class="my-1">
+          <label class="my-1 p-2">คำค้นหา</label>
+          <input type="text" class="form-control" id="meta-text" placeholder="ป้อนข้อความ">
+        </div>
+
+        <p class="empty-validate" id="validate-text"></p>
+        <label class="p-2 my-1">เลือก Meta name</label>
+        <div class="input-group">
+          <div class="custom-control custom-radio m-1">
+            <input class="custom-control-input" name="meta" type="radio" value="description" id="description">
+            <label class="custom-control-label" for="description">
+              Description
+            </label>
+          </div>
+          <div class="custom-control custom-radio m-1">
+            <input class="custom-control-input" name="meta" type="radio" value="keywords" id="keywords">
+            <label class="custom-control-label" for="keywords">
+              Keywords
+            </label>
+          </div>
+          <div class="custom-control custom-radio m-1" id="meta-auther">
+            <input class="custom-control-input" name="meta" type="radio" value="author" id="author">
+            <label class="custom-control-label" for="author">
+              Author
+            </label>
+          </div>
+        </div>
+        <p class="empty-validate" id="validate-name"></p>
+      </div>
+      <div class="modal-footer">
+
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="font-weight-bold ml-1">ปิด</span>
+        </button>
+        <button class="btn bg-gradient-primary" id="meta-submit">
+          <span class="font-weight-bold">บันทึก</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="modal fade" id="electricityModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">เพิ่มผู้ชื่อผู้ชำระค่าไฟฟ้า</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+          <select class="custom-select" id="status">
+            <option value="" selected>สถานะ</option>
+            <option value="checkin">กำลังพักอยู่</option>
+            <option value="cancel">ยกเลิก</option>
+            <option value="checkout">ย้ายออกแล้ว</option>
+          </select>
+          <p class="empty-validate" id="validate-status"></p>
+
+          <label class="my-1 p-2">รหัสการเช่าจอง</label>
+          <div class="input-group">
+
+            <input class="form-control" id="booking-id" type="text" placeholder="ป้อนรหัสเลขห้อง">
+            <div class="input-group-append">
+              <button class="input-group-text btn bg-gradient-light" onclick="pasteData($('#booking-id'))">
+                <i class="fa-solid fa-paste"></i>
+              </button>
+            </div>
+          </div>
+
+          <p class="empty-validate" id="validate-bookingId"></p>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="my-1 p-2">ชื่อ</label>
+                <input type="text" class="form-control" id="fname" placeholder="ป้อนชื่อ">
+                <p class="empty-validate" id="validate-fname"></p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="my-1 p-2">นามสกุล</label>
+                <input type="text" class="form-control" id="lname" placeholder="ป้อนนามสกุล">
+                <p class="empty-validate" id="validate-lname"></p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+        <button class="btn bg-gradient-success font-weight-bold" id="additionalCostSubmit">
+          บันทึก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

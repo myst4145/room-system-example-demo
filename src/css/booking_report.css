@@ -1,0 +1,77 @@
+#r-number-report {
+  display: none;
+}
+
+.report-switch {
+  background: none;
+  padding: 4px 18px;
+  border-radius: 7px;
+  color: #9e9e9e;
+}
+
+.report-switch.active {
+  color: black;
+}
+
+#wrapper-report-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 0;
+}
+
+#w-report {
+  position: relative;
+  padding: 0;
+}
+
+.report-entries {
+  padding: 6px 18px;
+}
+
+#reverse-include-display {
+  display: flex;
+  align-items: center;
+  color: #424949;
+}
+
+#reverse-include-display p {
+  margin: 0;
+  padding: 7px 12px;
+}
+
+#reverse-count {
+  margin-right: 7px;
+}
+
+@media print {
+  h5,
+  .wrapper-page,
+  .wrapper-content-page,
+  #entries-query,
+  #paginate {
+    visibility: hidden;
+  }
+  .modal-content {
+    border: 0px !important;
+    box-shadow: 0px !important;
+  }
+  .modal-footer,
+  .modal-header {
+    display: none !important;
+    visibility: hidden !important;
+    margin: 0;
+    padding: 0;
+  }
+  .modal-body {
+    border: 0px !important;
+    box-shadow: 0px !important;
+    margin: 0px !important;
+  }
+  .modal-body::-webkit-scrollbar {
+    visibility: hidden;
+  }
+  #booking-report-print {
+    display: block;
+  }
+}

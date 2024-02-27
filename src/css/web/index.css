@@ -1,0 +1,408 @@
+@font-face {
+  font-family: Sarabun;
+  src: url("/src/font/sarabun/sarabun.ttf");
+}
+
+@font-face {
+  font-family: Mitr;
+  src: url("/src/font/Mitr/Mitr-Regular.ttf");
+}
+
+@font-face {
+  font-family: Athiti;
+  src: url("/src/font/Athiti/Athiti-Regular.ttf");
+}
+
+@font-face {
+  font-family: Maitree;
+  src: url("/src/font/Maitree/Maitree-Regular.ttf");
+}
+
+@font-face {
+  font-family: Pridi;
+  src: url("/src/font/Pridi/Pridi-Regular.ttf");
+}
+
+@font-face {
+  font-family: Thasadith;
+  src: url("/src/font/Thasadith/Thasadith-Regular.ttf");
+}
+
+@font-face {
+  font-family: SF Thonburi;
+  src: url("/src/font/SF_Thonburi/SFThonburi-Regular.ttf");
+}
+
+@font-face {
+  font-family: IBM Plex Sans Thai;
+  src: url("/src/font/IBM_Plex_Sans_Thai/IBMPlexSansThai-Regular.ttf");
+}
+
+@font-face {
+  font-family: Kanit;
+  src: url("/src/font/Kanit/Kanit-Regular.ttf");
+}
+
+@font-face {
+  font-family: Prompt;
+  src: url("/src/font/Prompt/Kanit-Regular.ttf");
+}
+
+@font-face {
+  font-family: Bai Jamjuree;
+  src: url("/src/font/Bai_Jamjuree/BaiJamjuree-Regular.ttf");
+}
+
+@font-face {
+  font-family: CS PraJad;
+  src: url("/src/font/CS_PraJad/CSPraJad-v2.otf");
+}
+
+@font-face {
+  font-family: Niramit;
+  src: url("/src/font/Niramit/Niramit-Regular.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  src: url("/src/font/Poppins/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: K2D;
+  src: url("/src/font/K2D/K2D-Regular.ttf");
+}
+
+:root {
+  --bs-blue: #0d6efd;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-white: #fff;
+  --bs-gray: #6c757d;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --bs-gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0)
+  );
+}
+* {
+  box-sizing: border-box;
+  font-size: 11px;
+  font-family: Poppins, Sarabun;
+}
+body {
+  background-color: #f8f9fa;
+}
+a {
+  text-decoration: none !important;
+}
+#calendarReserveTable tbody td,
+#calendarReserveTable tbody th {
+  padding: 2rem !important;
+}
+.bg-teal {
+  background-color: #20c997 !important;
+}
+.booking-link {
+  color: black;
+}
+.booking-link:hover {
+  color: black;
+}
+.text-indigo {
+  color: var(--bs-indigo);
+}
+.bg-indigo.bg-gradient {
+  background-color: var(--bs-gradient) !important;
+  background-color: var(--bs-indigo) !important;
+  color: var(--bs-light) !important;
+}
+.text-teal {
+  color: var(--bs-teal) !important;
+}
+
+.bg-teal.bg-gradient {
+  background-color: var(--bs-gradient) !important;
+  background-color: var(--bs-teal) !important;
+  color: var(--bs-light) !important;
+}
+.border-teal {
+  border-color: var(--bs-teal) !important;
+}
+.btn-indigo.bg-gradient {
+  background-color: var(--bs-gradient) !important;
+  background-color: var(--bs-indigo) !important;
+  color: var(--bs-light) !important;
+}
+.query-param-retain {
+  font-weight: bolder;
+  color: var(--bs-gray);
+}
+
+#main {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 80px !important;
+  position: relative;
+}
+
+.ac-btn {
+  border: 0;
+  outline: 0;
+  padding: 4px 8px;
+}
+
+.ac-btn:hover {
+  cursor: pointer !important;
+  filter: brightness(80%);
+}
+
+a.ac-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* a.ac-btn:hover {
+  filter: brightness(80%);
+}
+
+a.ac-btn:active {
+  filter: brightness(80%);
+} */
+
+.validate-empty {
+  font-weight: bolder;
+  color: #dc3545;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.form-check-input {
+  font-size: 1.2rem;
+}
+
+.check-input-group {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.check-input-group.inline-flex {
+  margin: 8px;
+}
+
+.check-input {
+  width: 22px;
+  height: 22px;
+}
+
+.check-label {
+  font-weight: bold;
+  margin-left: 12px;
+}
+
+.check-input:hover,
+.check-label:hover {
+  cursor: pointer;
+}
+
+.page-item {
+  box-shadow: none !important;
+}
+.page-link:active {
+  box-shadow: none !important;
+}
+
+.form-control:focus {
+  border: 2px solid #0d6efd !important;
+  box-shadow: none !important;
+}
+
+.about-circle-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.form-select:focus {
+  border: 2px solid #0d6efd !important;
+  box-shadow: none !important;
+}
+#howto-payment {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+.lineout-discount {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  height: 1px;
+  background-color: var(--bs-gray);
+}
+.bank-transfer-items {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 12px 4px;
+}
+
+.booking-bank-transfer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bank-transfer-input {
+  width: 22px;
+  height: 22px;
+  margin-right: 14px;
+}
+
+.bank-transfer-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.bankname,
+.b-account-name {
+  margin: 0;
+}
+
+.b-account-name {
+  color: #626567;
+}
+
+.bankname {
+  font-weight: bolder;
+  color: #263238;
+}
+
+.bank-title {
+  display: flex;
+  align-items: center;
+}
+
+.bank-title-img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.bank-number {
+  font-weight: bolder;
+}
+
+.bank-number.bbl {
+  color: #013194;
+}
+
+.bank-number.scb {
+  color: #4d297c;
+}
+
+.bank-number.k-bank {
+  color: #03a950;
+}
+
+.bank-number.uob {
+  color: #dc0a1a;
+}
+
+.bank-number.cimb {
+  color: #830101;
+}
+
+.bank-number.gsb {
+  color: #ed078d;
+}
+
+.bank-number.ktb {
+  color: #13a1e4;
+}
+
+.bank-number.tisco {
+  color: #13a1e4;
+}
+
+.bank-number.ttb {
+  color: #f68b1f;
+}
+
+#payment-help h5 {
+  font-weight: bolder;
+}
+
+.descript-text-payment {
+  color: #9e9e9e;
+}
+
+.room-number {
+  background-color: #0066ff;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 14px;
+}
+
+.room-number i {
+  margin-right: 7px;
+}
+
+.qrcode-img {
+  width: 250px;
+  margin: 14px 0;
+}
+
+.bank-transfer-input:hover,
+.bank-transfer-label:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 540px) {
+  #bank-payment {
+    width: 100%;
+  }
+
+  .bank-transfer-label {
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .bank-number {
+    margin-left: 55px;
+  }
+}

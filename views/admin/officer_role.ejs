@@ -1,0 +1,164 @@
+<div class="row">
+  <div class="col-md-3" id="entries-query"></div>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 5%;" scope="col">รายการ</th>
+        <th style="width: 15%;" scope="col">ชื่อ</th>
+        <th style="width: 10%;" scope="col">รายงาน</th>
+        <th style="width: 10%;" scope="col">ห้องพัก</th>
+        <th style="width: 10%;" scope="col">จอง</th>
+        <th style="width: 10%;" scope="col">ข้อมูลเว็บไซต์</th>
+        <th style="width: 10%;" scope="col">ข้อมูลพื้นฐาน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0;i< entries.length;i++) { %>
+
+
+      <tr>
+        <th class="text-center" scope="row">
+          <%= (paginate.page*paginate.row)+i+1 %>
+        </th>
+        <td>
+          <%= entries[i].username %>
+          <p class="m-0 font-weight-bold">
+            <%= entries[i].officer_fname + ' ' + entries[i].officer_lname %>
+          </p>
+        </td>
+        <td>
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.report_view_check  %> onchange="updateRole(event)" name="report-<%= entries[i].officer_id %>" id="report-view-<%= entries[i].officer_id %>">
+            <label for="report-view-<%= entries[i].officer_id %>" class="custom-control-label">ดู</label>
+          </div>
+
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.report_create_check  %> onchange="updateRole(event)" name="report-<%= entries[i].officer_id %>" id="report-create-<%= entries[i].officer_id %>">
+            <label for="report-create-<%= entries[i].officer_id %>" class="custom-control-label">สร้าง</label>
+          </div>
+
+        </td>
+        <td>
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.room_view_check %> onchange="updateRole(event)" name="room-<%= entries[i].officer_id %>" id="room-view-<%= entries[i].officer_id %>">
+            <label for="room-view-<%= entries[i].officer_id %>" class="custom-control-label">ดู</label>
+          </div>
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.room_create_check %> onchange="updateRole(event)" name="room-<%= entries[i].officer_id %>" id="room-create-<%= entries[i].officer_id %>">
+            <label for="room-create-<%= entries[i].officer_id %>" class="custom-control-label">เพิ่ม</label>
+          </div>
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.room_edit_check %> onchange="updateRole(event)" name="room-<%= entries[i].officer_id %>" id="room-edit-<%= entries[i].officer_id %>">
+            <label for="room-edit-<%= entries[i].officer_id %>" class="custom-control-label">
+              แก้ไข
+            </label>
+          </div>
+
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.room_create_check %> onchange="updateRole(event)" name="room-<%= entries[i].officer_id %>" id="room-remove-<%= entries[i].officer_id %>">
+            <label for="room-remove-<%= entries[i].officer_id %>" class="custom-control-label">
+              ลบ
+            </label>
+          </div>
+
+        </td>
+        <td>
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.booking_view_check %> onchange="updateRole(event)" name="booking-<%= entries[i].officer_id %>" id="booking-view-<%= entries[i].officer_id %>">
+            <label for="booking-view-<%= entries[i].officer_id %>" class="custom-control-label">
+              ดู
+            </label>
+          </div>
+
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.booking_create_check %> onchange="updateRole(event)" name="booking-<%= entries[i].officer_id %>" id="booking-create-<%= entries[i].officer_id %>">
+            <label for="booking-create-<%= entries[i].officer_id %>" class="custom-control-label">
+              เพิ่ม
+            </label>
+          </div>
+
+
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.booking_edit_check %> onchange="updateRole(event)" name="booking-<%= entries[i].officer_id %>" id="booking-edit-<%= entries[i].officer_id %>">
+            <label for="booking-edit-<%= entries[i].officer_id %>" class="custom-control-label">
+              แก้ไข
+            </label>
+          </div>
+
+
+
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.booking_remove_check %> onchange="updateRole(event)" name="booking-<%= entries[i].officer_id %>" id="booking-remove-<%= entries[i].officer_id %>">
+            <label for="booking-remove-<%= entries[i].officer_id %>" class="custom-control-label">
+              ลบ
+            </label>
+          </div>
+        </td>
+        <td>
+
+
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.web_manage_check %> onchange="updateRole(event)" name="web-<%= entries[i].officer_id %>" id="web-manage-<%= entries[i].officer_id %>">
+            <label for="web-manage-<%= entries[i].officer_id %>" class="custom-control-label">
+              จัดการ
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" <%= entries[i].data_role.basic_info_check %> onchange="updateRole(event)" name="basicinfo-<%= entries[i].officer_id %>" id="basicInfo-manage-<%= entries[i].officer_id %>">
+            <label for="basicInfo-manage-<%= entries[i].officer_id %>" class="custom-control-label">
+              จัดการ
+            </label>
+          </div>
+        </td>
+      </tr>
+      <% } %>
+
+
+
+    </tbody>
+  </table>
+</div>
+
+
+<%- include ('paginateQuery') %>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    createPaginateOnLoad()
+  })
+
+  function updateRole(event) {
+    const target = $(event.target)
+    const isCheck = target.is(':checked')
+    const id = target.attr('id').split('-')[2]
+    const act = target.attr('id').split('-')[1]
+    const role = target.attr('id').split('-')[0]
+    const data = {
+      'role': role,
+      'act': act,
+      'accept': isCheck
+    }
+    axios.patch(`/officer/user/role/${id}`, data)
+      .then((response) => {
+        if (!response.data.result) {
+          queryFail('แจ้งเตือน', 'ไม่สามารถเปลี่ยนแปลงข้อมูลได้', response.data.err)
+        }
+      })
+      .catch((err) => {
+        queryFail('ข้อผิดพลาด', err, '')
+      })
+  }
+</script>

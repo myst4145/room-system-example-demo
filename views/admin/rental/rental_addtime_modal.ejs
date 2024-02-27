@@ -1,0 +1,155 @@
+<div class="modal fade " id="rentalAddTimeModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">เพิ่มเวลาการเข้าพัก</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped ">
+          <tbody>
+            <tr>
+              <th scope="row">เลขที่จอง </th>
+              <td class="rental-addtime-data"></td>
+              <th scope="row">ประเภทการเช่า</th>
+              <td class="rental-addtime-data"></td>
+            </tr>
+            <tr>
+              <th scope="row">อาคาร / ชั้น </th>
+              <td class="rental-addtime-data"></td>
+              <th scope="row">หมายเลขห้อง </th>
+              <td class="rental-addtime-data"></td>
+            </tr>
+
+
+            <tr>
+              <th scope="row">วันที่เข้าพัก</th>
+              <td class="rental-addtime-data"></td>
+              <th scope="row">ออก</th>
+              <td class="rental-addtime-data"></td>
+            </tr>
+            <tr>
+              <th style="width: 15%;" scope="row">ชื่อ - นามสกุล </th>
+              <td style="width: 35%" class="rental-addtime-data"></td>
+              <th style="width: 15%" scope="row">เบอร์ติดต่อ </th>
+              <td style="width: 35%" class="rental-addtime-data"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-left text-md-right">ประเภทการเช่า</label>
+          <div class="col-md-3">
+            <select disabled class="custom-select" id="rentalTypeAddTime">
+              <option value="" selected>ประเภท</option>
+              <option value="daily">รายวัน</option>
+              <option value="daily-no-limit">ไม่กำหนดวัน</option>
+              <option value="monthly">รายเดือน</option>
+            </select>
+            <p class="empty-validate" id="validate-rentaltype"></p>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-left text-md-right">จำนวนเวลาพัก</label>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-lg-4 col-md-6">
+                <div class="my-2">
+                  <input min="1" type="number" class="custom-select" oninput="currentAddTime('count')" onchange="currentAddTime('count')" id="timeCount-addTime" placeholder="จำนวน" />
+                  <p class="empty-validate" id="validate-timeCountAddTime"></p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="my-2">
+                  <select class="custom-select" name="unittime" id="dailyUnitTimeAddTime" onchange="currentAddTime('unit')">
+                    <option value="" selected>หน่วยเวลา</option>
+                    <option value="hours">ชั่วโมง</option>
+                    <option value="days">วัน</option>
+                  </select>
+                  <select disabled class="custom-select" name="unittime" id="monthlyUnitTimeAddTime" onchange="currentAddTime('unit')">
+                    <option value="" selected>หน่วยเวลา</option>
+                    <option selected value="months">เดือน</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row my-1">
+          <label class="col-md-2 col-form-label text-left text-md-right">
+            วันที่ออกเดิม
+          </label>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-lg-4">
+                <input type="date" disabled class="form-control font-weight-bold" id="rentalAddTime">
+              </div>
+              <div class="col-lg-4">
+                <input type="time" disabled class="form-control font-weight-bold" id="oldCheckoutTime">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group row my-1">
+          <label class="col-md-2 col-form-label text-left text-md-right">
+            วันที่ออกล่าสุด
+          </label>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-lg-4">
+                <input type="date" disabled class="form-control font-weight-bold" id="rentalAddTimeLast">
+                <p class="empty-validate" id="validate-lastAddTime"></p>
+              </div>
+              <div class="col-lg-4">
+                <input type="time" disabled class="form-control font-weight-bold" id="lastCheckoutTime">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group row my-1">
+          <label class="col-md-2 col-form-label text-left text-md-right">
+
+          </label>
+          <div class="col-md-10">
+            <div class="form-group">
+              <label>ราคาต่อวัน</label>
+              <input type="number" disabled min="1" class="custom-select" id="priceAddTime" placeholder="ราคา" />
+            </div>
+            <div class="form-group">
+              <label> ราคาแบบรายชั่วโมง (สำหรับต่อเวลาชั่วคราว) </label>
+              <input type="number" disabled min="1" class="custom-select" id="costExpenseTimeAddTime" placeholder="ราคา" />
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group row my-1">
+          <label class="col-md-2 col-form-label text-left text-md-right">
+            จ่ายเพิ่ม
+          </label>
+          <div class="col-md-10">
+            <input type="number" class="custom-select" id="rentalPayMoreAddTime">
+            <p class="empty-validate" id="validate-payMoreAddTime"></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+        <button id="rentalAddTimeSubmit" class="font-weight-bold btn  bg-gradient-success">
+          <span>บันทึก</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

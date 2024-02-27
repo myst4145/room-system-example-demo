@@ -1,0 +1,404 @@
+<link rel="stylesheet" href="/css/dashboard.css">
+
+<div class="row">
+  <div class="col-lg-4 col-md-6 booking-today">
+    <div class="d-wrapper">
+      <h5 class="d-title">จองวันนี้
+        <i class="fa-solid fa-align-right"></i>
+      </h5>
+      <div class="d-text">
+        <div class="d-icon">
+          <i class="fa-solid fa-address-book"></i>
+        </div>
+        <div class="d-text-count">
+          <div class="d-text-count-w">
+            <%= booking_count  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 checkin-today">
+    <div class="d-wrapper">
+      <h5 class="d-title">เข้าพักวันนี้
+        <i class="fa-solid fa-align-right"></i>
+      </h5>
+      <div class="d-text">
+        <div class="d-icon">
+          <i class="fa-solid fa-suitcase"></i>
+        </div>
+        <div class="d-text-count">
+          <div class="d-text-count-w">
+            <%= checkin  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 checkout-today">
+    <div class="d-wrapper">
+      <h5 class="d-title">ออกวันนี้
+        <i class="fa-solid fa-align-right"></i>
+      </h5>
+      <div class="d-text">
+        <div class="d-icon">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+        <div class="d-text-count">
+          <div class="d-text-count-w">
+            <%= checkout  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 list-room-all">
+    <div class="d-wrapper">
+      <h5 class="d-title">
+        ห้องพักทั้งหมด
+        <i class="fa-solid fa-align-right"></i>
+      </h5>
+      <div class="d-text">
+        <div class="d-icon">
+          <i class="fa-solid fa-house"></i>
+        </div>
+        <div class="d-text-count">
+          <div class="d-text-count-w">
+            <%= list_rooms  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card card-teal">
+  <div class="card-header">
+    <h1 class="card-title m-0">รายได้ตามห้อง</h1>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ลำดับ</th>
+            <th scope="col">หมายเลขห้อง</th>
+            <th scope="col">รายได้ (วันนี้)</th>
+            <th scope="col">รายได้ (สัปดาห์นี้)</th>
+            <th scope="col">รายได้ (เดือนนี้)</th>
+            <th scope="col">รายได้ (ปีนี้)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let amount_today_total = 0 %>
+          <% let amount_week_total = 0 %>
+          <% let amount_month_total = 0 %>
+          <% let amount_year_total = 0 %>
+          <% for(let i=0 ;i<week_total.length;i++){
+            amount_today_total += today_total[i].total
+            amount_week_total += week_total[i].total
+            amount_month_total += month_total[i].total
+            amount_year_total += year_total[i].total
+            %>
+          <tr>
+            <th scope="row">
+              <%= i+1 %>
+            </th>
+            <td>
+              <%= today_total[i].room_number %>
+              <span class="text-muted">
+                <%= today_total[i].building %>
+              </span>
+            </td>
+            <td class="text-end">
+              <%= today_total[i].total_format %>
+              <span class="text-danger"> (<%= today_total[i].avg %>)%</span>
+            </td>
+            <td class="text-end">
+              <%= week_total[i].total_format %>
+              <span class="text-warning"> (<%= week_total[i].avg %>)%</span>
+            </td>
+            <td class="text-end">
+              <%= month_total[i].total_format %>
+              <span class="text-success"> (<%= month_total[i].avg %>)%</span>
+            </td>
+            <td class="text-end">
+              <%= year_total[i].total_format %>
+              <span class="text-info"> (<%= year_total[i].avg %>)%</span>
+            </td>
+          </tr>
+          <% } %>
+          <tr class="bg-primary">
+            <th class="text-center" colspan="2" scope="row">รวม</th>
+            <td class="text-end">
+              <%= new Intl.NumberFormat( { style: 'currency', currency: 'THB' }).format(amount_today_total) %>
+            </td>
+            <td class="text-end">
+              <%= new Intl.NumberFormat( { style: 'currency', currency: 'THB' }).format(amount_week_total ) %>
+            </td>
+            <td class="text-end">
+              <%= new Intl.NumberFormat( { style: 'currency', currency: 'THB' }).format(amount_month_total ) %>
+            </td>
+            <td class="text-end">
+              <%= new Intl.NumberFormat( { style: 'currency', currency: 'THB' }).format(  amount_year_total ) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<% if(admin_level !='genaral'){ %>
+
+<h5 class="fw-bold">รายได้</h5>
+<div class="row">
+  <div class="col-lg-4 col-md-6">
+    <div class="d-wrapper today-total">
+      <h5 class="total-d-title">วันนี้</h5>
+      <div class="total-d-text">
+        <div class="total-d-icon">
+          <i class="fa-solid fa-sack-dollar"></i>
+        </div>
+        <div class="total-d-text-count">
+          <%= sum_total_today  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="d-wrapper week-total">
+      <h5 class="total-d-title">สัปดาห์นี้</h5>
+      <div class="total-d-text">
+        <div class="total-d-icon">
+          <i class="fa-solid fa-circle-dollar-to-slot"></i>
+        </div>
+        <div class="total-d-text-count">
+          <%= sum_total_week  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="d-wrapper month-total">
+      <h5 class="total-d-title">เดือนนี้</h5>
+      <div class="total-d-text">
+        <div class="total-d-icon">
+          <i class="fa-solid fa-dollar-sign"></i>
+        </div>
+        <div class="total-d-text-count">
+          <%= sum_total_month  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 ">
+    <div class="d-wrapper year-total">
+      <h5 class="total-d-title">ปีนี้</h5>
+      <div class="total-d-text">
+        <div class="total-d-icon">
+          <i class="fa-solid fa-chart-simple"></i>
+        </div>
+        <div class="total-d-text-count">
+          <%= sum_total_year  %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function switchToTable(name, element) {
+    const id = $(element).attr('data-target')
+
+    $.each($(`.to-${name}-table`), (index, btn) => {
+      if ($(btn).attr('data-target') == id) {
+
+        $(btn).addClass('active')
+      }
+
+      if ($(btn).attr('data-target') != id) {
+        $(btn).removeClass('active')
+      }
+    })
+
+    $.each($(`.${name}-table`), (index, table) => {
+      if ($(table).attr('id') == id) {
+        $(table).css('display', 'block')
+
+      }
+      if ($(table).attr('id') != id) {
+        $(table).css('display', 'none')
+      }
+    })
+  }
+
+  $('.to-week-table').click(function() {
+    switchToTable('week', $(this))
+  })
+  $('.to-month-table').click(function() {
+    switchToTable('month', $(this))
+  })
+  $('.to-year-table').click(function() {
+    switchToTable('year', $(this))
+  })
+</script>
+<%  } %>
+
+<div class="card card-teal">
+  <div class="card-header">
+    เดือนนี้
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+        <i class="fas fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <canvas data-chart="<%= JSON.stringify(month_total)  %>" id="monthToChart"></canvas>
+  </div>
+</div>
+<div class="card card-teal">
+  <div class="card-header">
+    ปีนี้
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+      <i class="fas fa-minus"></i>
+      </button>
+      </div>
+  </div>
+  <div class="card-body">
+    <canvas data-chart="<%= JSON.stringify(year_total)  %>" id="yearToChart"></canvas>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card card-primary">
+      <div class="card-header">
+        สัปดาห์นี้
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+          </button>
+          </div>
+      </div>
+      <div class="card-body">
+        <canvas data-chart="<%= JSON.stringify(month_total)  %>" id="weekToChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card card-primary">
+      <div class="card-header">
+        วันนี้
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+          </button>
+          </div>
+      </div>
+      <div class="card-body">
+        <canvas data-chart="<%= JSON.stringify(today_total)  %>" id="todayToChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  const yearToChartEl = $('#yearToChart')
+  const yearToChart = yearToChartEl.data('chart')
+  const yearTotalChartLabel = yearToChart
+    .map((d) => d.room_number)
+  const yearTotalChartData = yearToChart
+    .map((d) => d.total)
+
+
+  const monthToChartEl = $('#monthToChart')
+  const monthToChart = yearToChartEl.data('chart')
+  const monthTotalChartLabel = monthToChart
+    .map((d) => d.room_number)
+  const monthTotalChartData = monthToChart
+    .map((d) => d.total)
+
+  const weekToChartEl = $('#weekToChart')
+  const weekToChart = weekToChartEl.data('chart')
+  const weekTotalChartLabel = weekToChart
+    .map((d) => d.room_number)
+  const weekTotalChartData = weekToChart
+    .map((d) => d.total)
+
+  const todayToChartEl = $('#todayToChart')
+  const totdayToChart = todayToChartEl.data('chart')
+  console.log(todayToChart)
+  const todayTotalChartLabel = totdayToChart
+    .map((d) => d.room_number)
+  const todayTotalChartData = totdayToChart
+    .map((d) => d.total)
+
+  new Chart(todayToChartEl, {
+    type: 'doughnut',
+    data: {
+      labels: todayTotalChartLabel,
+      datasets: [{
+        label: 'วันนี้',
+        data: todayTotalChartData,
+        borderWidth: 1,
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+      }],
+
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+    }
+  });
+  new Chart(weekToChartEl, {
+    responsive: true,
+    maintainAspectRatio: false,
+    datasetFill: false,
+    type: 'pie',
+    data: {
+      labels: weekTotalChartLabel,
+      datasets: [{
+        label: 'รายสัปดาห์',
+        data: weekTotalChartData,
+        borderWidth: 1,
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+      }]
+    },
+    options: {
+      maintainAspectRatio: true,
+      responsive: true,
+    }
+  });
+  new Chart(yearToChartEl, {
+    type: 'bar',
+    data: {
+      labels: yearTotalChartLabel,
+      datasets: [{
+        label: 'รายปี',
+        data: yearTotalChartData,
+        borderWidth: 1,
+        backgroundColor: ['#3c8dbc', '#d2d6de'],
+      }]
+    },
+  });
+  new Chart(monthToChartEl, {
+    type: 'bar',
+    data: {
+      labels: monthTotalChartLabel,
+      datasets: [{
+        label: 'รายเดือน',
+        data: monthTotalChartData,
+        borderWidth: 1,
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#3c8dbc', '#d2d6de'],
+      }]
+
+    },
+  });
+</script>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ใบเสร็จ</title>
+  <%- include('head') %>
+  <style>
+    @media print {
+      .action-control {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 p-3">
+        <div class="d-flex justify-content-between">
+          <div class=" d-flex flex-column">
+            <h5 class="fw-bold">เลขที่จอง</h5>
+            <p class="fw-bold">No.</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5><%= entries[0].booking_id %></h5>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class=" d-flex flex-column align-items-center">
+            <h5 class="fw-bold">ชื่อ-นามกุล</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5 class="m-1"><%= entries[0].fname %></h5>
+            <p class="m-1"><%= entries[0].lname %></p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column justify-content-center">
+            <h5 class="fw-bold">วันที่จอง </h5>
+            <p class="fw-bold">Date</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5><%= entries[0].created %></h5>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column justify-content-center">
+            <h5 class="fw-bold">เวลาพัก</h5>
+            <p class="fw-bold">Amount</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5 class="m-1"><%= entries[0].times_count %></h5>
+            <h5 class="m-1"><%= entries[0].unit_times %></h5>
+          </div>
+        </div>
+
+        <% if(entries[0].water_bill >0){ %>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column justify-content-center">
+            <h5 class="fw-bold">ค่าน้ำ</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5 class="m-1">
+              <%= new Intl.NumberFormat('th', { style: 'currency', currency: 'THB' }).format(entries[0].water_bill) %>
+            </h5>
+          </div>
+        </div>
+        <% } %>
+        <% if(entries[0].electricity_bill >0){ %>
+          <hr>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column justify-content-center">
+            <h5 class="fw-bold">ค่าไฟฟ้า</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5 class="m-1">
+              <%= new Intl.NumberFormat('th', { style: 'currency', currency: 'THB' }).format(entries[0].electricity_bill) %>
+            </h5>
+          </div>
+        </div>
+        <hr>
+        <% } %>
+
+        <div class="d-flex  justify-content-between">
+          <div class="d-flex flex-column justify-content-center">
+            <h5 class="fw-bold">ยอดรวม</h5>
+            <p class="fw-bold">Total</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <h5>
+              <%= new Intl.NumberFormat('th', { style: 'currency', currency: 'THB' }).format(entries[0].total) %>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="action-control">
+      <button onclick="window.print()" class="btn btn-primary">
+        พิมพ์
+      </button>
+      <button onclick="window.close()" class="btn btn-light text-primary">
+        ออก
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

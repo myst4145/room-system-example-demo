@@ -1,0 +1,74 @@
+<div class="modal fade" id="dailyConfirmPaymentModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">อนุมัติ และการยืนยันการชำระเงิน</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="">ประเภทการเช่า</label>
+          <select disabled class="form-control custom-select" id="rentalType">
+            <option value="" selected>ประเภท</option>
+            <option value="daily">รายวัน</option>
+            <option value="daily-no-limit">ไม่กำหนดวัน</option>
+            <option value="monthly">รายเดือน</option>
+          </select>
+          <p class="empty-validate" id="validate-rentaltype"></p>
+        </div>
+        <img id="slipPayment" style="width: 100%;height: 100%;object-fit: contain;">
+
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" value="approve" type="radio" id="approve" name="confirm">
+          <label for="approve" class="custom-control-label">อนุมัติ</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" value="not-approved" type="radio" id="not-approved" name="confirm">
+          <label for="not-approved" class="custom-control-label">ไม่อนุมัติ</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" value="cancel-approved" type="radio" id="cancel-approved" name="confirm">
+          <label for="cancel-approved" class="custom-control-label">ยกเลิก</label>
+        </div>
+        <p class="empty-validate" id="validate-confirm"></p>
+        <div id="paymentConfirm" style="display: none;">
+          <div class="form-group">
+            <label>ต้องชำระ</label>
+            <input type="number" id="total" class="form-control custom-select">
+          </div>
+          <p class="empty-validate" id="validate-total"></p>
+          <div class="form-group">
+            <label>ค้างชำระ</label>
+            <input type="number" class="form-control custom-select" id="overdue">
+          </div>
+          <p class="empty-validate" id="validate-overdue"></p>
+          <div class="form-group">
+            <label>ยอดชำระ</label>
+            <input type="number" oninput="currentPaid()" class="form-control custom-select" id="paid">
+          </div>
+          <p class="empty-validate" id="validate-paid"></p>
+        </div>
+        <div id="paymentCancel" style="display: none;">
+          <div class="form-group">
+            <label>เงินที่จ่ายมา</label>
+            <input type="number" class="form-control custom-select" id="pay">
+          </div>
+          <p class="empty-validate" id="validate-pay"></p>
+        </div>
+
+       
+      </div>
+      <div class="modal-footer">
+        <button class="btn bg-gradient-secondary rounded-0" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <span class="ml-1">ปิด</span>
+        </button>
+        <button id="confirmPaymentSubmit" class="btn rounded-0 bg-gradient-primary">
+          <strong>ตกลง</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

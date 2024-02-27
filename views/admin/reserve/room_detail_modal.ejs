@@ -1,0 +1,103 @@
+<div class="modal fade" id="room-detail-modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary align-items-center">
+        <h5 class="modal-title">ข้อมูลห้อง</h5>
+        <button type="button" class="ac-btn ac-close-modal" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label>รหัสข้อมูล</label>
+          <div class="input-group">
+            <input disabled type="text" class="form-control" id="roomId" placeholder="ป้อนรหัสข้อมูล">
+            <div class="input-group-prepend">
+              <button class="input-group-text btn bg-gradient-light"  onclick="copyData($('#roomId'),$('#tooltip-alert-roomId'))">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <p class="text-right m-1">
+            <span class="tooltip-alert bg-gradient-dark" id="tooltip-alert-roomId"></span>
+          </p>
+        </div>
+        <div class="form-group">
+          <label>รหัสห้อง</label>
+
+          <div class="input-group">
+            <input disabled type="text" class="form-control" id="roomNumberId" placeholder="ป้อนรหัสห้องพัก">
+            <div class="input-group-prepend">
+              <button class="input-group-text btn bg-gradient-light" onclick="copyData($('#roomNumberId'),$('#tooltip-alert-roomnumberId'))">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <p class="text-right m-1">
+            <span class="tooltip-alert bg-gradient-dark" id="tooltip-alert-roomnumberId"></span>
+          </p>
+
+        </div>
+
+
+        <table class="table">
+          <tbody id="table-detail">
+            <tr>
+              <th style="width: 25%;">หมายเลขห้อง</th>
+              <td style="width: 75%;" class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>ประเภทห้อง</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>ประเภทเตียง</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>วิวห้อง</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>จำนวนเตียง</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>อาคาร</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>ชั้น</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>ราคา</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>จำนวนห้องน้ำ</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+            <tr>
+              <th>ประเภทการเช่า/พัก</th>
+              <td class="align-middle text-detail"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card">
+          <div class="card-header bg-gradient-secondary text-light">
+            <h5 class="card-title">ของใช้ในห้อง</h5>
+          </div>
+        </div>
+        <div class="p-2" id="additional-items"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn rounded-0 bg-gradient-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark"></i>
+          <strong class="ml-1">ปิด</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

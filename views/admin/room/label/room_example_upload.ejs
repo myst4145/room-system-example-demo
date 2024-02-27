@@ -1,0 +1,21 @@
+<div class="card my-3">
+  <div class="card-header bg-gradient-secondary">
+    <h5 class="card-title">อัพโหลดรูปภาพ</h5>
+  </div>
+  <div class="card-body">
+    <p class="font-weight-bold my-1">
+      สามารถอัพโหลดรูปภาพได้มากสุด 5 ภาพต่อครั้ง หากต้องอัพโหลดรูปภาพมากกว่านี้โปรดอัพโหลดครั้งต่อไป
+    </p>
+    <p class="text-muted font-weight-bold my-1">สำหรับขนาดผู้ใช้สามารถเลือกขนาดได้เอง และเป็นขนาดเดียวกัน</p>
+    <input type="file" class="d-none" id="room-upload" max="5" multiple accept="image/*" />
+    <label for="room-upload" class="btn bg-gradient-primary">อัพโหลดรูปภาพ</label>
+  </div>
+</div>
+
+
+<p class="my-1 p-2 badge font-weight-bold bg-gradient-primary rounded">
+  ตัวอย่างรูปภาพที่ต้องการอัพโหลด
+</p>
+
+<div id="example-preview" class="example-preview my-3"></div>
+<p class="empty-validate" id="validate-roomupload"></p>

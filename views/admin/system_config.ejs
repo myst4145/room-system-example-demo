@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>ตัวอักษรสำหรับระบบ 1 </label>
+      <select class="custom-select" id="systemFont1" name="font-option">
+        <option value="" selected>เลือก</option>
+        <% for (let i=0;i< font_entries.length;i++) {  %>
+        <% let is_selected = font_entries[i].id == entries[0].system_font_1 ? 'selected':'' %>
+        <option value="<%= font_entries[i].id %>" <%= is_selected %>>
+          <%= font_entries[i].font_name %>
+        </option>
+        <%  } %>
+      </select>
+
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>ตัวอักษรสำหรับระบบ 2 </label>
+      <select class="custom-select" id="systemFont2" name="font-option">
+        <option value="" selected>เลือก</option>
+        <% for (let i=0;i< font_entries.length;i++) {  %>
+        <% let is_selected = font_entries[i].id == entries[0].system_font_2 ? 'selected':'' %>
+        <option value="<%= font_entries[i].id %>" <%= is_selected %>>
+          <%= font_entries[i].font_name %>
+        </option>
+        <%  } %>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>ขนาดตัวอักษรระบบ</label>
+      <input type="range" min="9" onchange="setFontSizeValue('systemFontSize','retainSystemFontSize')" value="<%= entries[0].system_font_size %>" max="36" class="custom-range" id="systemFontSize">
+    </div>
+    <input type="number" readonly disabled class="form-control-plaintext" id="retainSystemFontSize" value="<%= entries[0].system_font_size %>">
+  </div>
+  <div class="col-12">
+    <input type="hidden" value="<%= entries[0].system_fonttype %>" id="systemFontType">
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input" value="option" type="radio" id="systemOption" name="system-fonttype">
+      <label for="systemOption" class="custom-control-label">แบบเลือก</label>
+    </div>
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input" value="custom" type="radio" id="systemCustom" name="system-fonttype">
+      <label for="systemCustom" class="custom-control-label">แบบกำหนดเอง</label>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-group">
+      <label>กำหนดเอง</label>
+      <input type="text" class="form-control" value="<%= entries[0].system_custom_font %>" id="systemCustomFont" placeholder="Sarabun,SF Thonburi,CS Prajad">
+      <small class="form-text text-muted">
+        <span>รูปแบบการป้อน ตัวอักษร 1,ตัวอักษร 2,ตัวอักษร 3</span>
+        <span>เช่น Sarabun,SF Thonburi,CS Prajad</span>
+      </small>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>ตัวอักษรสำหรับหน้าเว็บ 1 </label>
+      <select class="custom-select" id="webFont1" name="font-option">
+        <option value="" selected>เลือก</option>
+        <% for (let i=0;i< font_entries.length;i++) {  %>
+        <% let is_selected = font_entries[i].id == entries[0].web_font_1 ? 'selected':'' %>
+        <option value="<%= font_entries[i].id %>" <%= is_selected %>>
+          <%= font_entries[i].font_name %>
+        </option>
+        <%  } %>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>ตัวอักษรสำหรับหน้าเว็บ 2</label>
+      <select class="custom-select" id="webFont2" name="font-option">
+        <option value="" selected>เลือก</option>
+        <% for (let i=0;i< font_entries.length;i++) {  %>
+        <% let is_selected = font_entries[i].id == entries[0].web_font_2 ? 'selected':'' %>
+        <option value="<%= font_entries[i].id %>" <%= is_selected %>>
+          <%= font_entries[i].font_name %>
+        </option>
+        <%  } %>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>ขนาดตัวหน้าเว็บ</label>
+      <input type="range" onchange="setFontSizeValue('webFontSize','retainWebFontSize')" value="<%= entries[0].web_font_size %>" min="9" max="36" class="custom-range" id="webFontSize">
+    </div>
+    <input type="number" readonly disabled class="form-control-plaintext" id="retainWebFontSize" class="custom-select w-fit" value="<%= entries[0].web_font_size %>">
+  </div>
+  <div class="col-12">
+    <input type="hidden" value="<%= entries[0].web_fonttype %>" id="webFontType">
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input" value="option" type="radio" id="webOption" name="web-fonttype">
+      <label for="webOption" class="custom-control-label">แบบเลือก</label>
+    </div>
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input" value="custom" type="radio" id="webCustom" name="web-fonttype">
+      <label for="webCustom" class="custom-control-label">แบบกำหนดเอง</label>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-group">
+      <label>กำหนดเอง</label>
+      <input type="text" class="form-control" value="<%= entries[0].web_custom_font %>" id="webCustomFont" placeholder="Sarabun,SF Thonburi,CS Prajad">
+      <small class="form-text text-muted">
+        <span>รูปแบบการป้อน ตัวอักษร 1,ตัวอักษร 2,ตัวอักษร 3</span>
+        <span>เช่น Sarabun,SF Thonburi,CS Prajad</span>
+      </small>
+    </div>
+  </div>
+</div>
+<button class="btn bg-gradient-success" id="systemConfigSubmit">บันทึก</button>
+<script src="/js/admin/system/systemConfig.js"></script>

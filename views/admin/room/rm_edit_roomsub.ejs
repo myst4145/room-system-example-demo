@@ -1,0 +1,124 @@
+<% roomsub = JSON.parse(entries[0].room_sub) %>
+<%- include ('label/room_roomsub') %>
+
+<div id="room-group" data-roomcount="<%= roomsub.length %>" data-valid="true">
+  <% for (let i = 0; i < roomsub.length; i++) { %>
+  <section class="room-number-items border p-3 my-2  bg-gradient-white" id="<%=  roomsub[i].room_number_id %>" data-number="<%=  roomsub[i].room_number_id %>">
+    <div class="row my-1 align-items-center justify-content-center">
+      <div class="col-lg-4 col-md-6">
+        <label>หมายเลขห้อง</label>
+        <input type="text" maxlength="45" name="room-number" data-before-room="<%= roomsub[i].room_number %>" data-number="<%= roomsub[i].room_number_id %>" value="<%= roomsub[i].room_number %>" class="form-control my-1" placeholder="หมายเลขห้อง ป้อนไม่เกิน 45 ตัวอักษร" onkeyup="duplicateRoom(event)" />
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <label>อาคาร</label>
+        <select class="form-control my-1 custom-select" data-building-before="<%= roomsub[i].building %>" data-building="<%= roomsub[i].building %>" onchange="buildingfloorItems(event)" name="building">
+          <option value="" selected>เลือกอาคาร</option>
+          <% for (let i = 0; i < building.length; i++) { %>
+          <option value="<%= building[i].building_id %>">
+            <%= building[i].building_name %>
+          </option>
+          <% } %>
+        </select>
+      </div>
+      <div class="col-lg-1 col-md-2">
+        <label>ชั้น</label>
+        <select class="form-control my-1 custom-select" data-floor="<%= roomsub[i].building_floor %>" name="buildingfloor">
+          <option value="" selected>ชั้น</option>
+          <% for (let f = 1; f <= Number.parseInt(roomsub[i].floor_count); f++) { %>
+          <option value="<%= f %>">
+            <%= f %>
+          </option>
+          <% } %>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-3">
+        <label>สถานะ</label>
+        <select data-status="<%= roomsub[i].status  %>" class="form-control custom-select" name="status">
+          <option value="" selected>เลือก</option>
+          <option value="available">ว่าง</option>
+          <option value="unavailable">ไมว่าง</option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-3">
+        <label>การลบข้อมูล</label>
+        <select data-softdelete="<%= roomsub[i].soft_delete %>" class="form-control custom-select" name="softdelete">
+          <option value="" selected>เลือก</option>
+          <option value="true">ใช่</option>
+          <option value="false">ไม</option>
+        </select>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-12">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label">การประปาส่วนภูมิภาค</label>
+          <div class="col-md-5">
+            <label class="m-0">เลขที่ผู้ใช้น้ำ</label>
+            <input type="text" value="<%= roomsub[i].wat_user_no %>" class="form-control" name="wat-user-no" placeholder="เลขที่ผู้ใช้น้ำ">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label">การประปานครหลวง</label>
+          <div class="col-md-5">
+            <label class="m-0">ทะเบียนผู้ใช้น้ำ</label>
+            <input type="text" value="<%= roomsub[i].wat_user_reg %>" class="form-control" name="wat-user-reg" placeholder="ทะเบียนผู้ใช้น้ำ">
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label">การไฟฟ้าส่วนภูมิภาค</label>
+          <div class="col-md-4">
+            <label class="m-0">รหัสเครื่องวัด</label>
+            <input type="text" value="<%= roomsub[i].elc_meter_no %>" class="form-control" name="elc-meter-no" placeholder="รหัสเครื่องวัด">
+          </div>
+          <div class="col-md-4">
+            <label class="m-0">หมายเลขผู้ใช้ไฟฟ้า</label>
+            <input type="text" value="<%= roomsub[i].elc_user_no %>" class="form-control" name="elc-user-no" placeholder="หมายเลขผู้ใช้ไฟฟ้า">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label">การไฟฟ้านครหลวง</label>
+          <div class="col-md-4">
+            <label class="m-0">เลขรับเรื่อง</label>
+            <input type="text" value="<%= roomsub[i].elc_receipt_no %>" class="form-control" name="elc-receipt-no" placeholder="เลขรับเรื่อง">
+          </div>
+          <div class="col-md-4">
+            <label class="m-0">บัญชีแสดงสัญญา</label>
+            <input type="text" value="<%= roomsub[i].elc_acct_no %>" class="form-control" name="elc-acct-no" placeholder="บัญชีแสดงสัญญา">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-1">
+        <button class="my-1 btn bg-gradient-secondary input-room-number" onclick="deleteInputNumber(event)" data-roomId="<%= entries[0].room_id %>" data-number="<%= roomsub[i].room_number_id %>">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+  <% } %>
+</div>
+<p class="empty-validate" id="validate-roomnumber"></p>
+
+
+
+
+<script>
+  $.each($('[name="building"]'), (index, s) => {
+    const building = $(s).attr('data-building')
+    $.each($(s).children(), (i, opt) => {
+      if ($(opt).val() == building) {
+        $(opt).prop('selected', true)
+      }
+    })
+  })
+  $.each($('[name="buildingfloor"]'), (index, s) => {
+    const floor = $(s).attr('data-floor')
+    $.each($(s).children(), (i, opt) => {
+      if ($(opt).val() == floor) {
+        $(opt).prop('selected', true)
+      }
+    })
+  })
+</script>
